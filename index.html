@@ -2594,11 +2594,14 @@ function createLane(i) {
       if (hd && !isUnlocked(hd)) placeHatItem(lane, g, hd, 0, true);
     } else if (def.hatDrop && !def.hatTaken) {
       if (!def.hatId) {
-        const c = HATS.filter(h => h.kind === 'road' && !isUnlocked(h) && !reservedHats.has(h.id));
-        if (c.length) { def.hatId = pick(c).id; reservedHats.add(def.hatId); }
+        // 拾ったことのある帽子も落ちている(何個も あつめられる)。かぶっている帽子は 落ちやすい。まだ持っていない帽子も 出やすめ
+        const road = HATS.filter(h => h.kind === 'road'), worn = hatById(equippedId);
+        const fresh = road.filter(h => !isUnlocked(h) && !reservedHats.has(h.id));
+        const hd = worn && worn.kind === 'road' && Math.random() < 0.3 ? worn : fresh.length && Math.random() < 0.6 ? pick(fresh) : pick(road);
+        if (hd) { def.hatId = hd.id; if (!isUnlocked(hd)) reservedHats.add(hd.id); }
       }
       const hd = def.hatId && hatById(def.hatId);
-      if (hd && !isUnlocked(hd)) placeHatItem(lane, g, hd, def.hatX, false);
+      if (hd) placeHatItem(lane, g, hd, def.hatX, false);
     }
   } else if (def.type === 'pond') {
     buildPond(lane, g, i);
@@ -3162,6 +3165,36 @@ function hatTower() {
   const c = hatParty(); c.scale.setScalar(0.5); c.position.set(0.02, 0.44, 0); c.rotation.z = -0.1; g.add(c);
   return g;
 }
+// ぼうしコレクター 2だん: ぼうしの 大タワー
+function hatTower2() {
+  const g = new THREE.Group();
+  [[hatStraw, 0.6, 0], [hatCap, 0.55, 0.06], [hatChef, 0.42, 0.16], [hatTop, 0.42, 0.36], [hatCrown, 0.5, 0.54]].forEach(([f, sc, y], k) => {
+    const h = f(); h.scale.setScalar(sc); h.position.set(k % 2 ? 0.02 : -0.02, y, 0); h.rotation.z = k % 2 ? 0.06 : -0.06; g.add(h);
+  });
+  return g;
+}
+// おそろい あつめ: ふたごの ぼうし / ぼうしかけ / ぼうしの おうさま
+function hatTwin() { const g = new THREE.Group(); for (const s of [-1, 1]) { const h = hatRed(); h.scale.setScalar(0.55); h.position.z = s * 0.15; h.rotation.x = s * 0.15; g.add(h); } return g; }
+function hatRack() {
+  const g = new THREE.Group(), w = 0x8a5a32; C8(g, 0.12, 0.14, 0.04, 0, w); part(g, 0.04, 0.46, 0.04, 0, 0.25, 0, w);
+  part(g, 0.38, 0.03, 0.03, 0, 0.44, 0, w); part(g, 0.03, 0.03, 0.38, 0, 0.4, 0, w);
+  [[hatCap, 0.18, 0.455, 0], [hatBeanie, -0.18, 0.455, 0], [hatSanta, 0, 0.415, 0.18], [hatStraw, 0, 0.415, -0.18]].forEach(([f, x, y, z]) => { const h = f(); h.scale.setScalar(0.32); h.position.set(x, y, z); g.add(h); });
+  return g;
+}
+function hatKing() {
+  const g = new THREE.Group(); C8(g, 0.34, 0.34, 0.03, 0, GOLD, GOLD_E); C8(g, 0.2, 0.18, 0.46, 0.03, GOLD, GOLD_E); C8(g, 0.205, 0.205, 0.08, 0.06, 0xd62828, 0x550000);
+  const c = hatCrownC(0xffe066, 0x887700); c.scale.setScalar(0.7); c.position.y = 0.49; g.add(c);
+  part(g, 0.04, 0.07, 0.07, 0.205, 0.1, 0, 0x6ff0ff, 0x2299aa); return g;
+}
+// へいわしゅぎ: へいわの ハト(オリーブの えだを くわえている)
+function hatDove() {
+  const g = new THREE.Group(), w = 0xffffff;
+  part(g, 0.3, 0.16, 0.18, -0.02, 0.1, 0, w); part(g, 0.14, 0.14, 0.14, 0.15, 0.21, 0, w); part(g, 0.07, 0.04, 0.05, 0.25, 0.2, 0, 0xffb040);
+  for (const s of [-1, 1]) { part(g, 0.02, 0.025, 0.025, 0.2, 0.24, s * 0.06, 0x111111); part(g, 0.22, 0.04, 0.16, -0.04, 0.16, s * 0.13, 0xeef4ff).rotation.x = s * 0.5; }
+  part(g, 0.12, 0.05, 0.14, -0.2, 0.13, 0, w);
+  part(g, 0.16, 0.02, 0.02, 0.3, 0.18, 0, 0x5a8a3a).rotation.y = 0.3; part(g, 0.05, 0.02, 0.03, 0.34, 0.18, 0.04, 0x7ac25a); part(g, 0.05, 0.02, 0.03, 0.27, 0.18, -0.03, 0x7ac25a);
+  return g;
+}
 // パトランプ(じっせき「むてきの あばれんぼう」)。赤いランプがくるくる回る
 function hatPatlamp() {
   const g = new THREE.Group();
@@ -3316,10 +3349,17 @@ const BUILTIN_HATS = [
   { id: 'hattower', name: 'ぼうしタワー', kind: 'ach', make: hatTower },
   { id: 'patlamp', name: 'パトランプ', kind: 'ach', make: hatPatlamp },
   { id: 'goggles', name: 'かぜの ゴーグル', kind: 'ach', make: hatGoggles },
+  // じっせきの帽子(追加分 その2。パスワードでは いちばん後ろ)
+  { id: 'hattower2', name: 'ぼうしの 大タワー', kind: 'ach', make: hatTower2 },
+  { id: 'twinhat', name: 'ふたごの ぼうし', kind: 'ach', make: hatTwin },
+  { id: 'hatrack', name: 'ぼうしかけ', kind: 'ach', make: hatRack },
+  { id: 'hatking', name: 'ぼうしの おうさま', kind: 'ach', make: hatKing },
+  { id: 'dove', name: 'へいわの ハト', kind: 'ach', make: hatDove },
 ];
 const ACH_HATS = ['headgear', 'zabuton', 'sugegasa', 'kappa', 'bandage', 'senryo', 'negitaba', 'hattower'];
 // あとから足したじっせきの帽子。パスワードでは自作 FBX 帽子のさらに後ろに並べる(前のパスワードがそのまま読めるように)
 const LATE_HATS = ['patlamp', 'goggles'];
+const NEW_ACH_HATS2 = ['hattower2', 'twinhat', 'hatrack', 'hatking', 'dove'];
 const NEW_ROAD_HATS2 = ['fez', 'sombrero', 'policecap', 'sailor', 'detective', 'jester', 'antenna', 'bearears', 'oni', 'kabuto', 'frog', 'pudding',
                         'softcream', 'donut', 'nest', 'raincloud', 'snowman', 'turban', 'nursecap', 'plant', 'starband', 'xmastree', 'sharkfin', 'bread'];
 const NEW_ROAD_HATS = ['bucket', 'beret', 'santa', 'pirate', 'flowercrown', 'headphones', 'mushroom', 'bunny', 'watermelon', 'nightcap', 'eggshell', 'onigiri'];const HAT_DEFAULTS = { autoFit: false, size: 0.6, scale: 1, offset: [0, 0, 0], rotation: [0, 0, 0] };
@@ -3467,8 +3507,9 @@ function buildHatList() {
   const cur = HATS[browseIdx];
   $('hatGrid').innerHTML = list.length ? list.map(d => {
     const un = isUnlocked(d), fav = favHats.has(d.id);
+    const cnt = un && d.kind === 'road' ? `×${hatNum(d.id)}　` : '';
     return `<div class="hcard${un ? ' own' : ''}${d === cur && un ? ' cur' : ''}"><button class="hcw" data-i="${HATS.indexOf(d)}">${un ? d.name : '？？？'}` +
-      `<small>${un && d === cur ? '★ かぶってる' : hatHow(d)}</small></button>` +
+      `<small>${cnt}${un && d === cur ? '★ かぶってる' : hatHow(d)}</small></button>` +
       (un ? `<button class="hfav${fav ? ' on' : ''}" data-id="${d.id}">${fav ? '★' : '☆'}</button>` : '') + '</div>';
   }).join('') : `<div class="hlEmpty">${hatFilter === 'fav' ? '☆ を おすと おきにいりに なるよ' : 'まだ ないよ'}</div>`;
   for (const b of $('hatGrid').querySelectorAll('.hcw')) b.addEventListener('click', e => {
@@ -3492,16 +3533,26 @@ function closeHatList() {
   $('hatBox').classList.add('hidden');
   if (state === 'title' && !menuOpen) $('title').classList.remove('hidden');
 }
-// 帽子を拾った
-function gainHat(def, banner) {
-  if (!def || def.kind === 'start' || def.dropped || ownedHats.has(def.id) || runNewHats.includes(def)) return;
+// 拾った数(同じ帽子を何個 拾ったか)。ブラウザに保存(パスワードには入らない)
+const HATCNT_KEY = 'kamo_hatcount';
+const hatCounts = store.json(HATCNT_KEY, {});
+const hatNum = id => Math.max(hatCounts[id] || 0, ownedHats.has(id) ? 1 : 0);
+const maxDup = () => Math.max(0, ...HATS.filter(h => h.kind === 'road').map(h => hatNum(h.id)));
+// 帽子を拾った(picked = 道で拾った)
+function gainHat(def, banner, picked) {
+  if (!def || def.kind === 'start' || def.dropped) return;
+  if (picked) {
+    hatCounts[def.id] = hatNum(def.id) + 1; store.set(HATCNT_KEY, JSON.stringify(hatCounts));
+    if (ownedHats.has(def.id)) { notify('ぼうし ゲット', `${def.name} ×${hatCounts[def.id]}`); checkDup(); return; }
+  }
+  if (ownedHats.has(def.id) || runNewHats.includes(def)) return;
   ownedHats.add(def.id); store.set(OWNED_KEY, JSON.stringify([...ownedHats]));
   runNewHats.push(def);
   notify(...(banner || ['ぼうし ゲット', def.name]), !!banner);
   equippedId = def.id; store.set(HAT_KEY, equippedId);
   browseIdx = HATS.indexOf(def);
   showHat(def, false);
-  checkCollector();
+  checkCollector(); if (picked) checkDup();
 }
 // ---- じっせき(実績)。たっせいすると、ちなんだ帽子がもらえる ----
 const ACH_KEY = 'kamo_ach';
@@ -3519,7 +3570,12 @@ const ACHS = [
   { id: 'negi3', hat: 'negitaba', name: 'ネギざんまい', desc: '1回のゲームで ネギを 6本 とる', prog: () => [achStat.negiBest, 6, 'さいこう', '本'] },
   { id: 'star7', hat: 'patlamp', name: 'むてきの あばれんぼう', desc: '1回の むてき(ネギ)の あいだに 車を 7台 ぶっとばす', prog: () => [achStat.starKOBest, 7, 'さいこう', '台'] },
   { id: 'far70', hat: 'goggles', name: 'おいてけぼり', desc: 'マッチョ犬との きょりを 70m いじょう はなす', prog: () => [achStat.farBest, 70, 'さいこう', 'm'] },
-  { id: 'collector', hat: 'hattower', name: 'ぼうしコレクター', desc: 'ぼうしを 25しゅるい あつめる(じっせきの ぼうしは のぞく)', prog: () => [hatCount(), 25, 'いま', 'こ'] },
+  { id: 'collector', group: 'collector', hat: 'hattower', name: 'ぼうしコレクター', desc: 'ぼうしを 25しゅるい あつめる(じっせきの ぼうしは のぞく)', prog: () => [hatCount(), 25, 'いま', 'しゅるい'] },
+  { id: 'collector50', group: 'collector', hat: 'hattower2', name: 'ぼうしコレクター', desc: 'ぼうしを 50しゅるい あつめる(じっせきの ぼうしは のぞく)', prog: () => [hatCount(), 50, 'いま', 'しゅるい'] },
+  { id: 'dup5', group: 'dup', hat: 'twinhat', name: 'おそろい あつめ', desc: 'おなじ ぼうしを 道で 5こ ひろう(かぶっている ぼうしは 道に おちやすい)', prog: () => [maxDup(), 5, 'さいこう', 'こ'] },
+  { id: 'dup10', group: 'dup', hat: 'hatrack', name: 'おそろい あつめ', desc: 'おなじ ぼうしを 道で 10こ ひろう(かぶっている ぼうしは 道に おちやすい)', prog: () => [maxDup(), 10, 'さいこう', 'こ'] },
+  { id: 'dup20', group: 'dup', hat: 'hatking', name: 'おそろい あつめ', desc: 'おなじ ぼうしを 道で 20こ ひろう(かぶっている ぼうしは 道に おちやすい)', prog: () => [maxDup(), 20, 'さいこう', 'こ'] },
+  { id: 'peace', hat: 'dove', name: 'へいわしゅぎ', desc: 'ネギの むてきの あいだ、車も 犬も ぶっとばさずに むてきを おえる' },
 ];
 let run = { dogKO: 0, swayFrom: 0, lowAt: -1, negi: 0, sitX: null, bridgeIdx: -99, noswayMax: 0, lowMax: 0 };
 function unlockAch(id) {
@@ -3537,7 +3593,8 @@ function notify(head, body, ach) {
   box.appendChild(el);
   while (box.children.length > 3) box.firstChild.remove();
 }
-function checkCollector() { if (hatCount() >= 25) unlockAch('collector'); }
+function checkCollector() { const n = hatCount(); if (n >= 25) unlockAch('collector'); if (n >= 50) unlockAch('collector50'); }
+function checkDup() { const n = maxDup(); if (n >= 5) unlockAch('dup5'); if (n >= 10) unlockAch('dup10'); if (n >= 20) unlockAch('dup20'); }
 function updateAch() {
   if (run.dogKO >= 5) unlockAch('dog5');
   run.noswayMax = Math.max(run.noswayMax, score - run.swayFrom);
@@ -3580,9 +3637,15 @@ function endRunAch() {
   saveAch();
 }
 function buildAch() {
-  let h = '', n = 0;
-  for (const a of ACHS) {
-    const d = hatById(a.hat), done = ownedHats.has(a.hat); if (done) n++;
+  let h = '', n = ACHS.filter(a => ownedHats.has(a.hat)).length;
+  // 段階のあるじっせきは 1つの枠。たっせいしたら つぎのノルマが出る
+  const shown = new Set();
+  for (const a0 of ACHS) {
+    const key = a0.group || a0.id; if (shown.has(key)) continue; shown.add(key);
+    const tiers = ACHS.filter(x => (x.group || x.id) === key), ti = tiers.findIndex(x => !ownedHats.has(x.hat));
+    const a = ti < 0 ? tiers[tiers.length - 1] : tiers[ti];
+    const d = hatById(a.hat), done = ownedHats.has(a.hat);
+    const step = tiers.length > 1 ? ` <span class="am">${ti < 0 ? tiers.length : ti + 1}/${tiers.length}だん</span>` : '';
     let bar = '', left = '';
     if (done) { left = 'たっせい！'; bar = `<span class="afoot"><span class="rw">ほうび: ${d.name}</span></span>`; }
     else if (a.prog) {
@@ -3590,7 +3653,7 @@ function buildAch() {
       bar = `<span class="abar"><i style="width:${v / mx * 100}%"></i></span>`;
       left = `${pre} ${v}${unit} / ${mx}${unit}`;
     } else left = 'ちょうせんしてみよう';
-    h += `<button class="acard${done ? ' done' : ''}" data-hat="${a.hat}"><span class="an"><span class="am">${done ? '★' : '☆'}</span> ${a.name}</span>` +
+    h += `<button class="acard${done ? ' done' : ''}" data-hat="${a.hat}"><span class="an"><span class="am">${done ? '★' : '☆'}</span> ${a.name}${step}</span>` +
       `<span class="ad">${a.desc}</span>${bar}` +
       `<span class="afoot"><span>${left}</span><span class="rw">${done ? '► かぶる' : 'ほうび: ぼうし？'}</span></span></button>`;
   }
@@ -3605,8 +3668,8 @@ function closeAch() { $('achBox').classList.add('hidden'); }
 // ---- パスワード(集めた帽子とハイスコアを文字にして持ち運べる) ----
 // 以前のパスワードでは、自作 FBX の帽子の場所に テスト帽子 3つぶんの枠があった(前のパスワードが読めるように 枠だけ残す)
 const PW_OLD_FBX = ['test01', 'test02', 'test03'];
-const V4_IDS = [...BUILTIN_HATS.map(h => h.id).filter(id => !LATE_HATS.includes(id) && !NEW_ROAD_HATS2.includes(id)), ...PW_OLD_FBX, ...LATE_HATS];
-const SAVE_IDS = [...V4_IDS, ...NEW_ROAD_HATS2,
+const V4_IDS = [...BUILTIN_HATS.map(h => h.id).filter(id => !LATE_HATS.includes(id) && !NEW_ROAD_HATS2.includes(id) && !NEW_ACH_HATS2.includes(id)), ...PW_OLD_FBX, ...LATE_HATS];
+const SAVE_IDS = [...V4_IDS, ...NEW_ROAD_HATS2, ...NEW_ACH_HATS2,
                   ...(Array.isArray(window.HAT_LIST) ? window.HAT_LIST : []).filter(u => u && u.file).map(u => u.id || u.file)]
   .filter((v, i, a) => a.indexOf(v) === i);
 // 帽子を増やす前のパスワードも読めるように、そのときの帽子の並びも覚えておく
@@ -4375,6 +4438,7 @@ function knockVehicle(lane, v, dirX, byDuck = false) {
   const k = lane.vehicles.indexOf(v); if (k < 0) return;
   lane.vehicles.splice(k, 1);
   if (byDuck) {
+    run.starClean = false;
     stats.carKO++; if (v.coin) stats.coinCar++;
     if (starT > 0 && state === 'play') {
       run.starKO++; run.starKOMax = Math.max(run.starKOMax || 0, run.starKO);
@@ -4982,7 +5046,7 @@ function checkCollision() {
     if (it && Math.abs(duck.x - (lx + it.x)) < 0.6) {
       lane.group.remove(it.holder); lane.hatItem = null; lane.def.hatTaken = true;
       emit(36, duck.x, duck.y + 1, 0, [0xffe066, 0xffffff, 0xff6fae, 0x6ff0ff], { glow: true, vx0: -4, vx1: 4, vy0: 2, vy1: 7, g: 8, l0: 0.6, l1: 1.3, floor: duck.y });
-      gainHat(it.def);
+      gainHat(it.def, null, true);
     }
     if (lane.coins) for (let k = lane.coins.length - 1; k >= 0; k--) {
       const c = lane.coins[k];
@@ -5039,14 +5103,14 @@ function updateArmor(dt) {
 }
 function setStar(t) {
   starT = t;
-  if (t > 0 && run) { run.starKO = 0; run.starExt = 0; }   // むてき 1回ごとに ぶっとばした車を数えなおす
+  if (t > 0 && run) { run.starKO = 0; run.starExt = 0; run.starClean = true; }   // むてき 1回ごとに ぶっとばした車を数えなおす
   if (t <= 0) for (const m of D.mats) m.emissive.setRGB(0, 0, 0);
   D.root.scale.setScalar(t > 0 ? 1.18 : 1);
 }
 function updateStar(dt) {
   if (starT <= 0) return;
   starT -= dt;
-  if (starT <= 0) { setStar(0); return; }
+  if (starT <= 0) { if (run.starClean && state === 'play') unlockAch('peace'); setStar(0); return; }
   const ending = starT < 2 && Math.floor(starT * 8) % 2 === 0;
   D.mats.forEach((m, i) => { if (ending) m.emissive.setRGB(0, 0, 0); else m.emissive.setHSL((time * 2.5 + i * 0.13) % 1, 1, 0.3); });
   // 残像(虹色のドット)
@@ -5164,7 +5228,7 @@ function knockDog() {
   Object.assign(dog, { mode: 'down', air: true, vx: -4.2, vy: 6.5, fall: 0, downT: CFG.dog.downTime ?? 3 });
   shake = 0.45;
   showBanner('マッチョ犬', 'ダウン！');
-  run.dogKO++; stats.dogKO++; dropDogCoins(CFG.dog.coinDrop ?? 7);
+  run.dogKO++; stats.dogKO++; run.starClean = false; dropDogCoins(CFG.dog.coinDrop ?? 7);
   emit(22, duck.x - 0.6, duck.y + 1.2, 0, [0xffffff, 0xffe066, 0xff6fae], { glow: true, vx0: -5, vx1: 1, vy0: 2, vy1: 6, l0: 0.4, l1: 0.8, floor: duck.y });
 }
 // たおした犬からこぼれるコイン(前の方へ飛んで、地面でバウンド)
