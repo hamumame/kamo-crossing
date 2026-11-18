@@ -32,8 +32,8 @@
   #logoText .l2 { font-size: 3em; color: #ffd23f; letter-spacing: .05em;
     text-shadow: .06em 0 #000, -.06em 0 #000, 0 .06em #000, 0 -.06em #000, .12em .12em #c2410c, .16em .16em #000; }
   /* カモの頭や帽子にかぶらないように、PRESS SPACE はカモの下、記録は右上の窓へ */
-  #pressStart { position: absolute; left: 0; right: 0; bottom: 4.85em; font-size: 1.05em; text-shadow: .08em .08em 0 #000; }
-  /* ハイスコアとコインは左下(帽子の ◀ の上)。右下の「ぼうし調整」と左右でならぶ */
+  #pressStart { position: absolute; left: 0; right: 0; bottom: 5.75em; font-size: 1.05em; text-shadow: .08em .08em 0 #000; }
+  /* ハイスコアとコインは左下(帽子の ◄ の上)。右下の「ぼうし調整」と左右でならぶ */
   #titleStat { position: absolute; left: 3em; bottom: 8.4em; font-size: .62em; text-align: left; line-height: 1.6; letter-spacing: .06em;
                text-shadow: .08em .08em 0 #000b, 0 0 .3em #0007; }
   #titleHi { color: #fff3c4; }
@@ -47,7 +47,7 @@
   .hbtn:active, .uiBtn:active { transform: translate(.1em, .1em);
     box-shadow: inset .1em .1em 0 #0b1240, inset -.1em -.1em 0 #5f7cff, 0 0 0 .1em #fff, 0 0 0 .2em #000; }
   .hbtn.lock, .uiBtn.lock { background: #2a2a38; color: #888; }
-  /* 帽子の ◀ ▶: 見た目はそのまま、押せる範囲だけ広く */
+  /* 帽子の ◄ ►: 見た目はそのまま、押せる範囲だけ広く */
   #hatPrev, #hatNext { position: relative; flex: none; }
   #hatPrev::after, #hatNext::after { content: ''; position: absolute; inset: -1em -1.2em; }
   .hmid { width: 12em; flex: none; text-align: center; }
@@ -67,7 +67,16 @@
   #menuWrap .peek { position: absolute; left: 50%; top: -1.95em; width: 3.2em; height: 2.4em; margin-left: -1.6em; animation: peek 3.4s steps(1) infinite; }
   @keyframes peek { 0%, 52% { transform: translateY(.7em); } 56% { transform: translateY(.35em); } 60%, 92% { transform: translateY(0); } 96% { transform: translateY(.35em); } }
   #menuBtn { position: relative; z-index: 1; padding: .3em .9em .35em; letter-spacing: .12em; }
-  #modeBtn { left: 3.6em; top: 8.9em; font-size: .5em; }
+  /* モードは右下の「ぼうし調整」の上(ロゴにかぶらないように) */
+  #modeBtn { right: 3.8em; bottom: 13.4em; font-size: .5em; text-align: center; line-height: 1.5; }
+  #modeBtn small { display: block; font-size: .8em; color: #b8c8ff; }
+  #titleBoost { color: #9fe8ff; }
+  /* エンドレスの しゅっぱつ前の とっくん */
+  #prepBox .pwIn { width: 90%; max-width: 90%; box-sizing: border-box; padding: .5em .6em .55em; font-size: .6em; text-align: left; }
+  .prepInfo { display: flex; justify-content: space-between; gap: 1em; color: #b8c8ff; font-size: .82em; padding: .3em .3em 0; }
+  .dAb { font-size: .76em; color: #ffb8e6; line-height: 1.45; }
+  #prepMsgBox { height: 2.2em; }
+  .shopFoot .buyBtn { margin: 0 0 0 .6em; font-size: 1.2em; }
   #fbxBtn { right: 3.8em; bottom: 10.6em; font-size: .5em; }
   /* 青いメニュー画面(青は 3D 画面のレトロ加工ごと出す。文字の上にも走査線) */
   /* 見た目は 3D 画面のレトロ加工の下(キャンバス)に描くので、ここは透明。クリックと配置の基準だけ */
@@ -81,7 +90,7 @@
   .msBody { display: flex; align-items: center; gap: 1.4em; }
   .msList { display: flex; flex-direction: column; gap: .1em; min-width: 8em; }
   .msi { font-family: inherit; font-size: .95em; color: #fff; background: none; border: 0; text-align: left; padding: .12em .3em .12em 1.25em; position: relative; cursor: pointer; }
-  .msi::before { content: '▶'; position: absolute; left: .15em; top: .3em; font-size: .75em; color: #ffd23f; opacity: 0; }
+  .msi::before { content: '►'; position: absolute; left: .15em; top: .3em; font-size: .75em; color: #ffd23f; opacity: 0; }
   .msi.sel { color: #ffd23f; outline: none; }
   .msi.sel::before { opacity: 1; animation: blink .5s steps(2) infinite; }
   .msi .ms { display: block; font-size: .55em; color: #b8c8ff; margin-top: .05em; }
@@ -94,7 +103,7 @@
   .winTitle { color: #ffd23f; font-size: .85em; letter-spacing: .15em; padding-left: 1.1em; margin-bottom: .1em; }
   .mi { display: block; width: 100%; text-align: left; font-family: inherit; font-size: 1em; color: #fff; background: none; border: 0;
         padding: .2em .3em .2em 1.1em; cursor: pointer; position: relative; white-space: nowrap; }
-  .mi::before { content: '▶'; position: absolute; left: .1em; opacity: 0; font-size: .8em; top: .3em; }
+  .mi::before { content: '►'; position: absolute; left: .1em; opacity: 0; font-size: .8em; top: .3em; }
   .mi:hover, .mi:focus-visible { color: #ffd23f; outline: none; }
   .mi:hover::before, .mi:focus-visible::before { opacity: 1; animation: blink .5s steps(2) infinite; }
 
@@ -180,7 +189,26 @@
   .srow.no .sn { color: #aaa; }
   .srow.no .pr { color: #776; }
   .srow.max .pr, .srow.own .pr { color: #8cff6f; }
-  #shopDetail { display: flex; flex-direction: column; gap: .3em; min-width: 0; margin: .35em 0 .1em; padding: .45em .6em .55em;
+  /* ---- ぼうし いちらん ---- */
+  #hatListBtn { font-size: .55em; margin-top: .35em; padding: .15em .8em .2em; }
+  #hatBox .pwIn { width: 90%; max-width: 90%; box-sizing: border-box; padding: .5em .6em .55em; font-size: .6em; text-align: left; }
+  .hlTabs { display: flex; gap: .4em; margin: .45em 0 .35em; }
+  .hlTab { font-family: inherit; font-size: .85em; color: #b8c8ff; background: #4ab0ff10; border: .1em solid #4ab0ff60; padding: .15em .6em; cursor: pointer; }
+  .hlTab.on { color: #ffd23f; border-color: #ffd23f; background: #ffd23f1a; }
+  .hlRight { margin-left: auto; }
+  #hatGrid { display: grid; grid-template-columns: repeat(3, 1fr); gap: .3em; max-height: 24em; overflow-y: auto; align-content: start; }
+  .hcard { display: flex; min-width: 0; border: .1em solid #4ab0ff40; background: #4ab0ff0a; }
+  .hcard.own { border-color: #4ab0ffa0; background: #4ab0ff14; }
+  .hcard.cur { border-color: #ffd23f; background: #ffd23f1a; }
+  .hcw { flex: 1; min-width: 0; text-align: left; font-family: inherit; font-size: .9em; color: #fff; background: none; border: 0; padding: .25em .4em .3em; cursor: pointer;
+         white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .hcw small { display: block; font-size: .75em; color: #8fa0c8; overflow: hidden; text-overflow: ellipsis; }
+  .hcard:not(.own) .hcw { color: #6a7090; cursor: default; }
+  .hcard.cur small { color: #ffd23f; }
+  .hfav { flex: none; font-family: inherit; font-size: 1.1em; background: none; border: 0; color: #607090; padding: 0 .45em; cursor: pointer; }
+  .hfav.on { color: #ffd23f; }
+  .hlEmpty { grid-column: 1 / -1; color: #8890b0; padding: 1.5em; text-align: center; }
+  #shopDetail, #shopDetail2 { display: flex; flex-direction: column; gap: .3em; min-width: 0; margin: .35em 0 .1em; padding: .45em .6em .55em;
                 border: .1em solid #4ab0ff90; border-radius: 0; background: #4ab0ff10; }
   .dTag { align-self: flex-start; font-size: .82em; color: #8cff6f; border: .1em solid #8cff6f; padding: .05em .45em; border-radius: .2em; }
   .dName { color: #ffd23f; font-size: 1.1em; }
@@ -366,6 +394,7 @@ window.GAME_CONFIG = {
     lanesMin: 2,       // 中央分離帯までの車線数 最小
     lanesMax: 6,       // 中央分離帯までの車線数 最大
     lanesGrowth: 0.5,  // 分離帯を1つ越えるごとに増える車線数
+    endlessLanesMax: 12, // エンドレスモードの 中央分離帯までの車線数 最大(車の出る間隔などは同じ)
     // 坂: ゾーンによっては道が高くなったり(上り坂)、低くなったり(くぼ地)します。カメラの高さはそのまま
     hillChance: 0.6,   // 坂のあるゾーンの確率 (0〜1)。2つ目のゾーンは必ず上り坂
     hillHeight: 1.4,   // 上り坂の高さ (1.6 より上げると大きい車がカメラにめり込みます)
@@ -468,8 +497,8 @@ window.GAME_CONFIG = {
     visible: true,     // 帽子を表示する
   },
   hats: {
-    dropChance: 0.07,  // 車線1本ごとに帽子が落ちている確率 (0〜1)
-    minGap: 80,        // 帽子どうしの最低間隔(m)
+    dropChance: 0.1,   // 車線1本ごとに帽子が落ちている確率 (0〜1)
+    minGap: 80,      // 帽子どうしの最低間隔(m)
     startM: 75,        // ここ(m)より手前には帽子を落とさない
   },
 
@@ -488,13 +517,20 @@ window.GAME_CONFIG = {
   // ---- ショップの強化(Lv1〜Lv5 の値。最初は Lv1) ----
   shop: {
     hpCost: [150, 400],                     // たいりょく(ハート) Lv1→2, 2→3 の値段。最初は ♥1、最大 ♥3
-    drinkPrice: 50,                         // ハオドリンク(次の3ゲームだけ スウェイの回復が drinkMul 倍)の値段
+    drinkPrice: 75,                        // ハオドリンク(次の3ゲームだけ スウェイの回復が drinkMul 倍)の値段
     drinkMul: 1.5,
-    biscuitPrice: 60,                     // ほしのビスケット(次の3ゲームだけ ♥+1)の値段
+    biscuitPrice: 90,                    // ほしのビスケット(次の3ゲームだけ ♥+1)の値段
     upgradeCost: [30, 70, 130, 220],        // Lv1→2, 2→3, 3→4, 4→5 の値段
     starAdd: [0, 0.5, 1, 1.6, 2.4],          // 無敵時間に足す秒数
     speedMul: [0.93, 0.98, 1.02, 1.07, 1.12],// 移動スピードの倍率 (Lv2〜3 がもとの速さくらい)
     swayMul: [1.27, 1.13, 1, 0.88, 0.77],   // スウェイのクールダウン倍率 (Lv3 がもとの 1.5秒)
+  },
+
+  // ---- エンドレスの「しゅっぱつ前の とっくん」(そのゲームだけの強化。ゲームオーバーでなくなる) ----
+  //  移動スピード・スウェイの回復・無敵時間・たいりょく・コインあつめ を、それぞれ Lv5 まで。Lv5 はアビリティ
+  endlessShop: {
+    prices: [22, 30, 38, 46, 66],   // Lv0→1, 1→2, 2→3, 3→4, 4→5(アビリティ) の値段。8回買うと だいたい 250 前後
+    maxBuys: 8,                     // 1ゲームで買える回数
   },
 };
 
@@ -521,10 +557,7 @@ window.GAME_CONFIG = {
 //  ※ FBX のテクスチャは「埋め込み(Embed Media)」で書き出すのが確実です。
 // =============================================================
 window.HAT_LIST = [
-  // ↓ いま「帽子一時保存」フォルダにあるテスト用の帽子(最初から使えます)。本番の帽子に入れ替えてください。
-  { id: 'test01', name: 'テスト帽子1', file: '帽子一時保存/帽子テスト01.fbx', owned: true, autoFit: true, size: 0.6, offset: [0, 0, 0], rotation: [0, 0, 0] },
-  { id: 'test02', name: 'テスト帽子2', file: '帽子一時保存/帽子テスト02.fbx', owned: true, autoFit: true, size: 0.6, offset: [0, 0, 0], rotation: [0, 0, 0] },
-  { id: 'test03', name: 'テスト帽子3', file: '帽子一時保存/帽子テスト03.fbx', owned: true, autoFit: true, size: 0.6, offset: [0, 0, 0], rotation: [0, 0, 0] },
+  // ※ id に test01 / test02 / test03 は使わないでください(前のパスワードとの互換のために予約しています)
 
   // 例: hats/myhat.fbx を道に落ちている帽子として追加
   // { id: 'myhat', name: 'マイ帽子', file: 'hats/myhat.fbx', autoFit: true, size: 0.6, offset: [0, 0, 0], rotation: [0, 0, 0] },
@@ -556,7 +589,7 @@ window.HAT_LIST = [
     <div id="goalTxt" class="px"></div>
     <div id="swayBox" class="px ready"><span>SWAY</span><div id="swayBar"><div id="swayFill"></div></div></div>
     <div id="starBox" class="px hidden"><span class="blink" style="animation-duration:.3s">★ムテキ★</span><div id="starBar"><div id="starFill"></div></div></div>
-    <div id="dogWarn" class="px hidden">◀犬 <span id="dogDist">0</span>m</div>
+    <div id="dogWarn" class="px hidden">◄犬 <span id="dogDist">0</span>m</div>
   </div>
 
   <div id="newrec" class="px"></div>
@@ -571,15 +604,15 @@ window.HAT_LIST = [
          onerror="this.style.display='none'">
     <div id="logoText" class="px"><span class="l1">横断しちゃう</span><span class="l2">カモ！？</span></div>
     <div id="pressStart" class="px blink ghost"><span class="kbHelp">PRESS SPACE</span><span class="touchHelp">TAP TO START</span></div>
-    <div id="titleStat" class="ghost"><div id="titleHi">HI-SCORE 0m</div><div id="titleCoin">● 0 コイン</div></div>
+    <div id="titleStat" class="ghost"><div id="titleHi">HI-SCORE 0m</div><div id="titleCoin">● 0 コイン</div><div id="titleBoost"></div></div>
     <div id="hatSel" class="px ghost">
-      <button id="hatPrev" class="hbtn calm">◀</button>
-      <div class="hmid"><div id="hatName">帽子</div><div id="hatInfo"></div></div>
-      <button id="hatNext" class="hbtn calm">▶</button>
+      <button id="hatPrev" class="hbtn calm">◄</button>
+      <div class="hmid"><div id="hatName">帽子</div><div id="hatInfo"></div><button id="hatListBtn" class="hbtn calm">ぼうし いちらん</button></div>
+      <button id="hatNext" class="hbtn calm">►</button>
     </div>
     <div id="help" class="px ghost">
       <span class="kbHelp">← → : 移動 / 帽子えらび　　SPACE : スウェイ　　P : ポーズ</span>
-      <span class="touchHelp">右 / 左を押して移動　　SWAY : スウェイ　　◀ ▶ : 帽子えらび</span></div>
+      <span class="touchHelp">右 / 左を押して移動　　SWAY : スウェイ　　◄ ► : 帽子えらび</span></div>
   </div>
 
   <div id="over" class="overlay hidden">
@@ -612,6 +645,7 @@ window.HAT_LIST = [
         <button class="msi px" data-act="start">横断する<span class="ms">ゲームを はじめる</span></button>
         <button class="msi px" data-act="shop">ショップ<span class="ms">コインで きたえる・かう</span></button>
         <button class="msi px" data-act="ach">じっせき<span class="ms">ちょうせんして ぼうしを もらう</span></button>
+        <button class="msi px" data-act="hats">ぼうし<span class="ms">いちらん・おきにいり</span></button>
         <button class="msi px" data-act="rec">きろく<span class="ms">これまでの あゆみ</span></button>
         <button class="msi px" data-act="pw">パスワード<span class="ms">きろくを もちはこぶ</span></button>
         <button class="msi px" data-act="mode" id="msMode">モード<span class="ms"></span></button>
@@ -626,9 +660,13 @@ window.HAT_LIST = [
     <div id="clearTitle" class="px"></div>
     <div id="clearThanks" class="px">Thank you for Playing</div>
     <div id="clearEnd" class="px">
-      <div class="big">エンドレスモードが あそべるように なった！</div>
-      <div>タイトル画面で モードを えらべるよ</div>
-      <div id="clearMore">ゴールより先へ どこまでも すすもう</div>
+      <div id="clearTime" class="big"></div>
+      <div id="clearBest"></div>
+      <div id="clearUnlock" style="margin-top:.6em">
+        <div class="big">エンドレスモードが あそべるように なった！</div>
+        <div>タイトル画面で モードを えらべるよ</div>
+        <div>ゴールより先へ どこまでも すすもう</div>
+      </div>
       <div class="blink" style="margin-top:.8em"><span class="kbHelp">SPACE : タイトルへ</span><span class="touchHelp">タップで タイトルへ</span></div>
     </div>
   </div>
@@ -649,6 +687,20 @@ window.HAT_LIST = [
       <rect x="2" y="11" width="8" height="1" fill="#d62828"/><rect x="5" y="10" width="2" height="1" fill="#d62828"/><rect x="6" y="11" width="1" height="1" fill="#fff"/>
     </svg><span id="shopMsg">いらっしゃい！</span></div>
     <div class="shopFoot"><span class="kbHelp">↑↓ : えらぶ　SPACE : かう　ESC : とじる</span><span class="touchHelp">えらんでから 「かう」を タップ</span><button id="shopClose" class="hbtn">とじる</button></div>
+  </div></div>
+  <div id="prepBox" class="modal ghost hidden"><div class="pwIn px">
+    <div class="shopTop"><div class="pwHead">～ しゅっぱつ前の とっくん ～</div><div id="prepCoins" class="shopCoins">● 0</div></div>
+    <div id="prepInfo" class="prepInfo"></div>
+    <div class="shopBody"><div id="prepList"></div><div id="shopDetail2" class="prepDetail"></div></div>
+    <div class="shopMsg" id="prepMsgBox"><span id="prepMsg"></span></div>
+    <div class="shopFoot"><span class="kbHelp">↑↓ えらぶ　SPACE かう　ENTER しゅっぱつ</span><span class="touchHelp">えらんで 「かう」</span>
+      <span><button id="prepBack" class="hbtn">もどる</button><button id="prepGo" class="buyBtn">しゅっぱつ！</button></span></div>
+  </div></div>
+  <div id="hatBox" class="modal ghost hidden"><div class="pwIn px">
+    <div class="shopTop"><div class="pwHead">～ ぼうし いちらん ～</div><div id="hatCount" class="shopCoins">0/0</div></div>
+    <div class="hlTabs"><button class="hlTab" data-f="all">ぜんぶ</button><button class="hlTab" data-f="own">もってる</button><button class="hlTab" data-f="fav">★おきにいり</button><button id="favBrowseBtn" class="hlTab hlRight"></button></div>
+    <div id="hatGrid"></div>
+    <div class="shopFoot"><span class="kbHelp">クリックで かぶる　☆ で おきにいり　ESC : とじる</span><span class="touchHelp">タップで かぶる　☆ で おきにいり</span><button id="hatClose" class="hbtn">とじる</button></div>
   </div></div>
   <div id="achBox" class="modal ghost hidden"><div class="pwIn px">
     <div class="shopTop"><div class="pwHead">～ じっせき ～</div><div class="achSum shopCoins"><span id="achCount">0/0</span><span class="abar"><i id="achBar"></i></span></div></div>
@@ -886,8 +938,8 @@ const THEMES = {
     deco: ['maple', 'maple', 'ginkgo'], near: ['leafpile'],
     traffic: { car: 5, kei: 3, truck: 2, van: 1, bus: 1 }, speedMul: 1.0, keiCargo: 0xe8a33a,
     colors: [0x9c4a1a, 0xd98c3a, 0x6b4a2e, 0xc9a227, 0x5a6b3a, 0xf1e3c8], cargo: [0xd9c7a3, 0xc98a4a, 0xe9e5dc] },
-  night: { name: '夜のネオン街', sky: '#141a33', fogNear: 50, fogFar: 190, hemiSky: '#5a6a9a', hemiGround: '#1a1a2a', hemiInt: 0.9,
-    sun: '#8aa0ff', sunInt: 0.45, weather: null, grass: '#2e5a2e', backdrop: 'city', style: 'city', night: true,
+  night: { name: '夜のネオン街', sky: '#141a33', fogNear: 50, fogFar: 190, hemiSky: '#7a8ac0', hemiGround: '#2e3048', hemiInt: 1.25,
+    sun: '#9ab0ff', sunInt: 0.75, weather: null, grass: '#2e5a2e', backdrop: 'city', style: 'city', night: true,
     deco: ['neon', 'vending', 'lamp', 'neon'], near: ['tulip'],
     traffic: { car: 4, taxi: 3, police: 1, sports: 2, truck: 2 }, speedMul: 1.15,
     colors: [0x1a1a22, 0x2a2a3a, 0x3a1a2a, 0xd9d9d9, 0x14304a, 0x5a0a1a], vivid: [0xff3fa4, 0x3ff0ff, 0xfff03f] },
@@ -906,8 +958,8 @@ const THEMES = {
     deco: ['cactus', 'cactus', 'rock', 'tumbleweed', 'skull'], near: ['rock', 'tumbleweed'],
     traffic: { jeep: 4, buggy: 3, camel: 3, truck: 2, car: 1 }, speedMul: 1.1,
     colors: [0xd9b77a, 0xb5651d, 0xe8e0c8, 0x8a6a3a, 0x6a7a4a], vivid: [0xff6f1f, 0xffd21f, 0x2ec27e], cargo: [0xd9c7a3, 0xc98a4a] },
-  haunted: { name: '幽霊屋敷の前', sky: '#2a1840', fogNear: 25, fogFar: 150, hemiSky: '#7a5aa0', hemiGround: '#1a1020', hemiInt: 0.95,
-    sun: '#a080ff', sunInt: 0.5, weather: 'ghost', grass: '#3a3a2a', backdrop: 'city', style: 'mansion', night: true,
+  haunted: { name: '幽霊屋敷の前', sky: '#2a1840', fogNear: 25, fogFar: 150, hemiSky: '#9a7ac0', hemiGround: '#2e2238', hemiInt: 1.3,
+    sun: '#b498ff', sunInt: 0.85, weather: 'ghost', grass: '#4a4a36', backdrop: 'city', style: 'mansion', night: true,
     deco: ['deadtree', 'grave', 'grave', 'jackolantern', 'ghost'], near: ['grave', 'jackolantern'],
     traffic: { hearse: 3, ghostcar: 3, pumpkin: 3, car: 1, bus: 1 }, speedMul: 0.95,
     colors: [0x2a2a33, 0x4a2a5a, 0x1a1a1a, 0x5a5a6a], bus: [0x4a2a5a, 0x222222] },
@@ -926,8 +978,8 @@ const THEMES = {
     deco: ['cone', 'barrier', 'sandpile', 'cone', 'pipes'], near: ['cone', 'barrier'],
     traffic: { dump: 3, mixer: 3, roller: 2, truck: 2, car: 2 }, speedMul: 0.9,
     colors: [0xffd21f, 0xff8c1a, 0xf4f4f4, 0x555555] },
-  festival: { name: '夏祭りの夜', sky: '#1e1030', fogNear: 40, fogFar: 170, hemiSky: '#6a4a8a', hemiGround: '#2a1a1a', hemiInt: 0.95,
-    sun: '#ffb070', sunInt: 0.6, weather: 'firefly', grass: '#3a2a20', backdrop: 'city', style: 'shrine', night: true, fireworks: true,
+  festival: { name: '夏祭りの夜', sky: '#1e1030', fogNear: 40, fogFar: 170, hemiSky: '#8a6aaa', hemiGround: '#3a2a2a', hemiInt: 1.25,
+    sun: '#ffb880', sunInt: 0.9, weather: 'firefly', grass: '#3a2a20', backdrop: 'city', style: 'shrine', night: true, fireworks: true,
     deco: ['lantern', 'yatai', 'lantern', 'yatai'], near: ['kingyo'],
     traffic: { mikoshi: 3, taxi: 2, kei: 2, car: 2 }, speedMul: 0.9, keiCargo: 0xd62828,
     colors: [0x1a1a22, 0xd62828, 0xf4f4f4, 0x333a40] },
@@ -998,8 +1050,8 @@ const THEMES = {
     traffic: { car: 4, kei: 3, van: 2, bus: 1, icecream: 1 }, speedMul: 0.95, keiCargo: 0xff8ad0,
     colors: [0xffffff, 0xffb7d5, 0xfff1a8, 0xb5d8ff, 0xff6f6f] },
   // ---- 新しい街・ふしぎな場所 ----
-  maou: { name: '禍々しい魔王城', sky: '#2a0a1e', fogNear: 30, fogFar: 170, hemiSky: '#8a4a7a', hemiGround: '#1a0810', hemiInt: 0.95,
-    sun: '#ff5040', sunInt: 0.8, weather: 'ember', grass: '#2a2028', backdrop: 'city', style: 'castle', night: true,
+  maou: { name: '禍々しい魔王城', sky: '#2a0a1e', fogNear: 30, fogFar: 170, hemiSky: '#aa6a9a', hemiGround: '#301a24', hemiInt: 1.3,
+    sun: '#ff6a58', sunInt: 1.1, weather: 'ember', grass: '#3a2e36', backdrop: 'city', style: 'castle', night: true,
     deco: ['deadtree', 'spike', 'darkcrystal', 'skull', 'spike'], near: ['skull', 'darkcrystal'],
     traffic: { hearse: 3, ghostcar: 3, car: 2, truck: 1 }, speedMul: 1.05,
     colors: [0x1a1a22, 0x3a1020, 0x2a2a3a, 0x5a0a1a], vivid: [0xff3030, 0x8a2aff, 0x202020], bus: [0x3a1020, 0x111111] },
@@ -1599,9 +1651,10 @@ function pickType(th) {
 // =============================================================
 //  車線(無限生成)
 // =============================================================
-let laneDefs = [], blockIndex = 0, milestoneDone = new Set(), reservedHats = new Set(), lastNegiIdx = -999, lastHatIdx = -999;
+let laneDefs = [], blockIndex = 0, milestoneDone = new Set(), reservedHats = new Set(), lastNegiIdx = -999, lastHatIdx = -999, lastBagIdx = -999;
+let bagOn = false;   // エンドレスの とっくん「おかね袋」
 const lanes = new Map();
-function resetLaneGen() { laneDefs = [{ type: 'bank' }]; blockIndex = 0; milestoneDone = new Set(); reservedHats = new Set(); lastNegiIdx = -999; lastHatIdx = -999; goalIdx = -1; }
+function resetLaneGen() { laneDefs = [{ type: 'bank' }]; blockIndex = 0; milestoneDone = new Set(); reservedHats = new Set(); lastNegiIdx = -999; lastHatIdx = -999; lastBagIdx = -999; goalIdx = -1; }
 const COIN_POS = [[0], [-0.35, 0.35], [-0.7, 0, 0.7]];
 function genBlock() {
   const r = CFG.road;
@@ -1613,7 +1666,7 @@ function genBlock() {
   }
   const base = r.lanesMin + Math.floor(blockIndex * r.lanesGrowth);
   const n = clamp(base + (Math.random() < 0.35 ? 1 : 0) - (Math.random() < 0.2 ? 1 : 0),
-                  Math.round(r.lanesMin), Math.round(Math.max(r.lanesMin, r.lanesMax)));
+                  Math.round(r.lanesMin), Math.round(Math.max(r.lanesMin, endless ? (r.endlessLanesMax ?? 12) : r.lanesMax)));
   blockIndex++;
   for (let k = 0; k < n; k++) {
     const idx = laneDefs.length;
@@ -1625,11 +1678,14 @@ function genBlock() {
     if (negi) lastNegiIdx = idx;
     const hatDrop = !negi && !milestone && idx * LW * CFG.score.meterPerUnit >= (CFG.hats.startM ?? 75) && (idx - lastHatIdx) * LW >= (CFG.hats.minGap ?? 120) && Math.random() < CFG.hats.dropChance;
     if (hatDrop) lastHatIdx = idx;
+    // おかね袋(エンドレスの とっくん「コインあつめ」Lv5)。ときどき 道に おちている
+    const bag = bagOn && !negi && !milestone && !hatDrop && idx * LW >= 30 && (idx - lastBagIdx) * LW >= 70 && Math.random() < 0.06;
+    if (bag) lastBagIdx = idx;
     // コイン(1車線に 1〜3 枚)
-    const cn = !negi && !milestone && !hatDrop && idx >= 2 && Math.random() < CFG.coins.chance ? 1 + (Math.random() * 3 | 0) : 0;
+    const cn = !negi && !milestone && !hatDrop && !bag && idx >= 2 && Math.random() < CFG.coins.chance ? 1 + (Math.random() * 3 | 0) : 0;
     const coins = cn ? COIN_POS[cn - 1].map(x => cn === 1 ? rand(-0.5, 0.5) : x) : null;
     laneDefs.push({ type: 'road', r1: Math.random(), r2: Math.random(), negi, negiX: rand(-0.6, 0.6),
-                    milestone, hatDrop, hatX: rand(-0.5, 0.5), coins, coinTaken: 0 });
+                    milestone, hatDrop, hatX: rand(-0.5, 0.5), coins, coinTaken: 0, bag, bagX: rand(-0.5, 0.5) });
   }
   laneDefs.push({ type: 'median', river: blockIndex > 2 && Math.random() < (CFG.road.riverChance ?? 0.2) });
 }
@@ -2523,6 +2579,7 @@ function createLane(i) {
     const cw = new THREE.Mesh(GEO.cross, MAT.cross);
     cw.rotation.x = -Math.PI / 2; cw.position.y = 0.01; cw.receiveShadow = true; g.add(cw);
     if (def.negi) { lane.negi = makeNegi(); lane.negi.position.set(def.negiX, 0, 0); g.add(lane.negi); }
+    if (def.bag) { lane.bag = makeBag(); lane.bag.position.set(def.bagX, 0, 0); g.add(lane.bag); }
     if (def.coins) {
       lane.coins = [];
       def.coins.forEach((cx, k) => {
@@ -2936,6 +2993,119 @@ function hatOnigiri() {
   const g = new THREE.Group(); const o = cyl(g, 0.3, 0.3, 0.22, 3, 0, 0.16, 0, 0xffffff); o.rotation.set(Math.PI / 2, Math.PI / 2, 0);
   part(g, 0.24, 0.16, 0.23, 0, 0.07, 0, 0x1a2a1a); return g;
 }
+// ---- 道で拾える帽子(追加分 その2) ----
+function hatFez() { const g = new THREE.Group(); C8(g, 0.15, 0.19, 0.26, 0, 0xb8202a); part(g, 0.03, 0.03, 0.03, 0, 0.27, 0, 0x111111); const t = part(g, 0.025, 0.16, 0.025, -0.1, 0.19, 0, 0x111111); t.rotation.z = 0.5; return g; }
+function hatSombrero() {
+  const g = new THREE.Group(); C8(g, 0.52, 0.52, 0.04, 0, 0xe0b860); C8(g, 0.1, 0.19, 0.3, 0.04, 0xe0b860);
+  C8(g, 0.18, 0.2, 0.05, 0.05, 0xd62828); C8(g, 0.155, 0.17, 0.04, 0.12, 0x2ec27e);
+  for (let k = 0; k < 10; k++) { const a = k / 10 * Math.PI * 2; part(g, 0.05, 0.03, 0.05, Math.cos(a) * 0.48, 0.03, Math.sin(a) * 0.48, k % 2 ? 0xd62828 : 0x2ec27e); }
+  return g;
+}
+function hatPolice() { const g = new THREE.Group(), n = 0x1a2a5a; C8(g, 0.2, 0.21, 0.12, 0, n); C8(g, 0.27, 0.22, 0.08, 0.12, n); part(g, 0.18, 0.025, 0.3, 0.2, 0.02, 0, 0x111111); C8(g, 0.212, 0.212, 0.04, 0.03, 0x111111); part(g, 0.02, 0.08, 0.07, 0.25, 0.15, 0, GOLD, GOLD_E); return g; }
+function hatSailor() { const g = new THREE.Group(); C8(g, 0.24, 0.21, 0.12, 0, 0xffffff); C8(g, 0.215, 0.215, 0.04, 0.02, 0x1d4fd6); for (const s of [-1, 1]) part(g, 0.14, 0.03, 0.04, -0.27, 0.0, s * 0.04, 0x1d4fd6).rotation.z = 0.7; return g; }
+function hatDetective() {
+  const g = new THREE.Group(), c = 0x9a7a4a; C8(g, 0.21, 0.22, 0.16, 0, c); sph(g, 0.21, 0, 0.15, 0, c, 0, true);
+  for (const s of [-1, 1]) part(g, 0.14, 0.025, 0.24, s * 0.26, 0.02, 0, c).rotation.z = -s * 0.15;
+  for (const s of [-1, 1]) part(g, 0.08, 0.12, 0.03, 0, 0.08, s * 0.225, 0x7a5a32);
+  part(g, 0.04, 0.04, 0.04, 0, 0.37, 0, 0x5a3a1a); return g;
+}
+function hatJester() {
+  const g = new THREE.Group(); C8(g, 0.22, 0.22, 0.08, 0, 0xffe066);
+  const L = 0.16, a = 0.7, cs = [0xd62828, 0x2ec27e, 0x1d4fd6];
+  [[0, 0.13, 1], [-0.08, 0, 0], [0, -0.13, -1]].forEach(([x, z, s], k) => {
+    const c = cyl(g, 0, 0.09, 0.32, 6, x, 0.22, z, cs[k]);
+    if (s) c.rotation.x = s * a; else c.rotation.z = a;
+    part(g, 0.06, 0.06, 0.06, s ? x : x - Math.sin(a) * L, 0.22 + Math.cos(a) * L, s ? z + s * Math.sin(a) * L : z, GOLD, GOLD_E);
+  });
+  return g;
+}
+function hatAntenna() {
+  const g = new THREE.Group(); part(g, 0.08, 0.05, 0.46, 0, 0.03, 0, 0x222222);
+  for (const s of [-1, 1]) { part(g, 0.025, 0.3, 0.025, 0, 0.2, s * 0.12, 0x222222).rotation.x = s * 0.35; sph(g, 0.05, 0, 0.2 + Math.cos(0.35) * 0.15, s * (0.12 + Math.sin(0.35) * 0.15), 0xff4a7a, 0x661030); }
+  return g;
+}
+function hatBearEars() { const g = new THREE.Group(), b = 0x8a5a32; part(g, 0.08, 0.05, 0.46, 0, 0.03, 0, b); for (const s of [-1, 1]) { sph(g, 0.1, 0, 0.12, s * 0.17, b); part(g, 0.02, 0.08, 0.08, 0.085, 0.12, s * 0.17, 0xe8b890); } return g; }
+function hatOni() {
+  const g = new THREE.Group(); C8(g, 0.21, 0.21, 0.07, 0, 0xffd21f);
+  for (let k = 0; k < 6; k++) { const a = k / 6 * Math.PI * 2; part(g, 0.04, 0.072, 0.1, Math.cos(a) * 0.2, 0.035, Math.sin(a) * 0.2, 0x111111).rotation.y = -a; }
+  C8(g, 0, 0.07, 0.24, 0.07, 0xfff4e0); return g;
+}
+function hatKabuto() {
+  const g = new THREE.Group(), k = 0x2a2a3a; C8(g, 0.24, 0.32, 0.08, -0.02, k); sph(g, 0.23, 0, 0.04, 0, k, 0, true);
+  for (const s of [-1, 1]) part(g, 0.03, 0.3, 0.05, 0.2, 0.3, s * 0.08, GOLD, GOLD_E).rotation.x = s * 0.5;
+  part(g, 0.06, 0.06, 0.06, 0.22, 0.17, 0, 0xd62828, 0x550000); return g;
+}
+function hatFrog() {
+  const g = new THREE.Group(), gr = 0x4ac24a; part(g, 0.4, 0.16, 0.4, 0, 0.08, 0, gr);
+  for (const s of [-1, 1]) { part(g, 0.13, 0.13, 0.13, 0.08, 0.2, s * 0.12, gr); part(g, 0.06, 0.07, 0.07, 0.14, 0.21, s * 0.12, 0xffffff); part(g, 0.02, 0.04, 0.04, 0.175, 0.21, s * 0.12, 0x111111); }
+  part(g, 0.02, 0.02, 0.24, 0.2, 0.06, 0, 0xd62828); return g;
+}
+function hatPudding() { const g = new THREE.Group(); C8(g, 0.26, 0.26, 0.02, 0, 0xf4f4f4); C8(g, 0.17, 0.23, 0.22, 0.02, 0xffd860); C8(g, 0.17, 0.17, 0.05, 0.24, 0x7a3a10); sph(g, 0.06, 0, 0.34, 0, 0xd62828, 0x330000); part(g, 0.015, 0.1, 0.015, -0.02, 0.42, 0, 0x2e8a3a).rotation.z = 0.4; return g; }
+function hatSoftcream() { const g = new THREE.Group(); C8(g, 0.16, 0.13, 0.12, 0, 0xd89a50); [0.17, 0.13, 0.09].forEach((r, k) => C8(g, r * 0.85, r, 0.08, 0.12 + k * 0.08, 0xfff8ee)); C8(g, 0, 0.06, 0.1, 0.36, 0xfff8ee); return g; }
+function hatDonut() {
+  const g = new THREE.Group();
+  const d = new THREE.Mesh(new THREE.TorusGeometry(0.17, 0.08, 5, 10), mat(0xd8a060)); d.rotation.x = Math.PI / 2; d.position.y = 0.08; g.add(d);
+  const ic = new THREE.Mesh(new THREE.TorusGeometry(0.17, 0.065, 4, 10), mat(0xff8ac8)); ic.rotation.x = Math.PI / 2; ic.position.y = 0.11; g.add(ic);
+  const cs = [0xffffff, 0x6ff0ff, 0xffe066];
+  for (let k = 0; k < 9; k++) { const a = k / 9 * Math.PI * 2; part(g, 0.045, 0.02, 0.02, Math.cos(a) * 0.17, 0.175, Math.sin(a) * 0.17, cs[k % 3]).rotation.y = a * 2; }
+  return g;
+}
+function hatNest() {
+  const g = new THREE.Group(); const n = new THREE.Mesh(new THREE.TorusGeometry(0.17, 0.07, 4, 10), mat(0x7a5a2a)); n.rotation.x = Math.PI / 2; n.position.y = 0.06; g.add(n);
+  C8(g, 0.15, 0.15, 0.03, 0, 0x6a4a22);
+  for (const [x, z] of [[0.04, 0.03], [-0.05, 0.04], [0, -0.06]]) sph(g, 0.06, x, 0.09, z, 0xbfe8ff).scale.y = 1.3;
+  return g;
+}
+function hatRaincloud() {
+  const g = new THREE.Group(), c = new THREE.Group(); c.position.y = 0.32; c.userData.bob = 0.04; g.add(c);
+  for (const [x, y, z, s] of [[0, 0, 0, 0.22], [0.13, -0.02, 0.1, 0.16], [-0.13, -0.03, -0.08, 0.17], [0.02, 0.06, -0.12, 0.14], [-0.08, 0.02, 0.13, 0.14]]) part(c, s, s * 0.8, s, x, y, z, 0xf0f4f8, 0x303438);
+  for (let k = 0; k < 3; k++) part(c, 0.02, 0.08, 0.02, -0.05 + k * 0.06, -0.17, (k - 1) * 0.06, 0x6fb8ff);
+  return g;
+}
+function hatSnowman() {
+  const g = new THREE.Group(); sph(g, 0.17, 0, 0.14, 0, 0xffffff); sph(g, 0.12, 0, 0.38, 0, 0xffffff);
+  for (const s of [-1, 1]) part(g, 0.02, 0.03, 0.03, 0.11, 0.41, s * 0.045, 0x111111);
+  cyl(g, 0, 0.025, 0.1, 6, 0.16, 0.38, 0, 0xff8a1f).rotation.z = -Math.PI / 2;
+  C8(g, 0.09, 0.1, 0.1, 0.46, 0xd62828); return g;
+}
+function hatTurban() {
+  const g = new THREE.Group(), w = 0xf4ecd8; C8(g, 0.15, 0.15, 0.2, 0.02, w);
+  for (let k = 0; k < 3; k++) { const t = new THREE.Mesh(new THREE.TorusGeometry(0.19 - k * 0.04, 0.07, 4, 10), mat(k % 2 ? 0xe8dcc0 : w)); t.rotation.x = Math.PI / 2; t.position.y = 0.06 + k * 0.08; g.add(t); }
+  part(g, 0.05, 0.08, 0.06, 0.25, 0.1, 0, 0x2ec2c2, 0x116666); part(g, 0.02, 0.12, 0.02, 0.24, 0.19, 0, 0xffffff); return g;
+}
+function hatNurse() {
+  const g = new THREE.Group(), c = new THREE.Group(); c.rotation.z = -0.25; g.add(c);
+  part(c, 0.2, 0.12, 0.36, 0.06, 0.08, 0, 0xffffff); part(c, 0.02, 0.08, 0.025, 0.165, 0.09, 0, 0xd62828); part(c, 0.02, 0.025, 0.08, 0.165, 0.09, 0, 0xd62828);
+  return g;
+}
+function hatPlant() {
+  const g = new THREE.Group(); C8(g, 0.15, 0.12, 0.16, 0, 0xc86a3a); C8(g, 0.14, 0.14, 0.02, 0.15, 0x5a3a1a); part(g, 0.025, 0.2, 0.025, 0, 0.25, 0, 0x2e8a3a);
+  for (const s of [-1, 1]) part(g, 0.06, 0.03, 0.16, 0, 0.3 + s * 0.03, s * 0.08, 0x4ac24a).rotation.x = s * 0.5;
+  part(g, 0.09, 0.09, 0.09, 0, 0.38, 0, 0xffe066); return g;
+}
+function hatStarBand() {
+  const g = new THREE.Group(); part(g, 0.08, 0.05, 0.46, 0, 0.03, 0, 0x8a5ad8); part(g, 0.025, 0.2, 0.025, 0, 0.15, 0, 0x8a5ad8);
+  const s = new THREE.Group(); s.position.y = 0.32; s.userData.spin = 2; g.add(s);
+  part(s, 0.07, 0.26, 0.05, 0, 0, 0, 0xffe066, 0x886600);
+  for (const r of [1.26, -1.26, 2.5, -2.5]) { const p = part(s, 0.07, 0.13, 0.05, -Math.sin(r) * 0.06, Math.cos(r) * 0.06, 0, 0xffe066, 0x886600); p.rotation.z = r; }
+  return g;
+}
+function hatXmasTree() {
+  const g = new THREE.Group(); [[0.22, 0], [0.17, 0.13], [0.12, 0.25]].forEach(([r, y]) => C8(g, 0, r, 0.2, y, 0x2e8a3a));
+  part(g, 0.08, 0.08, 0.08, 0, 0.47, 0, 0xffe066, 0x886600);
+  const cs = [0xd62828, 0x1d6fd6, 0xffe066];
+  for (let k = 0; k < 7; k++) { const a = k * 2.4, y = 0.05 + k * 0.05, r = (0.2 - k * 0.022) * 0.8; part(g, 0.04, 0.04, 0.04, Math.cos(a) * r, y, Math.sin(a) * r, cs[k % 3], 0x222222); }
+  return g;
+}
+function hatShark() { const g = new THREE.Group(), gr = 0x6a7a8a; part(g, 0.34, 0.08, 0.3, 0, 0.04, 0, gr); const f = cyl(g, 0, 0.15, 0.34, 3, -0.04, 0.24, 0, gr); f.scale.z = 0.35; f.rotation.z = 0.25; return g; }
+function hatBread() { const g = new THREE.Group(); part(g, 0.38, 0.22, 0.12, 0, 0.11, 0, 0xc8823a); part(g, 0.34, 0.18, 0.125, 0, 0.11, 0, 0xfff0d0); sph(g, 0.19, 0, 0.21, 0, 0xc8823a, 0, true).scale.set(1, 0.5, 0.33); return g; }
+// ---- おかね袋(エンドレスの とっくん) ----
+function makeBag() {
+  const g = new THREE.Group(), b = new THREE.Group(); b.position.y = 0.42; g.add(b);
+  sph(b, 0.26, 0, 0, 0, 0xc8a060); part(b, 0.15, 0.1, 0.15, 0, 0.25, 0, 0xc8a060); part(b, 0.2, 0.05, 0.2, 0, 0.2, 0, 0x8a5a2a);
+  part(b, 0.16, 0.16, 0.02, 0, 0, 0.255, 0xffc93a, 0x664400); part(b, 0.06, 0.08, 0.025, 0, 0, 0.262, 0xc8a060);
+  return g;
+}
 // ---- じっせきの帽子 ----
 function hatHeadgear() {
   const g = new THREE.Group(), r = 0xd62828;
@@ -3110,6 +3280,31 @@ const BUILTIN_HATS = [
   { id: 'nightcap', name: 'ナイトキャップ', kind: 'road', make: hatNightcap },
   { id: 'eggshell', name: 'たまごのから', kind: 'road', make: hatEggshell },
   { id: 'onigiri', name: 'おにぎり', kind: 'road', make: hatOnigiri },
+  // 道で拾える帽子(追加分 その2。パスワードでは いちばん後ろに並べる)
+  { id: 'fez', name: 'トルコ帽', kind: 'road', make: hatFez },
+  { id: 'sombrero', name: 'ソンブレロ', kind: 'road', make: hatSombrero },
+  { id: 'policecap', name: 'おまわりさんの帽子', kind: 'road', make: hatPolice },
+  { id: 'sailor', name: 'セーラー帽', kind: 'road', make: hatSailor },
+  { id: 'detective', name: '名探偵の帽子', kind: 'road', make: hatDetective },
+  { id: 'jester', name: 'ピエロの帽子', kind: 'road', make: hatJester },
+  { id: 'antenna', name: 'しょっかく カチューシャ', kind: 'road', make: hatAntenna },
+  { id: 'bearears', name: 'クマみみ', kind: 'road', make: hatBearEars },
+  { id: 'oni', name: '鬼のツノ', kind: 'road', make: hatOni },
+  { id: 'kabuto', name: '五月人形の かぶと', kind: 'road', make: hatKabuto },
+  { id: 'frog', name: 'カエル', kind: 'road', make: hatFrog },
+  { id: 'pudding', name: 'プリン', kind: 'road', make: hatPudding },
+  { id: 'softcream', name: 'ソフトクリーム', kind: 'road', make: hatSoftcream },
+  { id: 'donut', name: 'ドーナツ', kind: 'road', make: hatDonut },
+  { id: 'nest', name: '鳥の巣', kind: 'road', make: hatNest },
+  { id: 'raincloud', name: 'あまぐも', kind: 'road', make: hatRaincloud },
+  { id: 'snowman', name: '雪だるま', kind: 'road', make: hatSnowman },
+  { id: 'turban', name: 'ターバン', kind: 'road', make: hatTurban },
+  { id: 'nursecap', name: 'ナースキャップ', kind: 'road', make: hatNurse },
+  { id: 'plant', name: 'はちうえ', kind: 'road', make: hatPlant },
+  { id: 'starband', name: 'ほしの カチューシャ', kind: 'road', make: hatStarBand },
+  { id: 'xmastree', name: 'クリスマスツリー', kind: 'road', make: hatXmasTree },
+  { id: 'sharkfin', name: 'サメの せびれ', kind: 'road', make: hatShark },
+  { id: 'bread', name: '食パン', kind: 'road', make: hatBread },
   // じっせき(実績)でもらえる帽子(パスワードの互換のため最後に足す)
   { id: 'headgear', name: 'チャンピオンのヘッドギア', kind: 'ach', make: hatHeadgear },
   { id: 'zabuton', name: 'ざぶとん', kind: 'ach', make: hatZabuton },
@@ -3125,6 +3320,8 @@ const BUILTIN_HATS = [
 const ACH_HATS = ['headgear', 'zabuton', 'sugegasa', 'kappa', 'bandage', 'senryo', 'negitaba', 'hattower'];
 // あとから足したじっせきの帽子。パスワードでは自作 FBX 帽子のさらに後ろに並べる(前のパスワードがそのまま読めるように)
 const LATE_HATS = ['patlamp', 'goggles'];
+const NEW_ROAD_HATS2 = ['fez', 'sombrero', 'policecap', 'sailor', 'detective', 'jester', 'antenna', 'bearears', 'oni', 'kabuto', 'frog', 'pudding',
+                        'softcream', 'donut', 'nest', 'raincloud', 'snowman', 'turban', 'nursecap', 'plant', 'starband', 'xmastree', 'sharkfin', 'bread'];
 const NEW_ROAD_HATS = ['bucket', 'beret', 'santa', 'pirate', 'flowercrown', 'headphones', 'mushroom', 'bunny', 'watermelon', 'nightcap', 'eggshell', 'onigiri'];const HAT_DEFAULTS = { autoFit: false, size: 0.6, scale: 1, offset: [0, 0, 0], rotation: [0, 0, 0] };
 const HATS = BUILTIN_HATS.map(h => ({ ...HAT_DEFAULTS, ...h }));
 for (const u of (Array.isArray(window.HAT_LIST) ? window.HAT_LIST : [])) {
@@ -3233,7 +3430,7 @@ function refreshTitleHat() {
   const def = HATS[browseIdx], un = isUnlocked(def);
   const got = HATS.filter(isUnlocked).length;
   $('hatName').textContent = un ? def.name : '？？？';
-  $('hatInfo').textContent = un ? `★そうび中　${got}/${HATS.length}`
+  $('hatInfo').textContent = un ? `${favHats.has(def.id) ? '★おきにいり' : '★そうび中'}　${got}/${HATS.length}`
     : def.kind === 'best' ? `${def.best}m 地点の特別な帽子`
     : def.kind === 'shop' ? `ショップで買える ● ${def.price}`
     : def.kind === 'ach' ? `じっせき「${(ACHS.find(a => a.hat === def.id) || {}).name}」で もらえる` : '道で拾える帽子';
@@ -3243,8 +3440,57 @@ function refreshTitleHat() {
   showHat(def, !un);
 }
 function browseHat(d) {
-  browseIdx = (browseIdx + d + HATS.length) % HATS.length;
+  // 「おきにいりだけ」が ON なら、おきにいりの帽子だけ じゅんばんに
+  const favs = favBrowse ? HATS.filter(h => favHats.has(h.id) && isUnlocked(h)) : [];
+  if (favs.length) {
+    const k = favs.indexOf(HATS[browseIdx]);
+    browseIdx = HATS.indexOf(favs[k < 0 ? (d > 0 ? 0 : favs.length - 1) : (k + d + favs.length) % favs.length]);
+  } else browseIdx = (browseIdx + d + HATS.length) % HATS.length;
   refreshTitleHat();
+}
+// ---- ぼうし いちらん(おきにいり) ----
+const FAV_KEY = 'kamo_fav', FAVB_KEY = 'kamo_favbrowse';
+const favHats = new Set(store.json(FAV_KEY, []));
+let favBrowse = store.get(FAVB_KEY) === '1', hatFilter = 'all', hatListFromTitle = false;
+const saveFav = () => { store.set(FAV_KEY, JSON.stringify([...favHats])); store.set(FAVB_KEY, favBrowse ? '1' : '0'); };
+function hatHow(d) {
+  return d.kind === 'start' ? 'さいしょから' : d.kind === 'best' ? `${d.best}m 地点` : d.kind === 'shop' ? `ショップ ● ${d.price}`
+    : d.kind === 'ach' ? `じっせき「${(ACHS.find(a => a.hat === d.id) || {}).name || '？'}」` : '道で ひろう';
+}
+function buildHatList() {
+  const list = HATS.filter(d => hatFilter === 'all' || (hatFilter === 'own' ? isUnlocked(d) : favHats.has(d.id) && isUnlocked(d)))
+    .sort((a, b) => isUnlocked(b) - isUnlocked(a));   // もっている帽子が先
+  $('hatCount').textContent = `${HATS.filter(isUnlocked).length} / ${HATS.length}`;
+  for (const b of document.querySelectorAll('.hlTab[data-f]')) b.classList.toggle('on', b.dataset.f === hatFilter);
+  $('favBrowseBtn').textContent = `◄► で おきにいりだけ: ${favBrowse ? 'ON' : 'OFF'}`;
+  $('favBrowseBtn').classList.toggle('on', favBrowse);
+  const cur = HATS[browseIdx];
+  $('hatGrid').innerHTML = list.length ? list.map(d => {
+    const un = isUnlocked(d), fav = favHats.has(d.id);
+    return `<div class="hcard${un ? ' own' : ''}${d === cur && un ? ' cur' : ''}"><button class="hcw" data-i="${HATS.indexOf(d)}">${un ? d.name : '？？？'}` +
+      `<small>${un && d === cur ? '★ かぶってる' : hatHow(d)}</small></button>` +
+      (un ? `<button class="hfav${fav ? ' on' : ''}" data-id="${d.id}">${fav ? '★' : '☆'}</button>` : '') + '</div>';
+  }).join('') : `<div class="hlEmpty">${hatFilter === 'fav' ? '☆ を おすと おきにいりに なるよ' : 'まだ ないよ'}</div>`;
+  for (const b of $('hatGrid').querySelectorAll('.hcw')) b.addEventListener('click', e => {
+    e.currentTarget.blur(); const i = +b.dataset.i;
+    if (!isUnlocked(HATS[i])) return;
+    browseIdx = i; refreshTitleHat(); closeHatList();
+  });
+  for (const b of $('hatGrid').querySelectorAll('.hfav')) b.addEventListener('click', e => {
+    e.currentTarget.blur(); const id = b.dataset.id;
+    if (favHats.has(id)) favHats.delete(id); else favHats.add(id);
+    saveFav(); const st = $('hatGrid').scrollTop; buildHatList(); $('hatGrid').scrollTop = st; refreshTitleHat();
+  });
+}
+function openHatList() {
+  if (state !== 'title') return;
+  hatListFromTitle = !menuOpen; buildHatList(); $('hatBox').classList.remove('hidden'); $('title').classList.add('hidden');
+  const c = $('hatGrid').querySelector('.cur'); if (c) $('hatGrid').scrollTop = Math.max(0, c.offsetTop - $('hatGrid').offsetTop - 30);
+}
+function closeHatList() {
+  if ($('hatBox').classList.contains('hidden')) return;
+  $('hatBox').classList.add('hidden');
+  if (state === 'title' && !menuOpen) $('title').classList.remove('hidden');
 }
 // 帽子を拾った
 function gainHat(def, banner) {
@@ -3346,7 +3592,7 @@ function buildAch() {
     } else left = 'ちょうせんしてみよう';
     h += `<button class="acard${done ? ' done' : ''}" data-hat="${a.hat}"><span class="an"><span class="am">${done ? '★' : '☆'}</span> ${a.name}</span>` +
       `<span class="ad">${a.desc}</span>${bar}` +
-      `<span class="afoot"><span>${left}</span><span class="rw">${done ? '▶ かぶる' : 'ほうび: ぼうし？'}</span></span></button>`;
+      `<span class="afoot"><span>${left}</span><span class="rw">${done ? '► かぶる' : 'ほうび: ぼうし？'}</span></span></button>`;
   }
   $('achList').innerHTML = h; $('achCount').textContent = `たっせい ${n}/${ACHS.length}`;
   $('achBar').style.width = `${n / ACHS.length * 100}%`;
@@ -3357,11 +3603,14 @@ function buildAch() {
 function openAch() { buildAch(); $('achBox').classList.remove('hidden'); }
 function closeAch() { $('achBox').classList.add('hidden'); }
 // ---- パスワード(集めた帽子とハイスコアを文字にして持ち運べる) ----
-const SAVE_IDS = [...BUILTIN_HATS.map(h => h.id).filter(id => !LATE_HATS.includes(id)),
-                  ...(Array.isArray(window.HAT_LIST) ? window.HAT_LIST : []).filter(u => u && u.file).map(u => u.id || u.file), ...LATE_HATS]
+// 以前のパスワードでは、自作 FBX の帽子の場所に テスト帽子 3つぶんの枠があった(前のパスワードが読めるように 枠だけ残す)
+const PW_OLD_FBX = ['test01', 'test02', 'test03'];
+const V4_IDS = [...BUILTIN_HATS.map(h => h.id).filter(id => !LATE_HATS.includes(id) && !NEW_ROAD_HATS2.includes(id)), ...PW_OLD_FBX, ...LATE_HATS];
+const SAVE_IDS = [...V4_IDS, ...NEW_ROAD_HATS2,
+                  ...(Array.isArray(window.HAT_LIST) ? window.HAT_LIST : []).filter(u => u && u.file).map(u => u.id || u.file)]
   .filter((v, i, a) => a.indexOf(v) === i);
 // 帽子を増やす前のパスワードも読めるように、そのときの帽子の並びも覚えておく
-const V3_IDS = SAVE_IDS.filter(id => !LATE_HATS.includes(id));
+const V3_IDS = V4_IDS.filter(id => !LATE_HATS.includes(id));
 const PREV_IDS = V3_IDS.filter(id => !ACH_HATS.includes(id));
 const LEGACY_IDS = PREV_IDS.filter(id => !NEW_ROAD_HATS.includes(id));
 const B32 = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
@@ -3407,7 +3656,7 @@ function readPassword(str) {
     val = (val << 5) | v; bits += 5;
     if (bits >= 8) { raw.push((val >> (bits - 8)) & 255); bits -= 8; val &= (1 << bits) - 1; }
   }
-  return decodePw(raw, SAVE_IDS) || decodePw(raw, V3_IDS) || decodePw(raw, PREV_IDS) || decodePw(raw, LEGACY_IDS);
+  return decodePw(raw, SAVE_IDS) || decodePw(raw, V4_IDS) || decodePw(raw, V3_IDS) || decodePw(raw, PREV_IDS) || decodePw(raw, LEGACY_IDS);
 }
 
 // ---- コインと強化(ショップ) ----
@@ -3421,10 +3670,10 @@ const saveUpg = () => store.set(UPG_KEY, JSON.stringify(upg));
 const BOOST_KEY = 'kamo_boost';
 const BOOST_IDS = ['biscuit', 'drink'];   // パスワードでの番号(順番を変えないこと)
 const BOOSTS = {
-  biscuit: { name: 'ほしのビスケット', icon: '★', unlock: 'dog5', price: () => shopCfg().biscuitPrice ?? 60,
+  biscuit: { name: 'ほしのビスケット', short: 'ビスケット', icon: '★', unlock: 'dog5', price: () => shopCfg().biscuitPrice ?? 90,
     what: 'たべると、つぎの 3ゲームの あいだ ハートが 1つ ふえる', eff: 'ハート +1(3ゲーム)',
     hint: 'サクッと うまい ほしのビスケット！', bought: 'まいど！ つぎの 3ゲーム、ハートが 1つ ふえるワン！ サクッ★' },
-  drink: { name: 'ハオドリンク', icon: '⚡', unlock: 'far70', price: () => shopCfg().drinkPrice ?? 50,
+  drink: { name: 'ハオドリンク', short: 'ドリンク', icon: '⚡', unlock: 'far70', price: () => shopCfg().drinkPrice ?? 75,
     what: 'のむと、つぎの 3ゲームの あいだ スウェイの かいふくが 1.5ばい はやくなる', eff: 'スウェイの回復 ×1.5(3ゲーム)',
     hint: 'シュワッと きく ハオドリンク！', bought: 'まいど！ つぎの 3ゲーム、スウェイが ビュンビュン もどるワン！ ゴクッ' },
 };
@@ -3434,9 +3683,23 @@ let runBoost = null;   // このゲームで効いているどうぐ
 const saveBoost = () => { store.set(BISCUIT_KEY, boostLeft); store.set(BOOST_KEY, boostId); };
 const shopCfg = () => CFG.shop || {};
 const lvVal = (arr, lv, def) => (Array.isArray(arr) && arr[lv - 1] != null ? arr[lv - 1] : def);
-const starDuration = () => CFG.negi.duration + lvVal(shopCfg().starAdd, upg.star, 0);
-const speedMul = () => lvVal(shopCfg().speedMul, upg.speed, 1);
-const swayCooldown = () => CFG.sway.cooldown * lvVal(shopCfg().swayMul, upg.sway, 1) / (runBoost === 'drink' ? (shopCfg().drinkMul ?? 1.5) : 1);
+// ---- エンドレス: しゅっぱつ前の とっくん ----
+// そのゲームだけの強化。ショップで きたえた分に さらに上のせ。ゲームオーバーで なくなる。
+// 1ゲームで かえるのは maxBuys 回まで。Lv5 は それぞれの アビリティ(Lv5 の数値は Lv4 と同じ)
+const eshopCfg = () => ({ prices: [22, 30, 38, 46, 66], maxBuys: 8, ...(CFG.endlessShop || {}) });
+const runUp = { speed: 0, sway: 0, star: 0, hp: 0, coin: 0 };
+let runSpent = 0, coinAcc = 0, windT = 0;
+// 1レベルごとの上がり幅は Lv1:大きめ → Lv2:ふつう → Lv3:小さめ → Lv4:いちばん大きい(だいたい 3:2:1:4)。
+// 1レベルだけ買って ほかに回すのも アリになるように
+const RUN_SPEED = [1, 1.04, 1.06, 1.07, 1.12], RUN_SWAY = [1, 0.93, 0.88, 0.86, 0.76], RUN_STAR = [0, 0.7, 1.2, 1.4, 2.4],
+      RUN_HEART = [0, 1, 1, 1, 2], RUN_ARMOR = [0, 0, 0.5, 0.8, 0.8], RUN_COIN = [1, 1.18, 1.3, 1.36, 1.6];
+const rl = (arr, id) => arr[Math.min(runUp[id], 4)];
+const runBuys = () => runUp.speed + runUp.sway + runUp.star + runUp.hp + runUp.coin;
+function resetRunUp() { for (const k in runUp) runUp[k] = 0; runSpent = 0; coinAcc = 0; windT = 0; bagOn = false; }
+
+const starDuration = () => CFG.negi.duration + lvVal(shopCfg().starAdd, upg.star, 0) + rl(RUN_STAR, 'star');
+const speedMul = () => lvVal(shopCfg().speedMul, upg.speed, 1) * rl(RUN_SPEED, 'speed') * (windT > 0 ? 1.3 : 1);
+const swayCooldown = () => CFG.sway.cooldown * lvVal(shopCfg().swayMul, upg.sway, 1) * rl(RUN_SWAY, 'sway') / (runBoost === 'drink' ? (shopCfg().drinkMul ?? 1.5) : 1);
 const UPGRADES = [
   { id: 'hp', name: 'たいりょく', val: lv => lv, fmt: v => '♥' + v,
     cost: lv => lvVal(shopCfg().hpCost, lv, 9999), what: 'ハートが ふえる。 くるまや いぬに 1かい たえられる' },
@@ -3448,13 +3711,84 @@ const UPGRADES = [
     cost: lv => lvVal(shopCfg().upgradeCost, lv, 9999), what: 'スウェイが はやく つかえる' },
 ];
 const biscuitPrice = () => shopCfg().biscuitPrice ?? 40;
+const pct = v => Math.round(Math.abs(v - 1) * 100) + '%';
+const RUN_UPS = [
+  { id: 'speed', name: '移動スピード', what: 'あしが さらに はやくなる', fmt: l => `スピード +${pct(RUN_SPEED[l])}`,
+    ab: 'おいかぜ', abWhat: 'スウェイの あと 1.2秒だけ スピード ×1.3' },
+  { id: 'sway', name: 'スウェイの回復', what: 'スウェイが さらに はやく もどる', fmt: l => `回復時間 -${pct(RUN_SWAY[l])}`,
+    ab: 'ダブルスウェイ', abWhat: 'スウェイを 2回 つづけて つかえる(どちらも 回復が いる)' },
+  { id: 'star', name: '無敵時間', what: 'ネギの むてきが さらに ながくなる', fmt: l => `むてき +${RUN_STAR[l].toFixed(1)}秒`,
+    ab: 'ネギパワー', abWhat: 'むてき中に 車を ぶっとばすと むてきが 0.3秒 のびる(1回の むてきで 3秒まで)' },
+  { id: 'hp', name: 'たいりょく', what: 'ハートと、やられた あとの すりぬけ時間が ふえる', fmt: l => `♥+${RUN_HEART[l]}` + (RUN_ARMOR[l] ? ` すりぬけ+${RUN_ARMOR[l]}秒` : ''),
+    ab: 'ガッツ', abWhat: '1ゲームに 1回だけ、さいごの ♥が なくなっても ♥1で ふんばる' },
+  { id: 'coin', name: 'コインあつめ', what: 'ひろった コインが ふえる', fmt: l => `コイン ×${RUN_COIN[l].toFixed(2)}`,
+    ab: 'おかね袋', abWhat: 'ときどき 道に おかね袋が おちている(ひろうと コイン 25〜40まい)' },
+];
+let prepSel = 0;
+const prepOpen = () => !$('prepBox').classList.contains('hidden');
+function prepSay(s) { $('prepMsg').textContent = s; }
+function buildPrep() {
+  const cfg = eshopCfg(), left = cfg.maxBuys - runBuys();
+  $('prepCoins').textContent = `● ${coins}`;
+  $('prepInfo').innerHTML = `<span>このゲームだけ(ゲームオーバーで なくなる)</span><span>のこり ${left}/${cfg.maxBuys}回</span>`;
+  $('prepList').innerHTML = RUN_UPS.map((u, i) => {
+    const lv = runUp[u.id], max = lv >= 5, pr = cfg.prices[lv], l4 = Math.min(lv, 4);
+    const st = max ? 'max' : left <= 0 || coins < pr ? 'no' : 'ok';
+    const pips = '■'.repeat(l4) + '□'.repeat(4 - l4) + (max ? '◆' : '◇');
+    return `<button class="srow ${st}${i === prepSel ? ' sel' : ''}" data-i="${i}"><span class="cur">►</span>` +
+      `<span class="sn">${u.name}<span class="pips">${pips}</span></span><span class="pr">${max ? 'MAX' : '● ' + pr}</span></button>`;
+  }).join('');
+  for (const b of $('prepList').querySelectorAll('.srow')) b.addEventListener('click', e => {
+    e.currentTarget.blur(); const i = +b.dataset.i;
+    if (i === prepSel && e.detail === 0) { prepBuy(); return; }
+    prepSel = i; buildPrep(); const u = RUN_UPS[i]; prepSay(`${u.name}: ${u.what}。 Lv5で「${u.ab}」`);
+  });
+  prepDetail();
+}
+function prepDetail() {
+  const cfg = eshopCfg(), u = RUN_UPS[prepSel], lv = runUp[u.id], pr = cfg.prices[lv], left = cfg.maxBuys - runBuys();
+  const eff = lv >= 5 ? `アビリティ「${u.ab}」 かくとく！` : lv === 4 ? `いま ${u.fmt(4)} → つぎ アビリティ「${u.ab}」` : (lv ? `いま ${u.fmt(lv)} → ` : '') + `つぎ ${u.fmt(lv + 1)}`;
+  let btn;
+  if (lv >= 5) btn = '<div class="dDone">MAX！</div>';
+  else if (left <= 0) btn = `<div class="dDone">もう ${cfg.maxBuys}回 かったよ</div>`;
+  else if (coins < pr) btn = `<button class="buyBtn off" disabled>● ${pr}</button><div class="dLack">コインが あと ${pr - coins}まい たりない</div>`;
+  else btn = `<button id="prepBuyBtn" class="buyBtn">かう　● ${pr}</button>`;
+  $('shopDetail2').innerHTML = `<div class="dTag">このゲームだけ</div><div class="dName">${u.name}</div><div class="dLv">Lv ${lv} / 5</div>` +
+    `<div class="dWhat">${u.what}</div><div class="dEff">${eff}</div><div class="dAb">Lv5「${u.ab}」: ${u.abWhat}</div>` + btn;
+  const bb = $('prepBuyBtn'); if (bb) bb.addEventListener('click', e => { e.currentTarget.blur(); prepBuy(); });
+}
+function prepBuy() {
+  const cfg = eshopCfg(), u = RUN_UPS[prepSel], lv = runUp[u.id], pr = cfg.prices[lv];
+  if (lv >= 5) { prepSay(`${u.name}は もう MAX だワン！`); return; }
+  if (runBuys() >= cfg.maxBuys) { prepSay(`1ゲームで かえるのは ${cfg.maxBuys}回 までだワン。 さあ しゅっぱつだ！`); return; }
+  if (coins < pr) { prepSay('コインが たりないワン…'); return; }
+  coins -= pr; runSpent += pr; store.set(COIN_KEY, coins); runUp[u.id]++; updateCoinUI();
+  buildPrep();
+  prepSay(runUp[u.id] >= 5 ? `アビリティ「${u.ab}」を おぼえた！ ${u.abWhat}` : `${u.name}が Lv${runUp[u.id]} に なった！ ${u.fmt(runUp[u.id])}`);
+}
+function prepMove(d) { prepSel = (prepSel + d + RUN_UPS.length) % RUN_UPS.length; buildPrep(); }
+function openPrep() {
+  resetRunUp(); buildPrep(); $('prepBox').classList.remove('hidden'); $('title').classList.add('hidden');
+  prepSay(`とっくんして いくかい？ ${eshopCfg().maxBuys}回まで かえるぜ。 もとを とれるかな？ ワン！`);
+}
+// もどるときは つかったコインを かえす
+function cancelPrep() {
+  coins += runSpent; store.set(COIN_KEY, coins); resetRunUp(); updateCoinUI();
+  $('prepBox').classList.add('hidden'); if (state === 'title') $('title').classList.remove('hidden');
+}
+function prepGo() { $('prepBox').classList.add('hidden'); startGame(); }
+// スタート: エンドレスは とっくん画面を はさむ
+function beginRun() { if (endless) openPrep(); else startGame(); }
+// ひろったコイン。エンドレスの「コインあつめ」は はしたを ためておいて 1枚ずつ ふやす。実際に ふえた枚数を返す
 function addCoins(n) {
+  if (state === 'play' && runUp.coin > 0) { coinAcc += n * rl(RUN_COIN, 'coin'); n = Math.floor(coinAcc + 1e-6); coinAcc -= n; }
   coins += n; runCoins += n; stats.coins += n; store.set(COIN_KEY, coins);
+  return n;
 }
 function updateCoinUI() {
   $('coin').textContent = `● ${coins}`;
-  $('titleCoin').innerHTML = `● ${coins} コイン` + (boostLeft > 0 ? `　${BOOSTS[boostId].icon}×${boostLeft}` : '');
-  $('titleCoin').title = boostLeft > 0 ? `${BOOSTS[boostId].name} のこり${boostLeft}回` : '';
+  $('titleCoin').innerHTML = `● ${coins} コイン`;
+  $('titleBoost').textContent = boostLeft > 0 ? `${BOOSTS[boostId].icon}${BOOSTS[boostId].short} ×${boostLeft}` : '';
   $('shopCoins').textContent = `● ${coins}`;
 }
 // 店主: ヘリコプター犬(しっぽがプロペラ)。ちょっとマッチョで、ちょっとかわいい
@@ -3512,7 +3846,7 @@ function buildShop() {
     const st = it.own ? 'own' : it.max ? 'max' : coins < it.price ? 'no' : 'ok';
     const pr = it.own ? 'もってる' : it.max ? (it.maxLabel || 'MAX') : '● ' + it.price;
     const pips = it.mx ? `<span class="pips">${'■'.repeat(it.lv)}${'□'.repeat(it.mx - it.lv)}</span>` : '';
-    h += `<button class="srow ${st}${i === shopSel ? ' sel' : ''}" data-i="${i}"><span class="cur">▶</span>` +
+    h += `<button class="srow ${st}${i === shopSel ? ' sel' : ''}" data-i="${i}"><span class="cur">►</span>` +
       `<span class="sn">${it.name}${pips}</span><span class="pr">${pr}</span></button>`;
   });
   $('shopList').innerHTML = h;
@@ -3606,6 +3940,7 @@ let menuOpen = false, menuBlue = 0, menuSel = 0;
 const DOG_FACE = document.querySelector('.shopMsg .face').innerHTML;
 document.querySelectorAll('svg.dogface').forEach(s => { s.innerHTML = DOG_FACE; });
 const MENU_SAY = {
+  hats: 'ぼうしが いっぱい！ おきにいりも きめられるワン',
   start: 'さあ、道路を わたろう！ 車に 気をつけるワン！',
   shop: 'コインが あるなら よっていきな！ ブルルン♪',
   ach: 'ちょうせんすると ぼうしが もらえるワン',
@@ -3633,11 +3968,12 @@ function closeMenu() {
   if (state === 'title') $('title').classList.remove('hidden');
 }
 function menuDo(act) {
-  if (act === 'start') { closeMenu(); startGame(); }
+  if (act === 'start') { closeMenu(); beginRun(); }
   else if (act === 'shop') openShop();
   else if (act === 'ach') openAch();
   else if (act === 'pw') openPw();
   else if (act === 'rec') openRec();
+  else if (act === 'hats') openHatList();
   else if (act === 'mode') { setMode(!endless); menuSelect(menuSel); }
   else closeMenu();
 }
@@ -3709,7 +4045,7 @@ function drawMenu(t, itemsToo = true) {
     const sel = b.classList.contains('sel'), sub = b.querySelector('.ms');
     rg.selectNodeContents(b.firstChild); const rr = rg.getBoundingClientRect(), r = { x: (rr.left - S.left) * k, y: (rr.top - S.top) * k };
     txt(b.firstChild.textContent, r.x, r.y, fs(b), sel ? '#ffe680' : '#e6f4ff', sel ? '#ff9a00' : '#2f8cff');
-    if (sel && Math.floor(t * 2.5) % 2 === 0) txt('▶', r.x - fs(b) * 1.05, r.y + fs(b) * 0.15, fs(b) * 0.75, '#ffe680', '#ff9a00');
+    if (sel && Math.floor(t * 2.5) % 2 === 0) txt('►', r.x - fs(b) * 1.05, r.y + fs(b) * 0.15, fs(b) * 0.75, '#ffe680', '#ff9a00');
     const rs = R(sub); txt(sub.textContent, rs.x, rs.y, fs(sub), sel ? '#d8e6ff' : '#9ab8f0', '#000a3a');
   }
   // ふきだし
@@ -3735,7 +4071,7 @@ function drawMenu(t, itemsToo = true) {
 // ---- タイトル・ショップ・じっせき・きろく・パスワード・ゲームオーバーの文字やボタンも、レトロ加工の下に描く ----
 // HTML は「.ghost」で見えなくして(さわれる)、その配置・色をキャンバスに写す
 const GHOST_TITLE = ['titleStat', 'pressStart', 'hatSel', 'help', 'menuWrap', 'modeBtn', 'fbxBtn'];
-const GHOST_MODAL = ['shopBox', 'achBox', 'recBox', 'pwBox'];
+const GHOST_MODAL = ['shopBox', 'achBox', 'recBox', 'pwBox', 'prepBox', 'hatBox'];
 let uiOps = [], uiDirty = true, uiFrame = 0, uiActive = false, uiFlat = false;
 for (const ev of ['scroll', 'input', 'click', 'keydown', 'pointerover', 'pointerout', 'focusin']) document.addEventListener(ev, () => { uiDirty = true; }, true);
 const rgx = document.createRange();
@@ -3871,7 +4207,7 @@ function setMode(e) {
 }
 function updateModeUI() {
   const name = endless ? 'エンドレス ∞' : `ゴールをめざす ${GOAL_M()}m`;
-  $('modeBtn').innerHTML = `<span class="kbHelp">↑↓ </span>モード: ${name}`;
+  $('modeBtn').innerHTML = `<small><span class="kbHelp">↑↓ </span>モード</small>${endless ? 'エンドレス ∞' : `ゴール ${GOAL_M()}m`}`;
   $('msMode').classList.toggle('hidden', !cleared);
   $('msMode').querySelector('.ms').textContent = name;
 }
@@ -3899,7 +4235,7 @@ $('c').addEventListener('pointermove', e => {
   fbxView.yaw = y; syncFbxView();
 });
 for (const ev of ['pointerup', 'pointercancel']) $('c').addEventListener(ev, () => { fbxDrag = null; });
-const modalOpen = () => !$('pwBox').classList.contains('hidden') || !$('recBox').classList.contains('hidden') || !$('achBox').classList.contains('hidden') || !$('shopBox').classList.contains('hidden') || !$('fbxBox').classList.contains('hidden');
+const modalOpen = () => !$('hatBox').classList.contains('hidden') || !$('prepBox').classList.contains('hidden') || !$('pwBox').classList.contains('hidden') || !$('recBox').classList.contains('hidden') || !$('achBox').classList.contains('hidden') || !$('shopBox').classList.contains('hidden') || !$('fbxBox').classList.contains('hidden');
 function openPw() { $('pwCode').textContent = makePassword(); $('pwInput').value = ''; $('pwBox').classList.remove('hidden'); }
 function closePw() { $('pwBox').classList.add('hidden'); }
 function loadPw() {
@@ -4040,12 +4376,15 @@ function knockVehicle(lane, v, dirX, byDuck = false) {
   lane.vehicles.splice(k, 1);
   if (byDuck) {
     stats.carKO++; if (v.coin) stats.coinCar++;
-    if (starT > 0 && state === 'play') { run.starKO++; run.starKOMax = Math.max(run.starKOMax || 0, run.starKO); }
+    if (starT > 0 && state === 'play') {
+      run.starKO++; run.starKOMax = Math.max(run.starKOMax || 0, run.starKO);
+      // ネギパワー: ぶっとばすと むてきが 少し のびる(1回の むてきで 3秒まで)
+      if (runUp.star >= 5 && (run.starExt || 0) < 3) { const a = Math.min(0.3, 3 - (run.starExt || 0)); starT += a; run.starExt = (run.starExt || 0) + a; }
+    }
   }
   if (v.coin && byDuck) {
     // コインを乗せた車を無敵でぶっ飛ばした
-    const n = CFG.coins.carBonus;
-    addCoins(n);
+    const n = addCoins(CFG.coins.carBonus);
     v.mesh.remove(v.coin); v.coin = null;
     showBanner('コイン', `+${n}`); flashT = Math.max(flashT, 0.4);
     emit(30, lane.i * LW, lane.elev + 1.8, v.z, [0xffc93a, 0xffe066, 0xffffff],
@@ -4164,7 +4503,7 @@ function resetWorld() {
   clearLanes(); clearParticles(); clearFlyers(); clearDropCoins(); resetLaneGen();
   zoneSeq = []; zoneHill = [];
   Object.assign(duck, { x: 0, y: 0.2, z: 0, vx: 0, facing: 1, phase: 0, look: 0 });
-  sway.t = 0; sway.cd = 0;
+  sway.t = 0; sway.cd = 0; sway.cd2 = 0;
   setStar(0); armorT = 0; D.root.visible = true;
   // 犬は最初いない。カモが進み始めたら空から降ってきて、うしろ(池の手前)をふさぐ
   Object.assign(dog, { x: DOG_DROP_X, y: 0.2, phase: 0, mode: 'hidden', punch: 0, vx: 0, vy: 0, air: false, downT: 0, upT: 0, fall: 0, landT: 0 });
@@ -4182,7 +4521,7 @@ function showOnly(id) {
   $('hud').classList.toggle('hidden', id === 'title' || id === 'over');
 }
 function toTitle() {
-  resetWorld(); state = 'title'; showOnly('title'); camSnap = true;
+  resetWorld(); state = 'title'; showOnly('title'); camSnap = true; resetRunUp();
   $('titleHi').textContent = `HI-SCORE ${hiscore}m`;
   updateCoinUI();
   equipSavedIndexOnly();
@@ -4192,6 +4531,9 @@ function startGame() {
   // タイトルで鍵付きの帽子を見ていた場合は、そうび中の帽子に戻す
   const cur = HATS[browseIdx];
   if (!cur || !isUnlocked(cur) || cur.id !== equippedId) equipSaved();
+  if (!endless) resetRunUp();
+  coinAcc = 0; windT = 0; $('prepBox').classList.add('hidden');
+  bagOn = runUp.coin >= 5;
   state = 'play'; showOnly(null);
   runHiStart = hiscore; recordAnnounced = false; maxX = duck.x; score = 0; areaKey = null;
   runNewHats = []; runCoins = 0;
@@ -4200,12 +4542,12 @@ function startGame() {
   if (runBoost) { boostLeft--; saveBoost(); updateCoinUI(); }
   runBonus = runBoost === 'biscuit' ? 1 : 0;
   $('swayBox').querySelector('span').textContent = runBoost === 'drink' ? 'SWAY⚡' : 'SWAY';
-  maxHp = upg.hp + runBonus; hp = maxHp; armorT = 0; renderHearts();
+  maxHp = upg.hp + runBonus + rl(RUN_HEART, 'hp'); hp = maxHp; armorT = 0; renderHearts();
   closeShop(); closeFbx(); closePw(); closeAch(); closeMenu(); showOnly(null);
   run = { dogKO: 0, swayFrom: 0, lowAt: -1, negi: 0, sitX: null, bridgeIdx: -99, noswayMax: 0, lowMax: 0, notices: new Set(),
-          bridges: 0, starKO: 0, starKOMax: 0, farMax: 0 };
+          bridges: 0, starKO: 0, starKOMax: 0, farMax: 0, starExt: 0, guts: false };
   playT = 0; swayArmorT = 0; stats.runs++;
-  showMsg(endless ? 'どこまでも 進み続けよう' : '反対側の カモ池を 目指そう', 1.2);
+  showMsg(endless ? (runBuys() ? `とっくん ${runBuys()}回！ どこまでも 進み続けよう` : 'どこまでも 進み続けよう') : '反対側の カモ池を 目指そう', 1.2);
   camK = 2.5;
   $('hi').classList.remove('gold');
   lastHud = '';
@@ -4260,9 +4602,14 @@ function startClear() {
   const gx = goalIdx * LW;
   if (score > hiscore) hiscore = score;
   store.set(HISCORE_KEY, hiscore);
+  const firstClear = !cleared, prevBest = stats.bestClear;
   stats.clears++; stats.bestClear = stats.bestClear ? Math.min(stats.bestClear, playT) : playT;
   endRunAch();
   cleared = true; store.set(CLEAR_KEY, '1');
+  // クリアタイム。エンドレス解禁の文は はじめてのときだけ
+  $('clearTime').textContent = `クリアタイム ${fmtClear(playT)}`;
+  $('clearBest').textContent = !prevBest ? '' : playT < prevBest ? `じこベスト こうしん！(まえ ${fmtClear(prevBest)})` : `じこベスト ${fmtClear(prevBest)}`;
+  $('clearUnlock').classList.toggle('hidden', !firstClear);
   setStar(0); armorT = 0; D.root.visible = true; duck.look = 0; duck.facing = 1;
   touchDirs.clear(); $('hud').classList.add('hidden'); $('newrec').classList.remove('show');
   const g = new THREE.Group(); scene.add(g);
@@ -4282,7 +4629,9 @@ function startClear() {
   sunM.position.set(gx + 5, 30, -160); glow.position.set(gx + 5, 30, -161); g.add(glow, sunM);
   ending = { g, friends, sunM, glow, gx };
   // 犬は倒れていても起き上がって、岸まで追いかけてくる
-  Object.assign(dog, { mode: 'run', air: false }); DOG.root.rotation.z = 0;
+  Object.assign(dog, { mode: 'run', air: false }); DOG.root.rotation.z = 0; DOG.root.visible = true;
+  // 遠くにいても、画面の外から おいついてくる(演出)
+  if (dog.x < gx - 10) { dog.x = gx - 10; dog.y = groundAt(dog.x); }
   const t = 'GAME CLEAR';
   $('clearTitle').innerHTML = [...t].map(c => c === ' ' ? '<span>&nbsp;</span>' : `<span>${c}</span>`).join('');
   $('clearScr').className = 'overlay';
@@ -4331,7 +4680,7 @@ function updateClear(dt) {
 // 岸まで来て止まり、池のカモたちを見送る さびしそうな犬
 function updateDogClear(dt) {
   const tx = ending.gx - 0.5, walking = dog.x < tx - 0.05;
-  if (walking) dog.x = Math.min(tx, dog.x + 3.4 * dt);
+  if (walking) dog.x = Math.min(tx, dog.x + (3.4 + Math.max(0, tx - dog.x - 2) * 0.9) * dt);   // 遠いほど はやく
   dog.y = lerp(dog.y, groundAt(dog.x), Math.min(1, dt * 10));
   DOG.root.position.set(dog.x, dog.y, 0.05); DOG.root.rotation.set(0, 0, 0);
   DOG.head.rotation.set(0, 0, 0); DOG.body.rotation.set(0, 0, 0);
@@ -4355,10 +4704,11 @@ function updateDogClear(dt) {
   if (Math.random() < dt * 0.6) emit(1, dog.x + 0.75, dog.y + 2.05, 0.35, [0x9ad8ff], { vx0: 0, vx1: 0.2, vy0: -0.2, vy1: 0, g: 6, l0: 0.5, l1: 0.7, sMin: 0.05, sMax: 0.07, floor: dog.y });
 }
 function endClear() { if (clearStep >= 4) toTitle(); }
+function fmtClear(s) { const m = Math.floor(s / 60), r = s - m * 60; return m ? `${m}分${r.toFixed(1).padStart(4, '0')}秒` : `${r.toFixed(1)}秒`; }
 
 // ---- 入力 ----
 function onAction(a) {
-  if (state === 'title') { if (a === 'primary' || a === 'confirm' || a === 'pause') startGame(); }
+  if (state === 'title') { if (a === 'primary' || a === 'confirm' || a === 'pause') beginRun(); }
   else if (state === 'play') {
     if (a === 'primary' || a === 'sway') swayQueued = true;
     else if (a === 'pause' || a === 'back') setPause(true);
@@ -4366,7 +4716,7 @@ function onAction(a) {
   else if (state === 'paused') { if (a === 'pause' || a === 'back' || a === 'confirm' || a === 'primary') setPause(false); }
   else if (state === 'over') {
     if (overT < 0.6) return;
-    if (a === 'primary' || a === 'confirm' || a === 'pause') { resetWorld(); startGame(); }
+    if (a === 'primary' || a === 'confirm' || a === 'pause') { if (endless) { toTitle(); openPrep(); } else { resetWorld(); startGame(); } }
     else if (a === 'back') toTitle();
   }
   else if (state === 'clear') { if (a === 'primary' || a === 'confirm' || a === 'back' || a === 'pause') endClear(); }
@@ -4375,8 +4725,18 @@ addEventListener('keydown', e => {
   const tag = e.target.tagName;
   if (e.code === 'F2' || e.code === 'Backquote') { e.preventDefault(); if (!EMBED) togglePanel(); return; }
   if (tag === 'INPUT' || tag === 'TEXTAREA') { if (e.code === 'Enter' && e.target.id === 'pwInput') loadPw(); return; }
+  if (prepOpen()) {
+    e.preventDefault();
+    if (e.repeat) return;
+    if (e.code === 'Escape') cancelPrep();
+    else if (e.code === 'ArrowUp' || e.code === 'KeyW') prepMove(-1);
+    else if (e.code === 'ArrowDown' || e.code === 'KeyS') prepMove(1);
+    else if (e.code === 'Space') prepBuy();
+    else if (e.code === 'Enter') prepGo();
+    return;
+  }
   if (modalOpen()) {
-    if (e.code === 'Escape') { closePw(); closeShop(); closeFbx(); closeAch(); closeRec(); }
+    if (e.code === 'Escape') { closeHatList(); closePw(); closeShop(); closeFbx(); closeAch(); closeRec(); }
     else if (!$('shopBox').classList.contains('hidden') && (e.code === 'ArrowUp' || e.code === 'ArrowDown' || e.code === 'KeyW' || e.code === 'KeyS')) { e.preventDefault(); shopMove(e.code === 'ArrowUp' || e.code === 'KeyW' ? -1 : 1); }
     return;
   }
@@ -4404,7 +4764,7 @@ addEventListener('keydown', e => {
   else if (e.code === 'Escape') onAction('back');
 });
 addEventListener('keyup', e => { keys[e.code] = false; });
-addEventListener('blur', () => { for (const k in keys) keys[k] = false; if (state === 'play') setPause(true); });
+addEventListener('blur', () => { for (const k in keys) keys[k] = false; touchDirs.clear(); if (state === 'play') setPause(true); });
 
 // タッチ(スマホ): タップでスタートすると「タッチモード」。右半分を押している間は右へ、左半分は左へ。
 let touchMode = false;
@@ -4412,7 +4772,7 @@ const touchDirs = new Map();
 function pointerSide(e) { const r = $('screen').getBoundingClientRect(); return e.clientX < r.left + r.width / 2 ? -1 : 1; }
 function touchAxis() { let s = 0; for (const v of touchDirs.values()) s += v; return Math.sign(s); }
 addEventListener('pointerdown', e => {
-  if (e.target.closest && e.target.closest('#panel, button, input, label, #toast, #pwBox, #shopBox, #fbxBox, #achBox, #recBox, #menuScr, #ovToTitle')) return;
+  if (e.target.closest && e.target.closest('#panel, button, input, label, #toast, #pwBox, #prepBox, #hatBox, #shopBox, #fbxBox, #achBox, #recBox, #menuScr, #ovToTitle')) return;
   if (modalOpen() || menuOpen) return;
   if (e.pointerType === 'mouse') { if (e.button === 0 && (state === 'title' || state === 'over' || state === 'clear')) onAction('confirm'); return; }
   e.preventDefault();
@@ -4424,12 +4784,21 @@ addEventListener('pointerdown', e => {
 }, { passive: false });
 addEventListener('pointermove', e => { if (touchDirs.has(e.pointerId)) touchDirs.set(e.pointerId, pointerSide(e)); });
 for (const ev of ['pointerup', 'pointercancel', 'lostpointercapture']) addEventListener(ev, e => touchDirs.delete(e.pointerId));
+// iPhone などで pointerup が来ないことがあるので、画面にさわっている指が 0 本になったら 必ず止める
+for (const ev of ['touchend', 'touchcancel']) addEventListener(ev, e => { if (e.touches.length === 0) touchDirs.clear(); }, { passive: true, capture: true });
+document.addEventListener('visibilitychange', () => { if (document.hidden) touchDirs.clear(); });
 $('pauseBtn').addEventListener('click', e => { e.currentTarget.blur(); onAction('pause'); });
 $('gearBtn').addEventListener('click', e => { e.currentTarget.blur(); togglePanel(); });
 $('hatPrev').addEventListener('click', e => { e.currentTarget.blur(); browseHat(-1); });
 $('ovToTitle').addEventListener('click', () => { if (state === 'over') toTitle(); });
 $('menuBtn').addEventListener('click', e => { e.currentTarget.blur(); openMenu(); });
 $('modeBtn').addEventListener('click', e => { e.currentTarget.blur(); setMode(!endless); });
+$('hatListBtn').addEventListener('click', e => { e.currentTarget.blur(); openHatList(); });
+$('hatClose').addEventListener('click', e => { e.currentTarget.blur(); closeHatList(); });
+$('favBrowseBtn').addEventListener('click', e => { e.currentTarget.blur(); favBrowse = !favBrowse; saveFav(); buildHatList(); });
+for (const b of document.querySelectorAll('.hlTab[data-f]')) b.addEventListener('click', e => { e.currentTarget.blur(); hatFilter = b.dataset.f; buildHatList(); $('hatGrid').scrollTop = 0; });
+$('prepBack').addEventListener('click', e => { e.currentTarget.blur(); cancelPrep(); });
+$('prepGo').addEventListener('click', e => { e.currentTarget.blur(); prepGo(); });
 msItems(true).forEach(b => {
   b.tabIndex = -1;
   b.addEventListener('mouseenter', () => menuSelect(msItems().indexOf(b)));
@@ -4510,10 +4879,13 @@ function animateDuck(dt, sw) {
 }
 function updatePlayer(dt) {
   inputDir = clamp(((keys.ArrowRight || keys.KeyD) ? 1 : 0) - ((keys.ArrowLeft || keys.KeyA) ? 1 : 0) + gpAxis + touchAxis(), -1, 1);
-  sway.cd = Math.max(0, sway.cd - dt);
-  if (swayQueued && sway.cd <= 0 && sway.t <= 0) {
+  sway.cd = Math.max(0, sway.cd - dt); sway.cd2 = Math.max(0, (sway.cd2 || 0) - dt);
+  windT = Math.max(0, windT - dt);
+  // ダブルスウェイ: 2つめの スウェイは 別に回復する
+  const dbl = runUp.sway >= 5;
+  if (swayQueued && sway.t <= 0 && (sway.cd <= 0 || (dbl && sway.cd2 <= 0))) {
     sway.dir = inputDir !== 0 ? Math.sign(inputDir) : duck.facing;
-    sway.t = CFG.sway.duration; sway.cd = swayCooldown(); run.swayFrom = score; stats.sways++;
+    sway.t = CFG.sway.duration; if (sway.cd <= 0) sway.cd = swayCooldown(); else sway.cd2 = swayCooldown(); run.swayFrom = score; stats.sways++;
     swayArmorT = CFG.sway.duration + (CFG.sway.armorExtra ?? 0.06);   // スウェイ中(と直後ほんの少し)は当たらない
     duck.facing = sway.dir;
     emit(10, duck.x - sway.dir * 0.4, duck.y + 0.3, 0, [0xffffff, 0xe0e0e0], { vx0: -sway.dir * 3, vx1: -sway.dir * 0.5, vy0: 0.5, vy1: 2, g: 2, l0: 0.25, l1: 0.5, sMin: 0.1, sMax: 0.2, floor: duck.y });
@@ -4527,9 +4899,10 @@ function updatePlayer(dt) {
     sway.t -= dt;
     duck.vx = sway.dir * CFG.sway.speed;
     if (Math.random() < 0.6) emit(1, duck.x - sway.dir * 0.4, duck.y + rand(0.2, 0.8), 0, [0xffffff], { vx0: -0.5, vx1: 0.5, vy0: 0, vy1: 0.5, g: 0, l0: 0.2, l1: 0.35, sMin: 0.08, sMax: 0.14, floor: duck.y });
-    if (sway.t <= 0) duck.vx = sway.dir * CFG.duck.speed * 0.5;
+    if (sway.t <= 0) { duck.vx = sway.dir * CFG.duck.speed * 0.5; if (runUp.speed >= 5) windT = 1.2; }   // おいかぜ
   } else {
     const boost = (starT > 0 ? CFG.negi.speedBoost : 1) * speedMul();
+    if (windT > 0 && Math.random() < 0.5) emit(1, duck.x - duck.facing * 0.5, duck.y + rand(0.1, 0.9), rand(-0.3, 0.3), [0xbff4ff, 0xffffff], { vx0: -duck.facing * 3, vx1: -duck.facing * 1, vy0: 0, vy1: 0.3, g: 0, l0: 0.2, l1: 0.35, sMin: 0.06, sMax: 0.1, floor: -99 });
     const target = (inputDir > 0 ? CFG.duck.speed : inputDir < 0 ? -CFG.duck.backSpeed : 0) * boost;
     duck.vx = approach(duck.vx, target, (inputDir !== 0 ? CFG.duck.accel : CFG.duck.decel) * dt);
     if (inputDir !== 0) duck.facing = Math.sign(inputDir);
@@ -4558,6 +4931,7 @@ function updatePlayer(dt) {
 // 池にもどった: このゲームはなかったことにしてタイトルへ(どうぐの回数も返す)
 function backToPond() {
   if (runBoost) { boostLeft++; boostId = runBoost; saveBoost(); }
+  if (runSpent) { coins += runSpent; store.set(COIN_KEY, coins); }   // とっくんの コインも かえす
   stats.runs = Math.max(0, stats.runs - 1);
   toTitle();
 }
@@ -4597,6 +4971,13 @@ function checkCollision() {
       showBanner('ネギ', 'パワー！');
       emit(30, duck.x, duck.y + 0.8, 0, [0x3fa34d, 0xb6e36a, 0xffffff, 0xffe066], { vx0: -4, vx1: 4, vy0: 2, vy1: 7, g: 8, l0: 0.6, l1: 1.2, floor: duck.y });
     }
+    // おかね袋
+    if (lane.bag && Math.abs(duck.x - (lx + lane.def.bagX)) < 0.6) {
+      lane.group.remove(lane.bag); lane.bag = null; lane.def.bag = false;
+      const n = addCoins(25 + (Math.random() * 16 | 0));
+      showBanner('おかね袋', `コイン +${n}`); flashT = Math.max(flashT, 0.4);
+      emit(30, duck.x, duck.y + 0.9, 0, [0xffc93a, 0xffe066, 0xffffff], { glow: true, vx0: -4, vx1: 4, vy0: 4, vy1: 8, g: 14, l0: 0.6, l1: 1.1, sMin: 0.1, sMax: 0.18, floor: duck.y });
+    }
     const it = lane.hatItem;
     if (it && Math.abs(duck.x - (lx + it.x)) < 0.6) {
       lane.group.remove(it.holder); lane.hatItem = null; lane.def.hatTaken = true;
@@ -4633,10 +5014,19 @@ function hurt(cause, lane) {
   if (state !== 'play') return;
   if (cause === 'dog') stats.dogCaught++; else stats.carHit++;
   hp--; renderHearts(true);
+  if (hp <= 0 && runUp.hp >= 5 && !run.guts) {
+    // ガッツ: 1ゲームに 1回だけ ♥1で ふんばる
+    run.guts = true; hp = 1; renderHearts(true);
+    armorT = (CFG.hp?.armorTime ?? 2) + rl(RUN_ARMOR, 'hp') + 1; shake = 0.6; flashT = Math.max(flashT, 0.6);
+    if (cause === 'dog') { duck.vx = 10; dog.punch = 0.3; }
+    emit(24, duck.x, duck.y + 0.8, 0, [0xff6f6f, 0xffe066, 0xffffff], { glow: true, vx0: -3, vx1: 3, vy0: 2, vy1: 6, g: 8, l0: 0.5, l1: 1, floor: duck.y });
+    showBanner('ガッツ！', 'ふんばった！ ♥1');
+    return;
+  }
   if (hp <= 0) { die(lane, cause); return; }
   if (hp === 1 && run.lowAt < 0) run.lowAt = score;
   // まだ残っている: 少しのあいだスーパーアーマー(すり抜けるだけ。車や犬は倒さない)
-  armorT = CFG.hp?.armorTime ?? 2;
+  armorT = (CFG.hp?.armorTime ?? 2) + rl(RUN_ARMOR, 'hp');
   shake = 0.4;
   emit(16, duck.x, duck.y + 0.7, 0, DUCK_COLORS, { vx0: -3, vx1: 3, vy0: 2, vy1: 5, g: 9, l0: 0.5, l1: 1, floor: duck.y });
   if (cause === 'dog') { duck.vx = 10; dog.punch = 0.3; }   // 犬にはじき飛ばされて前へ
@@ -4649,7 +5039,7 @@ function updateArmor(dt) {
 }
 function setStar(t) {
   starT = t;
-  if (t > 0 && run) run.starKO = 0;   // むてき 1回ごとに ぶっとばした車を数えなおす
+  if (t > 0 && run) { run.starKO = 0; run.starExt = 0; }   // むてき 1回ごとに ぶっとばした車を数えなおす
   if (t <= 0) for (const m of D.mats) m.emissive.setRGB(0, 0, 0);
   D.root.scale.setScalar(t > 0 ? 1.18 : 1);
 }
@@ -4787,6 +5177,7 @@ function dropDogCoins(n) {
   }
 }
 function updateDropCoins(dt) {
+
   for (let k = dropCoins.length - 1; k >= 0; k--) {
     const c = dropCoins[k], p = c.o.position; c.t += dt;
     const gy = groundAt(p.x) + 0.38;
@@ -4896,7 +5287,7 @@ function updateCamera(dt) {
 
 let lastHud = '';
 function updateHUD() {
-  $('gearBtn').style.display = !EMBED && !menuOpen && (state === 'title' || state === 'paused') ? 'block' : 'none';
+  $('gearBtn').style.display = !EMBED && !menuOpen && !modalOpen() && (state === 'title' || state === 'paused') ? 'block' : 'none';
   const titleFree = state === 'title' && !modalOpen() && !menuOpen;
   $('menuWrap').style.display = titleFree ? 'block' : 'none';
   $('fbxBtn').style.display = titleFree ? 'block' : 'none';
@@ -4911,13 +5302,15 @@ function updateHUD() {
     $('score').innerHTML = `${score}<small>m</small>`;
     $('hi').textContent = `HI ${hiscore}m`;
   }
-  const scd = swayCooldown();
-  const r = scd > 0 ? 1 - sway.cd / scd : 1;
+  const scd = swayCooldown(), dbl = runUp.sway >= 5, cdl = dbl ? Math.min(sway.cd, sway.cd2 || 0) : sway.cd;
+  const r = scd > 0 ? 1 - cdl / scd : 1;
   $('swayFill').style.width = (r * 100).toFixed(1) + '%';
-  $('swayBox').classList.toggle('ready', sway.cd <= 0);
+  $('swayBox').classList.toggle('ready', cdl <= 0);
+  const sl = (runBoost === 'drink' ? 'SWAY⚡' : 'SWAY') + (dbl && sway.cd <= 0 && (sway.cd2 || 0) <= 0 ? '×2' : '');
+  const sp = $('swayBox').querySelector('span'); if (sp.textContent !== sl) sp.textContent = sl;
   const sb = $('starBox');
   sb.classList.toggle('hidden', starT <= 0);
-  if (starT > 0) { $('starFill').style.width = (starT / starDuration() * 100).toFixed(1) + '%'; sb.classList.toggle('ending', starT < 2); }
+  if (starT > 0) { $('starFill').style.width = Math.min(100, starT / starDuration() * 100).toFixed(1) + '%'; sb.classList.toggle('ending', starT < 2); }
   const gap = Math.max(0, duck.x - dog.x);
   const dw = $('dogWarn');
   dw.classList.toggle('hidden', !(state === 'play' && dog.mode !== 'hidden' && dog.mode !== 'drop' && dog.x < camX - 4.2));
@@ -5148,7 +5541,7 @@ toTitle();
 initDroppedHat();
 requestAnimationFrame(frame);
 window.__kamo = { CFG, duck, dog, lanes, HATS, hatHolder, unlockAch, gainHat, hatById, laneDef, get goalIdx() { return goalIdx; }, get clearT() { return clearT; }, get hatBox() { return hatBox; }, get state() { return state; }, setStar, elevAt, makePassword, readPassword, get zones() { return zoneSeq; },
-  keys, upg, laneDefs: () => laneDefs, laneDef, get coins() { return coins; }, get starT() { return starT; }, startGame, toTitle, openShop, openFbx,
+  keys, upg, runUp, get hp() { return hp; }, get sway() { return sway; }, hurt, startClear, laneDefs: () => laneDefs, laneDef, get coins() { return coins; }, get starT() { return starT; }, startGame, toTitle, openShop, openFbx,
   step(n = 1, dt = 1 / 60) { for (let i = 0; i < n; i++) { pollGamepad(); if (state !== 'paused') update(dt); } render(); },
   snap() { render(); return renderer.domElement.toDataURL('image/png'); } }; // デバッグ用
 </script>
