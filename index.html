@@ -89,13 +89,15 @@
   .msHead { color: #ffd23f; font-size: 1.15em; letter-spacing: .25em; margin-bottom: .5em; }
   .msBody { display: flex; align-items: center; gap: 1.4em; }
   .msList { display: flex; flex-direction: column; gap: .1em; min-width: 8em; }
-  .msi { font-family: inherit; font-size: .95em; color: #fff; background: none; border: 0; text-align: left; padding: .12em .3em .12em 1.25em; position: relative; cursor: pointer; }
+  .msi { font-family: inherit; font-size: .66em; color: #fff; background: none; border: 0; text-align: left; padding: .1em .3em .1em 1.25em; position: relative; cursor: pointer; }
   .msi::before { content: '►'; position: absolute; left: .15em; top: .3em; font-size: .75em; color: #ffd23f; opacity: 0; }
   .msi.sel { color: #ffd23f; outline: none; }
   .msi.sel::before { opacity: 1; animation: blink .5s steps(2) infinite; }
-  .msi .ms { display: block; font-size: .55em; color: #b8c8ff; margin-top: .05em; }
-  .msDog { display: flex; flex-direction: column; align-items: center; font-size: .6em; }
-  .msDog .say { background: #fff; color: #14206a; padding: .35em .7em; margin-bottom: .7em; position: relative; text-shadow: none; max-width: 9em; line-height: 1.4;
+  .msi .ms { display: block; font-size: .64em; color: #b8c8ff; margin-top: .05em; }
+  /* ふきだしは 犬の上に うかせる(セリフの 行数が かわっても 犬は うごかない) */
+  .msDog { display: flex; flex-direction: column; align-items: center; font-size: .6em; position: relative; margin-top: 4.5em; }
+  .msDog .say { background: #fff; color: #14206a; padding: .35em .7em; position: absolute; bottom: 100%; left: 50%; transform: translateX(-50%); margin-bottom: .7em;
+                width: max-content; text-shadow: none; max-width: 9em; line-height: 1.4; word-break: keep-all; overflow-wrap: anywhere; line-break: strict;
                 box-shadow: 0 0 0 .12em #000; }
   .msDog .say::after { content: ''; position: absolute; left: 50%; bottom: -.5em; margin-left: -.3em; border: .3em solid transparent; border-top-color: #fff; }
   .msDog svg { width: 5.6em; height: 4.2em; }
@@ -109,9 +111,9 @@
 
   /* ---- HUD ---- */
   #hud { position: absolute; inset: 0; pointer-events: none; }
-  #score { position: absolute; left: .5em; top: .3em; font-size: 1.7em; }
+  #score { position: absolute; left: .75em; top: .4em; font-size: 1.7em; }
   #score small { font-size: .55em; margin-left: .1em; }
-  #hi { position: absolute; right: .6em; top: .55em; font-size: .8em; color: #ffe066; }
+  #hi { position: absolute; right: 1.3em; top: .8em; font-size: .8em; color: #ffe066; }
   #hi.gold { animation: hiblink .3s steps(2) infinite; }
   @keyframes hiblink { 50% { color: #fff; } }
   #swayBox { position: absolute; left: 50%; bottom: .6em; transform: translateX(-50%);
@@ -126,7 +128,7 @@
   #starBox.ending { animation: blink .25s steps(2) infinite; }
   @keyframes rainbowBg { 0% { background: #ffe066; } 33% { background: #ff6fae; } 66% { background: #6ff0ff; } }
   body.touch #swayBox { pointer-events: auto; font-size: 1em; bottom: .3em; padding: .35em .6em; border: .12em solid #fff; background: #0006; }
-  body.touch #starBox { bottom: 3.2em; }
+  body.touch #starBox { bottom: 4.1em; }
   #dogWarn { position: absolute; left: .4em; top: 45%; font-size: .9em; color: #fff; }
   #dogWarn.near { color: #ff5a5a; animation: blink .3s steps(2) infinite; }
   .uiBtn { position: absolute; font-size: .6em; }
@@ -137,16 +139,20 @@
   .pwIn { background: #040e3ab8; border: .12em solid #4ab0ff; border-radius: 0; box-shadow: none;
           padding: .7em 1em; text-align: center; font-size: .8em; max-width: 86%; }
   .pwHead { color: #ffd23f; margin-bottom: .4em; letter-spacing: .1em; }
-  .pwCode { font-size: 1.25em; letter-spacing: .08em; color: #8cff6f; margin: .3em 0; word-break: break-all; user-select: text; -webkit-user-select: text; }
+  .pwCode { font-size: 1.25em; letter-spacing: .08em; color: #8cff6f; margin: .3em 0; word-break: normal; overflow-wrap: anywhere; user-select: text; -webkit-user-select: text; }
   .pwNote { font-size: .62em; color: #ccc; line-height: 1.6; margin-bottom: .6em; }
-  #pwInput { font-family: inherit; font-size: 1em; width: 92%; text-align: center; background: #000; color: #fff; border: .1em solid #888; padding: .25em; text-transform: uppercase; }
+  #pwInput { font-family: inherit; font-size: 1em; width: 92%; text-align: center; background: #000; color: #fff; border: .1em solid #888; padding: .25em; }
   .pwBtns { display: flex; gap: .5em; justify-content: center; margin-top: .6em; }
-  #pauseBtn { left: 50%; top: .5em; transform: translateX(-50%); display: none; }
-  #hearts { position: absolute; left: .8em; top: 2.75em; display: flex; gap: .15em; }
-  #hearts svg { width: .82em; height: .7em; filter: drop-shadow(.08em .08em 0 #000); }
+  #pwBox .pwBtns .hbtn { white-space: nowrap; }
+  /* ポーズは アイコンだけ(ひかえめに) */
+  #pauseBtn { left: 1.5em; top: 4.4em; display: none; background: none; border: 0; box-shadow: none; font-size: .8em; color: #ffffffcc; padding: .2em .5em; letter-spacing: -.05em; }
+  #pauseBtn:hover, #pauseBtn:focus-visible { background: none; color: #ffd23f; }
+  /* ハートは 画面上の まんなか(じゃまに ならないよう 上に よせる) */
+  #hearts { position: absolute; left: 0; right: 0; top: .55em; display: flex; justify-content: center; gap: .15em; }
+  #hearts svg { width: 1.05em; height: .9em; filter: drop-shadow(.08em .08em 0 #000); }
   #hearts.hit { animation: heartHit .45s steps(6); }
   @keyframes heartHit { 0%, 100% { transform: none; } 20% { transform: translateX(-.15em); } 40% { transform: translateX(.15em); } 60% { transform: translateX(-.1em); } 80% { transform: translateX(.1em); } }
-  #coin { position: absolute; right: 1.5em; top: 2.05em; font-size: .8em; color: #ffd23f; }
+  #coin { position: absolute; right: 2.2em; top: 2.25em; font-size: .8em; color: #ffd23f; }
   #titleCoin { color: #ffdf70; }
   #ovCoins { font-size: .65em; margin-top: .15em; color: #ffd23f; }
   .modal { position: absolute; inset: 0; background: #02061e9e; display: flex; align-items: center; justify-content: center; z-index: 5; touch-action: manipulation; }
@@ -177,7 +183,8 @@
   .shopCoins { color: #ffd23f; }
   .shopSec { color: #8cff6f; margin: .4em 0 .1em .3em; font-size: .85em; letter-spacing: .1em; }
   .shopBody { display: grid; grid-template-columns: 1.4fr 1fr; gap: .5em; margin-top: .1em; }
-  #shopList { min-width: 0; }
+  /* 品物が ふえても 画面に おさまるように、一覧だけ スクロール */
+  #shopList { min-width: 0; max-height: 19.5em; overflow-y: auto; overscroll-behavior: contain; scrollbar-width: thin; scrollbar-color: #4ab0ff80 transparent; }
   .srow { display: grid; grid-template-columns: 1em 1fr auto; align-items: center; gap: .2em; width: 100%; text-align: left;
           font-family: inherit; font-size: 1em; color: #fff; background: none; border: 0; padding: .12em .3em; cursor: pointer; }
   .srow .cur { color: #ffd23f; opacity: 0; font-size: .8em; }
@@ -245,19 +252,20 @@
 
   /* ---- banners ---- */
   /* 「いたっ！」「ハイスコア更新」など: 画面が見えなくならないよう、上の方に小さく短く */
-  #newrec { position: absolute; left: 0; right: 0; top: 25%; text-align: center; font-size: .95em; line-height: 1.15; display: none; pointer-events: none; }
+  #newrec { position: absolute; left: 0; right: 0; top: 31%; text-align: center; font-size: .95em; line-height: 1.15; display: none; pointer-events: none; }
   #newrec.show { display: block; animation: pop2 1.5s steps(15) forwards; }
   @keyframes pop2 { 0% { opacity: 0; transform: translateY(.4em); } 12% { opacity: 1; transform: none; } 75% { opacity: 1; } 100% { opacity: 0; transform: translateY(-.4em); } }
   #newrec span { display: inline-block; animation: rainbow .3s steps(1) infinite; }
   #newrec span:nth-child(2n) { animation-delay: -.1s; }
   #newrec span:nth-child(3n) { animation-delay: -.2s; }
   #newrec .sub { font-size: .7em; }
+  #newrec.big { font-size: 1.3em; top: 28%; }
   /* 開始時・ゴールが近づいたときのお知らせ: 白い細いドット文字。じゃまにならない大きさで */
   #msgLine { position: absolute; left: 0; right: 0; top: 9.2em; text-align: center; font-size: .6em; color: #fff; letter-spacing: .14em;
              text-shadow: .07em .07em 0 #0009, 0 0 .3em #0006; opacity: 0; pointer-events: none; }
   #msgLine.show { animation: msgIn 4s steps(40) forwards; }
   @keyframes msgIn { 0% { opacity: 0; } 10% { opacity: 1; } 80% { opacity: 1; } 100% { opacity: 0; } }
-  #goalTxt { position: absolute; right: 1.1em; top: 5.6em; font-size: .52em; color: #8cff6f; }
+  #goalTxt { position: absolute; right: 2.3em; top: 6em; font-size: .52em; color: #8cff6f; }
   /* ---- ゲームクリア ---- */
   #clearScr { z-index: 6; }
   #clearFade { position: absolute; inset: 0; background: #000; opacity: 0; transition: opacity 2.6s steps(13); }
@@ -301,6 +309,41 @@
   #ovNext { font-size: .55em; margin-top: .15em; color: #ddd; }
   #ovKeys { margin-top: .5em; font-size: .6em; }
   #pause { background: #0008; font-size: 1.6em; }
+  #pause .pmHelp { font-size: .34em; margin-top: 1em; line-height: 2; }
+  #pause .pmBtns { display: flex; gap: .6em; justify-content: center; font-size: .4em; margin-top: .8em; }
+  #pause .pmBtns .hbtn { padding: .35em .8em; }
+  #pause.cam { background: none; }
+  #pause.cam .pmMain { display: none; }
+  #pause .pmCam { display: none; }
+  #pause.cam .pmCam { display: flex; position: absolute; left: 0; right: 0; bottom: .9em; flex-direction: column; align-items: center; gap: .5em; font-size: .36em; }
+  #pause .pmCam .tag { color: #ffd23f; }
+  #screen.camOn #hud, #screen.camOn #notice, #screen.camOn #area, #screen.camOn #msgLine, #screen.camOn .pop { visibility: hidden; }
+  #pause .camPad { display: flex; gap: .45em; }
+  #pause .camPad .hbtn { min-width: 2.6em; padding: .35em .6em; }
+  /* ぬんぬんフラッグ(とまって ながおし) */
+  /* ハートの下の 小さな 列(フラッグの アイコン・子カモの数) */
+  #subHud { position: absolute; left: 0; right: 0; top: 2.45em; display: flex; justify-content: center; align-items: flex-start; gap: .9em; font-size: .62em; pointer-events: none; }
+  #flagBtn { pointer-events: auto; font-family: inherit; font-size: 1em; color: #fff; background: none; border: 0; padding: .1em .2em; cursor: pointer;
+             display: flex; align-items: center; gap: .3em; touch-action: none; user-select: none; -webkit-user-select: none; -webkit-tap-highlight-color: transparent; }
+  /* まるい ボタン。縁は キャンバスで描く(ながおしの 時間に あわせて 時計回りに 色がつく) */
+  #flagRing { display: flex; align-items: center; justify-content: center; width: 2.6em; height: 2.6em; margin-top: .25em; transition: transform .08s; transform-origin: 50% 15%; }
+  #flagN { font-size: 1.25em; margin-left: .35em; }
+  #flagBtn.press #flagRing { transform: scale(1.22); }
+  #flagBtn svg { width: 1.15em; height: 1.3em; filter: drop-shadow(.08em .08em 0 #000); }
+  #flagBtn.off { opacity: .45; }
+  body.touch #flagBtn { padding: .5em .8em; margin: -.5em 0; }   /* 指で おしやすいよう さわれる はんいを 広く */
+  body.touch #flagRing { width: 3.1em; height: 3.1em; }
+  body.touch #flagBtn svg { width: 1.35em; height: 1.55em; }
+  #chicks { display: flex; align-items: center; gap: .25em; color: #ffe14a; }
+  #screen.camOn #pauseBtn, #screen.camOn #dogWarn { visibility: hidden; }
+  /* 子カモ(つれている数) */
+  #chicks svg { width: 1.2em; height: 1.1em; filter: drop-shadow(.08em .08em 0 #000); }
+  #chicks.hit { animation: heartHit .45s steps(6); }
+  /* ヒヤリ！ */
+  .pop { position: absolute; transform: translate(-50%, -100%); font-size: .55em; color: #ffe066; text-shadow: .1em .1em 0 #000; pointer-events: none; white-space: nowrap;
+         animation: popUp 1s steps(10) forwards; z-index: 3; }
+  .pop.chick { color: #fff; }
+  @keyframes popUp { 0% { opacity: 0; margin-top: .3em; } 15% { opacity: 1; margin-top: 0; } 70% { opacity: 1; } 100% { opacity: 0; margin-top: -1.2em; } }
 
   #boot { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; font-size: 16px; color: #aaa; text-align: center; padding: 1em; }
   #dropHint { position: absolute; inset: 0; background: #ffd23f55; border: 6px dashed #ffd23f; display: none;
@@ -509,6 +552,32 @@ window.GAME_CONFIG = {
     carBonus: 12,      // コイン車を無敵でぶっ飛ばした時にもらえるコイン
   },
 
+  // ---- 子カモ(川の橋の上に いて、とおると ついてくる。やられると 1ぴき にげる) ----
+  //  1000m で 橋は だいたい 10本 → 子カモは 5ひきくらい 出る。ふつうに あそぶと ゴールで 2〜4ひき
+  //  ゴール(エンドレスは ゲームオーバー)で、そのゲームで ひろったコインの 1ぴき bonusPer ぶん ボーナス
+  chicks: {
+    chance: 0.5,      // 橋に 子カモが いる確率 (0〜1)
+    bonusPer: 0.1,    // 1ぴきごとの ボーナス(0.1 = ひろったコインの 10%)
+    minPer: 2,        // 1ぴきごとの さいていボーナス(コイン)
+    max: 10,          // つれて あるける 子カモの 数
+  },
+
+  // ---- ヒヤリ！(車を ギリギリで かわすと 少し コイン) ----
+  nearMiss: {
+    gap: 0.5,         // 車の よこと カモの すきまが これより せまいと ヒヤリ！
+    coins: 1,         // もらえる コイン
+    cooldown: 0.6,    // つぎの ヒヤリ！まで(秒)
+  },
+
+  // ---- ぬんぬんフラッグ(ショップの チェックポイント。ゴールをめざす モードだけ) ----
+  flag: {
+    price: 120,       // ショップの 値段(なんぼんでも かえる)
+    unlockM: 300,     // ハイスコアが これを こえると 入荷
+    maxM: 750,        // これより 手前の ぶんりたいに だけ 立てられる
+    hold: 4,          // 立てるのに いる ながおしの 時間(秒)
+    games: 3,         // 立てた フラッグから はじめられる ゲーム数
+  },
+
   // ---- 体力(ハート) ----
   hp: {
     armorTime: 2,      // 車や犬にやられてハートが減ったあと、すり抜けられる時間(秒)
@@ -520,6 +589,9 @@ window.GAME_CONFIG = {
     drinkPrice: 75,                        // ハオドリンク(次の3ゲームだけ スウェイの回復が drinkMul 倍)の値段
     drinkMul: 1.5,
     biscuitPrice: 90,                    // ほしのビスケット(次の3ゲームだけ ♥+1)の値段
+    wairoPrice: 80,                      // マッスルワイロ(次の3ゲームだけ、近くの マッチョ犬が おそくなる)の値段
+    wairoMul: 0.8,                       //   犬の スピードの 倍率
+    wairoNear: 8,                        //   これより 近い(m)と きく
     upgradeCost: [30, 70, 130, 220],        // Lv1→2, 2→3, 3→4, 4→5 の値段
     starAdd: [0, 0.5, 1, 1.6, 2.4],          // 無敵時間に足す秒数
     speedMul: [0.93, 0.98, 1.02, 1.07, 1.12],// 移動スピードの倍率 (Lv2〜3 がもとの速さくらい)
@@ -582,20 +654,24 @@ window.HAT_LIST = [
   <div id="boot">読み込み中…</div>
 
   <div id="hud" class="hidden">
-    <div id="score" class="px">0<small>m</small></div>
-    <div id="coin" class="px">● 0</div>
-    <div id="hearts"></div>
-    <div id="hi" class="px">HI 0m</div>
-    <div id="goalTxt" class="px"></div>
-    <div id="swayBox" class="px ready"><span>SWAY</span><div id="swayBar"><div id="swayFill"></div></div></div>
-    <div id="starBox" class="px hidden"><span class="blink" style="animation-duration:.3s">★ムテキ★</span><div id="starBar"><div id="starFill"></div></div></div>
-    <div id="dogWarn" class="px hidden">◄犬 <span id="dogDist">0</span>m</div>
+    <div id="score" class="px ghost">0<small>m</small></div>
+    <div id="coin" class="px ghost">● 0</div>
+    <div id="hearts" class="ghost"></div>
+    <div id="subHud" class="px ghost">
+    <button id="flagBtn" class="hidden" aria-label="フラッグ(ながおし)"><span id="flagRing" class="ring" data-p="0"><svg viewBox="0 0 7 8" shape-rendering="crispEdges"><rect x="0" y="0" width="1" height="8" fill="#eeeeee"/><rect x="1" y="0" width="5" height="1" fill="#ff4a4a"/><rect x="1" y="1" width="6" height="2" fill="#ff4a4a"/><rect x="1" y="3" width="5" height="1" fill="#ffd23f"/></svg></span><span id="flagN">×1</span></button>
+    <div id="chicks" class="hidden"><svg viewBox="0 0 8 7" shape-rendering="crispEdges"><rect x="3" y="0" width="3" height="3" fill="#ffe14a"/><rect x="6" y="1" width="2" height="1" fill="#ff8a1f"/><rect x="4" y="1" width="1" height="1" fill="#111"/><rect x="0" y="3" width="7" height="3" fill="#ffe14a"/><rect x="1" y="2" width="2" height="1" fill="#ffe14a"/><rect x="1" y="6" width="5" height="1" fill="#e8b820"/></svg><span id="chickN">×0</span></div>
+    </div>
+    <div id="hi" class="px ghost">HI 0m</div>
+    <div id="goalTxt" class="px ghost"></div>
+    <div id="swayBox" class="px ghost ready"><span>SWAY</span><div id="swayBar"><div id="swayFill"></div></div></div>
+    <div id="starBox" class="px ghost hidden"><span class="blink" style="animation-duration:.3s">★ムテキ★</span><div id="starBar"><div id="starFill"></div></div></div>
+    <div id="dogWarn" class="px ghost hidden">◄犬 <span id="dogDist">0</span>m</div>
   </div>
 
-  <div id="newrec" class="px"></div>
-  <div id="area" class="px"></div>
-  <div id="notice" class="px"></div>
-  <div id="msgLine"></div>
+  <div id="newrec" class="px ghost"></div>
+  <div id="area" class="px ghost"></div>
+  <div id="notice" class="px ghost"></div>
+  <div id="msgLine" class="ghost"></div>
 
   <div id="title" class="overlay hidden">
     <!-- assets/title_logo.png を置くと自動でそちらに差し替わります -->
@@ -628,9 +704,19 @@ window.HAT_LIST = [
     </div>
   </div>
 
-  <div id="pause" class="overlay hidden"><div class="px">PAUSE</div></div>
+  <div id="pause" class="overlay ghost hidden">
+    <div class="pmMain px">PAUSE
+      <div class="pmBtns"><button id="camBtn" class="hbtn calm">カメラ</button><button id="resumeBtn" class="hbtn calm">つづける</button></div>
+      <div class="pmHelp"><span class="kbHelp">C : カメラモード　　P / SPACE : つづける</span></div>
+    </div>
+    <div class="pmCam px">
+      <div class="tag">● カメラモード</div>
+      <div class="camPad"><button class="hbtn calm" data-cam="left">◄</button><button class="hbtn calm" data-cam="in">よる</button><button class="hbtn calm" data-cam="out">ひく</button><button class="hbtn calm" data-cam="right">►</button><button id="camBack" class="hbtn calm">もどる</button></div>
+      <div class="kbHelp">← → : まわす　　↑ ↓ : よる / ひく　　C / ESC : もどる</div>
+    </div>
+  </div>
   <div id="dropHint" class="px">帽子の FBX をドロップ！</div>
-  <button id="pauseBtn" class="uiBtn px">II</button>
+  <button id="pauseBtn" class="uiBtn px ghost" aria-label="ポーズ">II</button>
   <button id="gearBtn" class="uiBtn calm">⚙ 調整・帽子</button>
   <div id="menuWrap" class="ghost">
     <svg class="peek dogface" viewBox="0 0 16 12" shape-rendering="crispEdges" aria-hidden="true"></svg>
@@ -647,7 +733,7 @@ window.HAT_LIST = [
         <button class="msi px" data-act="ach">じっせき<span class="ms">ちょうせんして ぼうしを もらう</span></button>
         <button class="msi px" data-act="hats">ぼうし<span class="ms">いちらん・おきにいり</span></button>
         <button class="msi px" data-act="rec">きろく<span class="ms">これまでの あゆみ</span></button>
-        <button class="msi px" data-act="pw">パスワード<span class="ms">きろくを もちはこぶ</span></button>
+        <button class="msi px" data-act="pw">セーブ<span class="ms">ほぞん・よみこみ・パスワード</span></button>
         <button class="msi px" data-act="mode" id="msMode">モード<span class="ms"></span></button>
         <button class="msi px" data-act="close">もどる<span class="ms">タイトルへ</span></button>
       </div>
@@ -662,6 +748,7 @@ window.HAT_LIST = [
     <div id="clearEnd" class="px">
       <div id="clearTime" class="big"></div>
       <div id="clearBest"></div>
+      <div id="clearChick" style="color:#ffe14a"></div>
       <div id="clearUnlock" style="margin-top:.6em">
         <div class="big">エンドレスモードが あそべるように なった！</div>
         <div>タイトル画面で モードを えらべるよ</div>
@@ -710,7 +797,7 @@ window.HAT_LIST = [
   <div id="recBox" class="modal ghost hidden"><div class="pwIn px">
     <div class="shopTop"><div class="pwHead">～ きろく ～</div><div class="shopCoins">これまでの あゆみ</div></div>
     <div id="recList"></div>
-    <div class="shopFoot"><span>この ブラウザで あそんだ きろく(パスワードには 入りません)</span><button id="recClose" class="hbtn">とじる</button></div>
+    <div class="shopFoot"><span>この ブラウザの きろく(セーブデータに 入ります)</span><button id="recClose" class="hbtn">とじる</button></div>
   </div></div>
   <div id="fbxBox" class="px hidden">
     <div class="pwHead">帽子の調整 <span id="fbxName" style="color:#fff"></span></div>
@@ -724,11 +811,15 @@ window.HAT_LIST = [
     <input type="file" id="fbxInput" accept=".fbx" style="display:none">
   </div>
   <div id="pwBox" class="ghost hidden"><div class="pwIn px">
-    <div class="pwHead">パスワード</div>
+    <div class="pwHead">セーブデータ</div>
+    <div class="pwNote">きろくは この ブラウザに 自動で ほぜん されています。<br>ほかの 端末に うつすときや、ねんのための バックアップに</div>
+    <div class="pwBtns svBtns"><button id="svSave" class="hbtn">ほぞん</button><button id="svLoad" class="hbtn">ファイルを よむ</button><button id="svCopy" class="hbtn">コピー</button></div>
+    <div class="pwHead" style="margin-top:.9em">パスワード <small style="color:#aaa">(きゅう けいしき)</small></div>
     <div id="pwCode" class="pwCode">----</div>
-    <div class="pwNote">メモしておけば、ほかの端末やデータが消えたときに<br>帽子とハイスコアをとりもどせます</div>
-    <input id="pwInput" placeholder="パスワードを入力" maxlength="80" autocomplete="off">
+    <div class="pwNote">帽子・ハイスコア・コイン・強化だけ とりもどせます</div>
+    <input id="pwInput" placeholder="パスワード か セーブデータを はりつけ" autocomplete="off">
     <div class="pwBtns"><button id="pwLoad" class="hbtn">よみこむ</button><button id="pwCopy" class="hbtn">コピー</button><button id="pwClose" class="hbtn">とじる</button></div>
+    <input type="file" id="svInput" accept=".json,application/json" style="display:none">
   </div></div>
 </div>
 <div id="panel" class="hidden"></div>
@@ -1687,7 +1778,9 @@ function genBlock() {
     laneDefs.push({ type: 'road', r1: Math.random(), r2: Math.random(), negi, negiX: rand(-0.6, 0.6),
                     milestone, hatDrop, hatX: rand(-0.5, 0.5), coins, coinTaken: 0, bag, bagX: rand(-0.5, 0.5) });
   }
-  laneDefs.push({ type: 'median', river: blockIndex > 2 && Math.random() < (CFG.road.riverChance ?? 0.2) });
+  const river = blockIndex > 2 && Math.random() < (CFG.road.riverChance ?? 0.2);
+  // 川の橋には ときどき 子カモが まいごに なっている(とおると ついてくる)
+  laneDefs.push({ type: 'median', river, chick: river && Math.random() < chickCfg().chance, chickX: rand(-0.45, 0.45) });
 }
 const POND = { type: 'pond' }, GPOND = { type: 'gpond' };
 function laneDef(i) {
@@ -2482,6 +2575,10 @@ function makePondDuck(male) {
   for (const s of [-1, 1]) part(d, 0.06, 0.06, 0.02, 0.4, 0.8, s * 0.155, 0x111111);
   return d;
 }
+// ---- 子カモ(橋の上で まいご → とおると ついてくる。やられると 1ぴき にげる。ゴールで コインボーナス) ----
+function chickCfg() { return { chance: 0.5, bonusPer: 0.1, minPer: 2, max: 10, ...(CFG.chicks || {}) }; }
+const CHICK_Y = 0.42;   // 地面(橋の上面)から 子カモの体の中心まで
+function makeChick() { const o = new THREE.Group(), b = new THREE.Group(); addDuckling(b, -0.08, 0); b.scale.setScalar(1.35); b.position.y = 0.08; o.add(b); return o; }
 // ---- 中央分離帯の川(カモが泳いでいて、カモが通る所には橋) ----
 const RIVER_BANK = new THREE.BoxGeometry(0.32, 0.6, GROUND_L);
 function buildRiver(lane, g, th, i) {
@@ -2497,6 +2594,7 @@ function buildRiver(lane, g, th, i) {
     part(g, LW, 0.04, 0.05, 0, 0.36, z, 0xc8402a);
   }
   for (const x of [-0.6, 0.6]) part(g, 0.14, 0.5, 0.14, x, -0.2, 0, 0x6a4a2a);   // 橋げた
+  if (lane.def.chick && !lane.def.chickTaken) { lane.chick = makeChick(); lane.chick.position.set(lane.def.chickX, CHICK_Y, 0.1); lane.chick.rotation.y = Math.PI * 0.6; g.add(lane.chick); }
   addSign(lane, g, Math.round(i * LW * CFG.score.meterPerUnit) + 'm', -1.0, -1.9);
   // 泳いでいるカモ(川の流れにそって)
   const n = 1 + (Math.random() * 2 | 0);
@@ -2591,7 +2689,7 @@ function createLane(i) {
     // 帽子: 100m ごとの特別な帽子 / 道に落ちている帽子
     if (def.milestone) {
       const hd = HATS.find(h => h.kind === 'best' && h.best === def.milestone);
-      if (hd && !isUnlocked(hd)) placeHatItem(lane, g, hd, 0, true);
+      if (hd && !isUnlocked(hd) && !flagRun) placeHatItem(lane, g, hd, 0, true);   // フラッグから のときは 出ない
     } else if (def.hatDrop && !def.hatTaken) {
       if (!def.hatId) {
         // 拾ったことのある帽子も落ちている(何個も あつめられる)。かぶっている帽子は 落ちやすい。まだ持っていない帽子も 出やすめ
@@ -3575,7 +3673,7 @@ const ACHS = [
   { id: 'dup5', group: 'dup', hat: 'twinhat', name: 'おそろい あつめ', desc: 'おなじ ぼうしを 道で 5こ ひろう(かぶっている ぼうしは 道に おちやすい)', prog: () => [maxDup(), 5, 'さいこう', 'こ'] },
   { id: 'dup10', group: 'dup', hat: 'hatrack', name: 'おそろい あつめ', desc: 'おなじ ぼうしを 道で 10こ ひろう(かぶっている ぼうしは 道に おちやすい)', prog: () => [maxDup(), 10, 'さいこう', 'こ'] },
   { id: 'dup20', group: 'dup', hat: 'hatking', name: 'おそろい あつめ', desc: 'おなじ ぼうしを 道で 20こ ひろう(かぶっている ぼうしは 道に おちやすい)', prog: () => [maxDup(), 20, 'さいこう', 'こ'] },
-  { id: 'peace', hat: 'dove', name: 'へいわしゅぎ', desc: 'ネギの むてきの あいだ、車も 犬も ぶっとばさずに むてきを おえる' },
+  { id: 'peace', hat: 'dove', name: 'へいわしゅぎ', desc: 'ネギの むてきの あいだ、車も 犬も ぶっとばさずに むてきを おえる(ショップに マッスルワイロが 入荷)' },
 ];
 let run = { dogKO: 0, swayFrom: 0, lowAt: -1, negi: 0, sitX: null, bridgeIdx: -99, noswayMax: 0, lowMax: 0 };
 function unlockAch(id) {
@@ -3623,7 +3721,7 @@ function updateAch() {
   }
 }
 function endRunAch() {
-  stats.dist += score;
+  stats.dist += Math.max(0, score - (run.startM || 0));
   if (endless) stats.endlessBest = Math.max(stats.endlessBest, score);
   saveStats();
   achStat.dogBest = Math.max(achStat.dogBest, run.dogKO);
@@ -3731,7 +3829,8 @@ const saveUpg = () => store.set(UPG_KEY, JSON.stringify(upg));
 // どうぐ: 次からの 3 ゲームだけ効く。同時に使えるのは どれか 1 つだけ(3 ゲームたつと また選べる)
 //   ほしのビスケット = 最大HP +1 / ハオドリンク = スウェイの回復 1.5 倍
 const BOOST_KEY = 'kamo_boost';
-const BOOST_IDS = ['biscuit', 'drink'];   // パスワードでの番号(順番を変えないこと)
+//   マッスルワイロ = マッチョ犬が 近くにいるとき 犬の あしが おそくなる
+const BOOST_IDS = ['biscuit', 'drink', 'wairo'];   // パスワードでの番号(順番を変えないこと。2bit なので 4つまで)
 const BOOSTS = {
   biscuit: { name: 'ほしのビスケット', short: 'ビスケット', icon: '★', unlock: 'dog5', price: () => shopCfg().biscuitPrice ?? 90,
     what: 'たべると、つぎの 3ゲームの あいだ ハートが 1つ ふえる', eff: 'ハート +1(3ゲーム)',
@@ -3739,7 +3838,18 @@ const BOOSTS = {
   drink: { name: 'ハオドリンク', short: 'ドリンク', icon: '⚡', unlock: 'far70', price: () => shopCfg().drinkPrice ?? 75,
     what: 'のむと、つぎの 3ゲームの あいだ スウェイの かいふくが 1.5ばい はやくなる', eff: 'スウェイの回復 ×1.5(3ゲーム)',
     hint: 'シュワッと きく ハオドリンク！', bought: 'まいど！ つぎの 3ゲーム、スウェイが ビュンビュン もどるワン！ ゴクッ' },
+  wairo: { name: 'マッスルワイロ', short: 'ワイロ', icon: '¥', unlock: 'peace', price: () => shopCfg().wairoPrice ?? 80,
+    what: 'マッチョ犬に こっそり わたすと、つぎの 3ゲームの あいだ 犬が ちかくに いるとき あしが おそくなる', eff: '近くの マッチョ犬 スピード ×0.8(3ゲーム)',
+    hint: 'マッチョ犬の 大こうぶつ… ここだけの はなしだぜ？', bought: 'まいど！ これで マッチョ犬も ちょっと 手かげん してくれるワン… シーッ！' },
 };
+// ぬんぬんフラッグ: ゴールをめざす モードの チェックポイント。750m より 手前の ぶんりたいに 立てると、つぎの 3ゲームは そこから スタート
+//   flag = { i: 立てた ぶんりたいの 車線番号, m: そのときの きょり, t: 立てるまでの タイム, left: のこり回数 }
+const FLAG_KEY = 'kamo_flag', FLAGSTOCK_KEY = 'kamo_flagstock';
+let flag = store.json(FLAG_KEY, null);
+let flagStock = Math.max(0, +(store.get(FLAGSTOCK_KEY) || 0) | 0);
+const saveFlag = () => { store.set(FLAG_KEY, JSON.stringify(flag)); store.set(FLAGSTOCK_KEY, flagStock); };
+const flagOn = () => !!(flag && flag.left > 0);
+const flagCfg = () => ({ price: 120, unlockM: 300, maxM: 750, hold: 4, games: 3, ...(CFG.flag || {}) });
 let boostLeft = clamp(+(store.get(BISCUIT_KEY) || 0) | 0, 0, 3);
 let boostId = BOOSTS[store.get(BOOST_KEY)] ? store.get(BOOST_KEY) : 'biscuit';
 let runBoost = null;   // このゲームで効いているどうぐ
@@ -3832,7 +3942,9 @@ function prepBuy() {
 function prepMove(d) { prepSel = (prepSel + d + RUN_UPS.length) % RUN_UPS.length; buildPrep(); }
 function openPrep() {
   resetRunUp(); buildPrep(); $('prepBox').classList.remove('hidden'); $('title').classList.add('hidden');
-  prepSay(`とっくんして いくかい？ ${eshopCfg().maxBuys}回まで かえるぜ。 もとを とれるかな？ ワン！`);
+  const mb = eshopCfg().maxBuys;
+  prepSay(pick([`とっくんして いくかい？ ${mb}回まで かえるぜ。 もとを とれるかな？ ワン！`, `しゅっぱつ前に ひと きたえ！ ${mb}回までだワン。 ムキッ`,
+    `どこまで いけるか ためしてみな！ とっくんは ${mb}回までだワン`, 'きょうは なにを きたえる？ 1レベルだけ あれこれ も アリだワン', 'エンドレスは ながいぜ… じゅんびは いいか？ ブルルン']));
 }
 // もどるときは つかったコインを かえす
 function cancelPrep() {
@@ -3851,11 +3963,19 @@ function addCoins(n) {
 function updateCoinUI() {
   $('coin').textContent = `● ${coins}`;
   $('titleCoin').innerHTML = `● ${coins} コイン`;
-  $('titleBoost').textContent = boostLeft > 0 ? `${BOOSTS[boostId].icon}${BOOSTS[boostId].short} ×${boostLeft}` : '';
+  // 1行ずつ(横に ならべると 帽子の名前に かさなるので)
+  $('titleBoost').innerHTML = [boostLeft > 0 ? `${BOOSTS[boostId].icon}${BOOSTS[boostId].short} ×${boostLeft}` : '', flagOn() ? `⚑フラッグ ×${flag.left}` : ''].filter(Boolean).map(s => `<div>${s}</div>`).join('');
   $('shopCoins').textContent = `● ${coins}`;
 }
 // 店主: ヘリコプター犬(しっぽがプロペラ)。ちょっとマッチョで、ちょっとかわいい
-const SHOP_HELLO = ['よう、カモ！ しっぽ まわして まってたワン！', 'いらっしゃい！ きたえていくかい？ ブルルン！', 'コインは もってきたか？ ワン！', 'いい ぼうし はいってるぜ。 ブルルン♪'];
+const SHOP_HELLO = ['よう、カモ！ しっぽ まわして まってたワン！', 'いらっしゃい！ きたえていくかい？ ブルルン！', 'コインは もってきたか？ ワン！', 'いい ぼうし はいってるぜ。 ブルルン♪',
+  'おっ、いい かおに なってきたな！ ムキッ', 'きょうも 道路を わたってきたのか？ えらいワン！', 'しっぽの プロペラ、けさ みがいたばかりだワン。 ピカッ',
+  'うちは 空とぶ ショップだワン。 どこでも かけつけるぜ！', 'マッチョ犬？ ああ、あいつは むかしからの ライバルだワン…', 'コインの においが するワン… クンクン',
+  'よってらっしゃい！ きたえるなら いまだワン！', 'まいど！ …って まだ なにも かってないか。 ワン！', 'つかれたら ここで ひとやすみ していきな。 ブルルン',
+  'きたえた ぶんだけ 遠くへ いけるワン！ たぶん！'];
+const SHOP_POOR = ['コインが たりないワン… また きな！', 'おっと、コインが ちょっと たりないワン。', 'ツケは きかないワン！ がんばって あつめてきな！',
+  'うーん、あと すこし コインが いるワン。 道で ひろってきな！', 'ヒヤリ！と かわせば コインが もらえるらしいぜ？ ワン'];
+const SHOP_UPG = ['しっぽも ブンブンだワン！', 'いい きんにくに なってきたワン！ ムキッ', 'その ちょうしだワン！', 'これで マッチョ犬にも まけないワン！', 'ブルルン！ きいてきたぜ！'];
 function shopSay(msg) { $('shopMsg').textContent = msg; }
 // 左の一覧でえらぶ → 右の説明を見て「かう」。(キーボードは ↑↓ でえらんで SPACE で かう)
 let shopSel = 0, shopItems = [];
@@ -3867,7 +3987,7 @@ function makeShopItems() {
       eff: max ? `いま ${u.fmt(u.val(lv))}` : `いま ${u.fmt(u.val(lv))} → つぎ ${u.fmt(u.val(lv + 1))}`,
       hint: max ? `${u.name}は もう きたえきったぜ！ ムキッ` : `${u.name}を きたえるかい？ ● ${u.cost(lv)} だワン。`,
       maxMsg: 'それ いじょうは きたえられないワン。',
-      buy: () => { upg[u.id] = lv + 1; saveUpg(); return `まいど！ ${u.name}が Lv${lv + 1} になった！ しっぽも ブンブンだワン！`; } });
+      buy: () => { upg[u.id] = lv + 1; saveUpg(); return `まいど！ ${u.name}が Lv${lv + 1} になった！ ${pick(SHOP_UPG)}`; } });
   }
   for (const id of BOOST_IDS) {
     const b = BOOSTS[id], active = boostLeft > 0, mine = active && boostId === id, cur = BOOSTS[boostId];
@@ -3887,6 +4007,17 @@ function makeShopItems() {
       hint: !active ? `${b.hint} ● ${b.price()} だワン。` : mine ? `まだ ${b.name}の ちからが のこってるワン(あと${boostLeft}回)。` : `いまは ${cur.name}が きいてるワン。 どうぐは 1つずつだワン。`,
       maxMsg: mine ? `まだ ききめが のこってるワン(あと${boostLeft}回)。 なくなったら またきな！` : `${cur.name}の ききめが きれたら えらべるワン(あと${boostLeft}回)。`,
       buy: () => { boostId = id; boostLeft = 3; saveBoost(); return b.bought; } });
+  }
+  { // ぬんぬんフラッグ(300m に とうたつで 入荷。なんぼんでも かえる。立てられるのは 1本ずつ)
+    const fc = flagCfg(), nm = 'ぬんぬんフラッグ', sec = 'チェックポイント';
+    const what = `ゴールをめざす モードで、${fc.maxM}mより 手前の ぶんりたいに 立てられる はた。その場で とまって ${fc.hold}びょう ながおしで 立てると、つぎの ${fc.games}ゲームは そこから スタート(とくべつな ぼうしは 出ない)`;
+    if (hiscore < fc.unlockM) it.push({ sec, tag: 'どうぐ', name: nm, max: true, maxLabel: 'みにゅうか', price: fc.price, what: what + '。', eff: '',
+      doneLabel: `${fc.unlockM}m に とうたつで 入荷`, hint: `${nm}は まだ 入荷してないワン。 ${fc.unlockM}m まで いけたら もってくるぜ！`,
+      maxMsg: `${fc.unlockM}m まで いけたら 入荷するワン！`, buy: () => '' });
+    else it.push({ sec, tag: 'どうぐ', name: nm, maxLabel: '', price: fc.price, what: what + '。 なんぼんでも かえるけど、立てられるのは 1本ずつ',
+      eff: `もってる ${flagStock}本` + (flagOn() ? `　立てた フラッグ: ${flag.m}m のこり${flag.left}回` : ''),
+      hint: pick([`${nm}！ ゆうきの しるしだワン。 ● ${fc.price}`, `${nm}、ここから また はじめられる ふしぎな はただワン。 ● ${fc.price}`]),
+      buy: () => { flagStock++; saveFlag(); return `まいど！ ${nm}を てにいれた(もってる ${flagStock}本)。 ぶんりたいで とまって ながおしだワン！`; } });
   }
   for (const d of HATS.filter(x => x.kind === 'shop')) {
     const own = ownedHats.has(d.id);
@@ -3925,7 +4056,7 @@ function buildShop() {
 function shopSelect(i) {
   shopSel = i;
   shopRows().forEach(b => b.classList.toggle('sel', +b.dataset.i === i));
-  shopDetail(); shopSay(shopItems[i].hint);
+  shopDetail(); shopSay(shopItems[i].hint); shopKeepVisible();
 }
 function shopDetail() {
   const it = shopItems[shopSel]; if (!it) return;
@@ -3940,12 +4071,22 @@ function shopDetail() {
     `<div class="dWhat">${it.what}</div>` + (it.eff ? `<div class="dEff">${it.eff}</div>` : '') + btn;
   const bb = $('shopBuyBtn'); if (bb) bb.addEventListener('click', () => shopBuy());
 }
-function focusShopSel() { const r = shopRows()[shopSel]; if (r && !touchMode) r.focus({ preventScroll: true }); }
+function focusShopSel() { const r = shopRows()[shopSel]; if (r && !touchMode) r.focus({ preventScroll: true }); shopKeepVisible(); }
+// えらんだ 品物が 一覧の 見えるところに くるように(一覧だけ スクロール)
+function shopKeepVisible() {
+  const list = $('shopList'), r = shopRows()[shopSel]; if (!r) return;
+  // 見出しも いっしょに 見えるように、すぐ上の 見出しが あれば そこまで
+  const prev = r.previousElementSibling, top = (prev && prev.classList.contains('shopSec') ? prev : r).offsetTop - list.offsetTop;
+  const bot = r.offsetTop - list.offsetTop + r.offsetHeight;
+  if (top < list.scrollTop) list.scrollTop = top;
+  else if (bot > list.scrollTop + list.clientHeight) list.scrollTop = bot - list.clientHeight;
+  uiDirty = true;
+}
 function shopBuy() {
   const it = shopItems[shopSel]; if (!it) return;
   if (it.own) { it.wear(); return; }
   if (it.max) { shopSay(it.maxMsg); return; }
-  if (coins < it.price) { shopSay('コインが たりないワン… また きな！'); return; }
+  if (coins < it.price) { shopSay(pick(SHOP_POOR)); return; }
   coins -= it.price; store.set(COIN_KEY, coins);
   const msg = it.buy();
   buildShop(); focusShopSel(); shopSay(msg);
@@ -4002,14 +4143,15 @@ function closeFbx() { $('fbxBox').classList.add('hidden'); if (state === 'title'
 let menuOpen = false, menuBlue = 0, menuSel = 0;
 const DOG_FACE = document.querySelector('.shopMsg .face').innerHTML;
 document.querySelectorAll('svg.dogface').forEach(s => { s.innerHTML = DOG_FACE; });
+// セリフは えらぶたびに どれか 1つ
 const MENU_SAY = {
-  hats: 'ぼうしが いっぱい！ おきにいりも きめられるワン',
-  start: 'さあ、道路を わたろう！ 車に 気をつけるワン！',
-  shop: 'コインが あるなら よっていきな！ ブルルン♪',
-  ach: 'ちょうせんすると ぼうしが もらえるワン',
-  pw: 'パスワードを メモしておくと あんしんだワン',
-  rec: 'これまでの あゆみだワン。 よく がんばってるな！',
-  mode: '', close: 'また いつでも よんでくれワン！',
+  hats: ['ぼうしが いっぱい！ おきにいりも きめられるワン', 'おなじ ぼうしを あつめるのも たのしいワン', 'かぶってる ぼうしは 道に おちやすいらしいぜ？', 'オレの ぶんの ぼうしは ないのか？ ワン'],
+  start: ['さあ、道路を わたろう！ 車に 気をつけるワン！', '橋の 上の 子カモを つれて かえってやりな！', 'ギリギリで かわすと ヒヤリ！だワン。 ほどほどにな', 'いってらっしゃい！ 空から みまもってるワン', 'マッチョ犬に つかまるなよ！ ブルルン'],
+  shop: ['コインが あるなら よっていきな！ ブルルン♪', 'あたらしい どうぐ、はいってるかもな？ ワン', 'きたえるなら オレの ショップだワン！ ムキッ', 'みるだけでも いいんだぜ？ ワン'],
+  ach: ['ちょうせんすると ぼうしが もらえるワン', 'じっせきで しか もらえない ぼうしも あるワン', 'へいわが いちばん…って こともあるワン', 'できそうな ものから ためしてみな！'],
+  pw: ['セーブデータを ほぞん しておくと あんしんだワン', 'べつの たんまつでも つづきが できるワン', 'セーブデータの 中身は のぞくなよ？ スポーツマンシップだワン', 'むかしの パスワードも まだ つかえるワン'],
+  rec: ['これまでの あゆみだワン。 よく がんばってるな！', 'ずいぶん あるいたな！ あしは だいじょうぶか？', 'きろくは うそを つかないワン… ムキッ'],
+  mode: [''], close: ['また いつでも よんでくれワン！', 'しっぽ まわして まってるワン！', 'いってこい！ ブルルン♪'],
 };
 const msItems = all => [...$('msList').querySelectorAll('.msi')].filter(b => all || !b.classList.contains('hidden'));
 function menuSelect(i) {
@@ -4017,7 +4159,7 @@ function menuSelect(i) {
   menuSel = (i + it.length) % it.length;
   it.forEach((b, k) => b.classList.toggle('sel', k === menuSel));
   const act = it[menuSel].dataset.act;
-  $('msSay').textContent = act === 'mode' ? (endless ? 'ゴールの むこうまで どこまでも いくワン！' : 'ゴールを めざすか、どこまでも いくか えらべるワン') : MENU_SAY[act];
+  $('msSay').textContent = act === 'mode' ? (endless ? 'ゴールの むこうまで どこまでも いくワン！' : 'ゴールを めざすか、どこまでも いくか えらべるワン') : pick(MENU_SAY[act] || ['']);
 }
 function openMenu() {
   if (state !== 'title' || modalOpen()) return;
@@ -4116,12 +4258,17 @@ function drawMenu(t, itemsToo = true) {
   c.fillStyle = '#dff0ff'; c.fillRect(rb.x, rb.y, rb.w, rb.h);
   c.fillRect(rb.x + rb.w / 2 - fz * 0.3, rb.y + rb.h, fz * 0.6, fz * 0.3); c.fillRect(rb.x + rb.w / 2 - fz * 0.15, rb.y + rb.h + fz * 0.3, fz * 0.3, fz * 0.25);
   c.font = `${fz}px DotGothic16, monospace`;
+  // ことばの きれめ(空白)で 改行。「。」などが 行の はじめに こないように
   let line = '', ly = rb.y + pad * 0.6;
-  for (const ch of say.textContent) {
-    if (c.measureText(line + ch).width > rb.w - pad * 2) { txt(line, rb.x + pad, ly, fz, '#0c1c66'); line = ''; ly += fz * 1.35; }
-    line += ch;
+  const maxW = rb.w - pad * 2, put = () => { txt(line.trim(), rb.x + pad, ly, fz, '#0c1c66'); line = ''; ly += fz * 1.35; };
+  for (const tok of say.textContent.split(/(?<=\s)/)) {
+    if (line && c.measureText((line + tok).trimEnd()).width > maxW) put();
+    for (const ch of tok) {
+      if (line && c.measureText(line + ch).width > maxW && !'。、！？」）ー…'.includes(ch)) put();
+      line += ch;
+    }
   }
-  if (line) txt(line, rb.x + pad, ly, fz, '#0c1c66');
+  if (line.trim()) put();
   // ヘリコプター犬(しっぽのプロペラが回る)
   const dg = R(document.querySelector('.msDog svg')), u = dg.w / 16, bob = Math.round(Math.sin(t * 3) * u * 0.5);
   c.imageSmoothingEnabled = false;
@@ -4135,7 +4282,8 @@ function drawMenu(t, itemsToo = true) {
 // HTML は「.ghost」で見えなくして(さわれる)、その配置・色をキャンバスに写す
 const GHOST_TITLE = ['titleStat', 'pressStart', 'hatSel', 'help', 'menuWrap', 'modeBtn', 'fbxBtn'];
 const GHOST_MODAL = ['shopBox', 'achBox', 'recBox', 'pwBox', 'prepBox', 'hatBox'];
-let uiOps = [], uiDirty = true, uiFrame = 0, uiActive = false, uiFlat = false;
+const GHOST_HUD = ['score', 'coin', 'hearts', 'hi', 'goalTxt', 'subHud', 'pauseBtn', 'area', 'msgLine', 'dogWarn', 'starBox', 'swayBox'];
+let uiOps = [], uiDirty = true, uiFrame = 0, uiActive = false, uiFlat = false, hudUI = false, uiSig = '', uiForce = true, uiWasHud = false;
 for (const ev of ['scroll', 'input', 'click', 'keydown', 'pointerover', 'pointerout', 'focusin']) document.addEventListener(ev, () => { uiDirty = true; }, true);
 const rgx = document.createRange();
 const isClear = col => !col || col === 'transparent' || /rgba\([^)]*,\s*0\)$/.test(col);
@@ -4149,7 +4297,16 @@ function collectUI(root, ops, glow) {
     const a = alpha * parseFloat(cs.opacity || 1);
     if (a < 0.02) return;
     const r = R(el.getBoundingClientRect());
-    if (el instanceof SVGElement) { if (el.classList.contains('dogface') || el.classList.contains('face')) ops.push({ t: 'dog', ...r, a, clip }); return; }
+    if (el instanceof SVGElement) {
+      if (el.classList.contains('dogface') || el.classList.contains('face')) ops.push({ t: 'dog', ...r, a, clip });
+      else if (el.tagName.toLowerCase() === 'svg' && el.viewBox.baseVal) {
+        // ドット絵の SVG(ハート・子カモ)は 四角を そのまま 写す
+        const vb = el.viewBox.baseVal, rects = [...el.querySelectorAll('rect')].map(q => ['x', 'y', 'width', 'height'].map(n => +q.getAttribute(n)).concat(q.getAttribute('fill')));
+        ops.push({ t: 'svg', ...r, vw: vb.width, vh: vb.height, rects, sh: cs.filter && cs.filter !== 'none', a, clip });
+      }
+      return;
+    }
+    if (el.classList.contains('ring')) ops.push({ t: 'ring', ...r, p: +el.dataset.p || 0, a, clip });   // まるい ボタン(フラッグ)
     if (!isClear(cs.backgroundColor)) ops.push({ t: 'fill', ...r, c: cs.backgroundColor, a, clip });
     const bt = parseFloat(cs.borderTopWidth) * k, bl = parseFloat(cs.borderLeftWidth) * k, bb = parseFloat(cs.borderBottomWidth) * k;
     if (bt > 0 && bl > 0 && cs.borderTopStyle !== 'none') ops.push({ t: 'stroke', ...r, c: cs.borderTopColor, lw: Math.max(1.2, bt), a, clip, glow });
@@ -4196,6 +4353,20 @@ function drawUIOps(c, ops, t) {
     } else if (o.t === 'line') {
       c.strokeStyle = o.c; c.lineWidth = o.lw; if (o.dash) c.setLineDash([o.lw * 3, o.lw * 2]);
       c.beginPath(); c.moveTo(o.x, o.y); c.lineTo(o.x + o.w, o.y); c.stroke();
+    } else if (o.t === 'svg') {
+      const sx = o.w / o.vw, sy = o.h / o.vh, d = Math.max(1, o.h * 0.1);
+      if (o.sh) { c.fillStyle = '#000'; for (const [x, y, w, h] of o.rects) c.fillRect(o.x + x * sx + d, o.y + y * sy + d, w * sx, h * sy); }
+      for (const [x, y, w, h, f] of o.rects) { c.fillStyle = f; c.fillRect(o.x + x * sx, o.y + y * sy, w * sx + 0.5, h * sy + 0.5); }
+    } else if (o.t === 'ring') {
+      // まるい ボタン: くらい 台 + うすい 縁。ながおし中は 上から 時計回りに 黄色く なっていく
+      const cx = o.x + o.w / 2, cy = o.y + o.h / 2, rr = Math.min(o.w, o.h) / 2, lw = Math.max(2, rr * 0.2), R0 = rr - lw / 2;
+      c.fillStyle = 'rgba(10,14,30,.62)'; c.beginPath(); c.arc(cx, cy, rr, 0, Math.PI * 2); c.fill();
+      c.lineWidth = lw; c.strokeStyle = 'rgba(255,255,255,.6)';
+      c.beginPath(); c.arc(cx, cy, R0, 0, Math.PI * 2); c.stroke();
+      if (o.p > 0) {
+        c.strokeStyle = '#ffd23f'; c.shadowColor = '#ffd23f'; c.shadowBlur = lw * 1.5;
+        c.beginPath(); c.arc(cx, cy, R0, -Math.PI / 2, -Math.PI / 2 + Math.PI * 2 * o.p); c.stroke();
+      }
     } else if (o.t === 'dog') {
       const u = o.w / 16;
       c.imageSmoothingEnabled = false;
@@ -4218,14 +4389,35 @@ function drawUI(t) {
   const c = mctx, W = UIW;
   const modals = GHOST_MODAL.filter(id => !$(id).classList.contains('hidden'));
   const roots = [];
+  // ゲーム中の 画面上部の 表示(スコア・ハート・コインなど)も 加工の下に。歪みは ひかえめ、ビネットなし
+  hudUI = false;
+  if (!$('hud').classList.contains('hidden') || state === 'play') {
+    for (const id of GHOST_HUD) { const el = $(id); if (el.getClientRects().length && +getComputedStyle(el).opacity > 0.02) { roots.push([el, false]); hudUI = true; } }
+    for (const el of document.querySelectorAll('#screen > .pop')) { roots.push([el, false]); hudUI = true; }   // ヒヤリ！ など
+  }
+  const hudN = roots.length;
   if (state === 'title' && !menuOpen) for (const id of GHOST_TITLE) { const el = $(id); if (el.getClientRects().length) roots.push([el, false]); }
   if (state === 'over') for (const el of $('over').children) roots.push([el, false]);
+  if (state === 'paused') roots.push([$('pause'), false]);   // ポーズ画面(上の表示の 上に 暗い幕)
   for (const id of modals) roots.push([$(id), true]);
+  // 「いたっ！」などの 大きな文字と、左の おしらせは どの画面でも いちばん上に
+  for (const id of ['newrec', 'notice']) { const el = $(id); if (el.getClientRects().length && el.offsetHeight > 0) roots.push([el, false]); }
+  const flatN = roots.length - hudN;
   const bg = menuBlue > 0 || modals.length;
   uiActive = bg || roots.length > 0;
-  uiFlat = roots.length > 0;
-  if (!uiActive) return;
-  if (uiDirty || ++uiFrame % 3 === 0) { uiDirty = false; uiOps = []; for (const [el, glow] of roots) collectUI(el, uiOps, glow); }
+  uiFlat = flatN > 0;
+  if (!uiActive) { uiWasHud = false; return; }
+  // ゲーム中の 上の表示だけの ときは、かわっていなければ かきなおさない(スマホで 軽く)
+  const hudOnly = !bg && flatN === 0;
+  if (hudOnly !== uiWasHud) { uiForce = true; uiDirty = true; }
+  uiWasHud = hudOnly;
+  let changed = false;
+  if (uiDirty || ++uiFrame % 3 === 0) {
+    uiDirty = false; uiOps = []; for (const [el, glow] of roots) collectUI(el, uiOps, glow);
+    if (hudOnly) { const sig = JSON.stringify(uiOps); changed = sig !== uiSig; uiSig = sig; }
+  }
+  if (hudOnly && !changed && !uiForce) return;
+  uiForce = false;
   c.clearRect(0, 0, W, W);
   if (bg) {
     c.save(); c.beginPath(); c.rect(0, 0, W, W * (modals.length ? 1 : menuBlue)); c.clip();
@@ -4251,7 +4443,7 @@ function buildRec() {
     ['あそんだ回数', n(stats.runs, '回')], ['プレイ時間', fmtTime(stats.playTime)],
     ['そう移動きょり', n(stats.dist, 'm')], ['1回の へいきん', stats.runs ? n(stats.dist / stats.runs, 'm') : '―'],
     ['ハイスコア', n(hiscore, 'm')], ['ゴールした回数', n(stats.clears, '回')],
-    ['いちばん はやい ゴール', stats.bestClear ? fmtTime(stats.bestClear) : '―'], ['エンドレスの さいこう', stats.endlessBest ? n(stats.endlessBest, 'm') : '―'],
+    ['いちばん はやい ゴール', stats.bestClear ? fmtClear(stats.bestClear) : '―'], ['⚑フラッグありの ゴール', stats.bestClearFlag ? fmtClear(stats.bestClearFlag) : '―'], ['エンドレスの さいこう', stats.endlessBest ? n(stats.endlessBest, 'm') : '―'],
     ['車に ひかれた回数', n(stats.carHit, '回')], ['マッチョ犬に つかまった回数', n(stats.dogCaught, '回')],
     ['ネギを ひろった回数', n(stats.negi, '回')], ['車を ぶっとばした回数', n(stats.carKO, '台')],
     ['コイン車を ぶっとばした回数', n(stats.coinCar, '台')], ['マッチョ犬を たおした回数', n(stats.dogKO, '回')],
@@ -4301,8 +4493,64 @@ for (const ev of ['pointerup', 'pointercancel']) $('c').addEventListener(ev, () 
 const modalOpen = () => !$('hatBox').classList.contains('hidden') || !$('prepBox').classList.contains('hidden') || !$('pwBox').classList.contains('hidden') || !$('recBox').classList.contains('hidden') || !$('achBox').classList.contains('hidden') || !$('shopBox').classList.contains('hidden') || !$('fbxBox').classList.contains('hidden');
 function openPw() { $('pwCode').textContent = makePassword(); $('pwInput').value = ''; $('pwBox').classList.remove('hidden'); }
 function closePw() { $('pwBox').classList.add('hidden'); }
+// ---- セーブデータ(JSON)。この ブラウザの きろく(kamo_ で はじまるもの)を まるごと 書き出す ----
+// 中身は ぱっと見で 読めないように まぜて、かいざん チェックつき(スポーツマンシップに きたい！)
+const SAVE_SKIP = ['kamo_tuning'];
+const SV_SALT = 'nunnun-kamo-crossing';
+function svKeys() {
+  const ks = [];
+  try { for (let i = 0; i < localStorage.length; i++) { const k = localStorage.key(i); if (k && k.startsWith('kamo_') && !SAVE_SKIP.includes(k)) ks.push(k); } }
+  catch (e) { for (const k in memStore) if (k.startsWith('kamo_') && !SAVE_SKIP.includes(k)) ks.push(k); }
+  return ks;
+}
+function svHash(s) { let h = 0x811c9dc5; for (let i = 0; i < s.length; i++) { h ^= s.charCodeAt(i); h = Math.imul(h, 0x01000193) >>> 0; } return h.toString(16).padStart(8, '0'); }
+function svMix(bytes, seed) {
+  // xorshift で まぜる(もう一度 同じ seed で かけると もとに もどる)
+  let x = seed >>> 0 || 1; const out = new Uint8Array(bytes.length);
+  for (let i = 0; i < bytes.length; i++) { x ^= x << 13; x >>>= 0; x ^= x >>> 17; x ^= x << 5; x >>>= 0; out[i] = bytes[i] ^ (x & 255); }
+  return out;
+}
+const b64 = u8 => { let s = ''; for (let i = 0; i < u8.length; i += 0x8000) s += String.fromCharCode(...u8.subarray(i, i + 0x8000)); return btoa(s); };
+const unb64 = s => Uint8Array.from(atob(s), c => c.charCodeAt(0));
+function makeSave() {
+  saveStats(); saveAch();
+  const data = {}; for (const k of svKeys()) data[k.slice(5)] = store.get(k);
+  const plain = JSON.stringify(data), seed = (Math.random() * 0xffffffff) >>> 0;
+  const mixed = svMix(new TextEncoder().encode(plain), seed ^ 0x5eed1234).reverse();
+  return JSON.stringify({ game: 'odan-kamo', v: 1, date: new Date().toISOString().slice(0, 10), k: seed.toString(36), d: b64(mixed), c: svHash(SV_SALT + plain) });
+}
+function readSave(text) {
+  try {
+    const o = JSON.parse(text);
+    if (!o || o.game !== 'odan-kamo' || o.v !== 1) return null;
+    const seed = parseInt(o.k, 36) >>> 0;
+    const plain = new TextDecoder().decode(svMix(unb64(o.d).reverse(), seed ^ 0x5eed1234));
+    if (svHash(SV_SALT + plain) !== o.c) return null;
+    const data = JSON.parse(plain);
+    return data && typeof data === 'object' ? data : null;
+  } catch (e) { return null; }
+}
+let svArmed = null;   // うわがき前の かくにん(もう一度 おすと よみこむ)
+function importSave(text) {
+  const data = readSave(text);
+  if (!data) { toast('セーブデータが よめませんでした'); return; }
+  if (svArmed !== text) { svArmed = text; toast('いまの きろくは うわがき されます。もう一度 「よみこむ」で けってい'); return; }
+  svArmed = null;
+  for (const k of svKeys()) store.del(k);
+  for (const k in data) if (typeof data[k] === 'string') store.set('kamo_' + k, data[k]);
+  toast('よみこみました！ さいきどう します');
+  setTimeout(() => location.reload(), 900);
+}
+function saveToFile() {
+  const blob = new Blob([makeSave()], { type: 'application/json' }), a = document.createElement('a');
+  a.href = URL.createObjectURL(blob); a.download = `kamo_save_${new Date().toISOString().slice(0, 10)}.json`;
+  document.body.appendChild(a); a.click(); a.remove(); setTimeout(() => URL.revokeObjectURL(a.href), 3000);
+  toast('セーブデータを ほぞん しました(ダウンロード)');
+}
 function loadPw() {
-  const r = readPassword($('pwInput').value);
+  const raw = $('pwInput').value.trim();
+  if (raw.startsWith('{')) { importSave(raw); return; }
+  const r = readPassword(raw);
   if (!r) { toast('パスワードがちがいます'); return; }
   // パスワードを作った時点の記録にそのまま置きかえる(コインの増やしすぎ防止)
   hiscore = r.hs; store.set(HISCORE_KEY, hiscore);
@@ -4559,12 +4807,14 @@ let swayArmorT = 0;   // スウェイのあいだ(と直後ほんの少し)の�
 const keys = {};
 const camPos = new THREE.Vector3(0, 5, 9), camLook = new THREE.Vector3(0, 0.5, -10);
 let camK = 30, camSnap = true;
+let startX = 0, flagRun = false, flagMesh = null, flagHoldT = 0, flagPress = false, gpFlag = false, flagWarned = false;   // ぬんぬんフラッグ
 
 function resetWorld() {
   if (ending) { scene.remove(ending.g); ending = null; }
   clearTimeout(msgTimer); $('msgLine').classList.remove('show');
   $('clearScr').className = 'overlay hidden';
-  clearLanes(); clearParticles(); clearFlyers(); clearDropCoins(); resetLaneGen();
+  clearLanes(); clearParticles(); clearFlyers(); clearDropCoins(); clearChicks(); resetLaneGen(); nearCd = 0;
+  startX = 0; flagRun = false; flagHoldT = 0; if (flagMesh) { scene.remove(flagMesh); flagMesh = null; }
   zoneSeq = []; zoneHill = [];
   Object.assign(duck, { x: 0, y: 0.2, z: 0, vx: 0, facing: 1, phase: 0, look: 0 });
   sway.t = 0; sway.cd = 0; sway.cd2 = 0;
@@ -4611,18 +4861,114 @@ function startGame() {
   run = { dogKO: 0, swayFrom: 0, lowAt: -1, negi: 0, sitX: null, bridgeIdx: -99, noswayMax: 0, lowMax: 0, notices: new Set(),
           bridges: 0, starKO: 0, starKOMax: 0, farMax: 0, starExt: 0, guts: false };
   playT = 0; swayArmorT = 0; stats.runs++;
-  showMsg(endless ? (runBuys() ? `とっくん ${runBuys()}回！ どこまでも 進み続けよう` : 'どこまでも 進み続けよう') : '反対側の カモ池を 目指そう', 1.2);
+  if (!endless && flagOn()) startFromFlag();
+  showMsg(endless ? (runBuys() ? `とっくん ${runBuys()}回！ どこまでも 進み続けよう` : 'どこまでも 進み続けよう')
+    : flagRun ? `ぬんぬんフラッグから さいかい！(のこり ${flag.left}回)` : '反対側の カモ池を 目指そう', 1.2);
   camK = 2.5;
   $('hi').classList.remove('gold');
   lastHud = '';
 }
+// ---- ぬんぬんフラッグ ----
+function makeFlag() {
+  const g = new THREE.Group();
+  cyl(g, 0.04, 0.04, 1.9, 6, 0, 0.95, 0, 0xeeeeee);
+  part(g, 0.12, 0.12, 0.12, 0, 1.94, 0, 0xffd23f);
+  const cv = document.createElement('canvas'); cv.width = 64; cv.height = 40;
+  const c = cv.getContext('2d');
+  c.fillStyle = '#e83a3a'; c.fillRect(0, 0, 64, 40); c.fillStyle = '#ffd23f'; c.fillRect(0, 32, 64, 8);
+  c.fillStyle = '#fff'; c.font = 'bold 22px sans-serif'; c.textAlign = 'center'; c.textBaseline = 'middle'; c.fillText('ぬん', 32, 17);
+  const tex = new THREE.CanvasTexture(cv); tex.magFilter = THREE.NearestFilter; tex.colorSpace = THREE.SRGBColorSpace;
+  const cloth = new THREE.Mesh(new THREE.PlaneGeometry(0.85, 0.53), new THREE.MeshLambertMaterial({ map: tex, side: THREE.DoubleSide }));
+  const pivot = new THREE.Group(); pivot.position.set(0.02, 1.6, 0); cloth.position.x = 0.44; pivot.add(cloth); g.add(pivot);
+  g.userData.cloth = pivot;
+  return g;
+}
+function showFlagAt(x) {
+  if (flagMesh) scene.remove(flagMesh);
+  flagMesh = makeFlag(); flagMesh.position.set(x, groundAt(x), -0.55); scene.add(flagMesh);
+}
+// 立てた ぶんりたいの 番号から、こんかいの 道で いちばん近い(手前の)ぶんりたいを さがす
+function flagStartIdx() { let k = Math.max(1, flag.i | 0); for (; k > 1; k--) if (laneDef(k).type !== 'road') break; return k; }
+function startFromFlag() {
+  const k = flagStartIdx();
+  flag.left--; saveFlag(); updateCoinUI();
+  flagRun = true; startX = k * LW;
+  run.fromFlag = true; run.flagT = flag.t || 0; run.startM = Math.floor(startX * CFG.score.meterPerUnit); run.swayFrom = run.startM;
+  for (const n of CFG.goal?.notices || []) if (n <= run.startM) run.notices.add(n);
+  clearLanes();
+  duck.x = startX; duck.vx = 0; maxX = startX;
+  dog.x = startX + DOG_DROP_X;
+  camX = startX + CFG.camera.lookAhead; camSnap = true;
+  ensureLanes(camX);
+  duck.y = groundAt(startX); D.root.position.set(duck.x, duck.y, duck.z);
+  blendEnv(themeAt(startX), 1); areaKey = null;
+  showFlagAt(startX - 0.55);
+}
+function placeFlag(li) {
+  const fc = flagCfg();
+  flag = { i: li, m: Math.floor(li * LW * CFG.score.meterPerUnit), t: +playT.toFixed(2), left: fc.games };
+  flagStock--; saveFlag(); run.flagPlaced = true; flagHoldT = 0;
+  showFlagAt(duck.x - 0.55);
+  showBanner('ぬんぬん', 'フラッグを たてた！'); flashT = Math.max(flashT, 0.4);
+  emit(26, duck.x - 0.5, duck.y + 1.6, -0.5, [0xe83a3a, 0xffd23f, 0xffffff], { glow: true, vx0: -3, vx1: 3, vy0: 2, vy1: 6, g: 8, l0: 0.5, l1: 1, floor: duck.y });
+  showMsg(`つぎの ${fc.games}ゲームは ${flag.m}m から スタート`, 1.2);
+}
+function updateFlag(dt) {
+  if (flagMesh) flagMesh.userData.cloth.rotation.y = Math.sin(time * 3) * 0.35;
+  const fc = flagCfg(), btn = $('flagBtn');
+  // スタートの 岸に いるあいだは 出さない(じゃまに ならないように)
+  const avail = state === 'play' && !endless && flagStock > 0 && !flagOn() && !flagRun && !run.flagPlaced && score < fc.maxM && duck.x > LW / 2;
+  if (btn.classList.contains('hidden') === avail) { btn.classList.toggle('hidden', !avail); uiDirty = true; }
+  if (!avail) { flagHoldT = 0; btn.classList.remove('press'); $('flagRing').dataset.p = '0'; return; }
+  const li = Math.round(duck.x / LW), safe = li > 0 && laneDef(li).type !== 'road' && laneDef(li).type !== 'goal';
+  const still = Math.abs(duck.vx) < 0.15 && inputDir === 0 && sway.t <= 0;
+  const holding = !!(keys.KeyF || flagPress || gpFlag);
+  if (holding && safe && still) { flagHoldT += dt; if (flagHoldT >= fc.hold) { placeFlag(li); return; } }
+  else flagHoldT = 0;
+  // おしはじめに 立てられない わけを 小さく 出す
+  if (holding && !flagWarned && (!safe || !still)) { flagWarned = true; popAt(duck.x, duck.y + 1.6, duck.z, !safe ? 'ぶんりたいで たてよう' : 'とまって ながおし'); }
+  if (!holding) flagWarned = false;
+  const n = `×${flagStock}`, p = Math.min(1, flagHoldT / fc.hold).toFixed(3), ring = $('flagRing');
+  if ($('flagN').textContent !== n) $('flagN').textContent = n;
+  if (ring.dataset.p !== p) { ring.dataset.p = p; uiDirty = true; }
+  if (btn.classList.contains('press') !== holding) { btn.classList.toggle('press', holding); uiDirty = true; }
+  if (btn.classList.contains('off') === safe) { btn.classList.toggle('off', !safe); uiDirty = true; }
+}
 function setPause(p) {
+  if (camMode) setCamMode(false);
   state = p ? 'paused' : 'play';
   touchDirs.clear();
   $('pause').classList.toggle('hidden', !p);
 }
+// ---- ポーズ中の カメラモード: カモの まわりを 少し まわしたり、よったり ひいたり ----
+let camMode = false;
+const pcam = { yaw: 0, zoom: 1, tyaw: 0, tzoom: 1, off: new THREE.Vector3(), look: new THREE.Vector3() }, camHold = new Set();
+const UP_Y = new THREE.Vector3(0, 1, 0), pcT = new THREE.Vector3(), pcP = new THREE.Vector3(), pcL = new THREE.Vector3();
+function setCamMode(on) {
+  if (on && state !== 'paused') return;
+  camMode = on; camHold.clear();
+  $('pause').classList.toggle('cam', on); $('screen').classList.toggle('camOn', on);
+  if (on) {
+    Object.assign(pcam, { yaw: 0, zoom: 1, tyaw: 0, tzoom: 1 });
+    pcT.set(duck.x, duck.y + 0.6, duck.z);
+    pcam.off.copy(camPos).sub(pcT); pcam.look.copy(camLook).sub(pcT);
+  } else { camera.position.copy(camPos); camera.lookAt(camLook); }
+}
+function updatePauseCam(dt) {
+  const h = k => camHold.has(k);
+  const ax = clamp(((keys.ArrowRight || keys.KeyD || h('right')) ? 1 : 0) - ((keys.ArrowLeft || keys.KeyA || h('left')) ? 1 : 0) + gpAxis, -1, 1);
+  const zm = ((keys.ArrowDown || keys.KeyS || h('out')) ? 1 : 0) - ((keys.ArrowUp || keys.KeyW || h('in')) ? 1 : 0);
+  pcam.tyaw = clamp(pcam.tyaw - ax * dt * 1.3, -1.2, 1.2);
+  pcam.tzoom = clamp(pcam.tzoom + zm * dt * 0.8, 0.45, 1.6);
+  pcam.yaw = lerp(pcam.yaw, pcam.tyaw, Math.min(1, dt * 8)); pcam.zoom = lerp(pcam.zoom, pcam.tzoom, Math.min(1, dt * 8));
+  pcT.set(duck.x, duck.y + 0.6, duck.z);
+  pcP.copy(pcam.off).applyAxisAngle(UP_Y, pcam.yaw).multiplyScalar(pcam.zoom).add(pcT);
+  // よるほど カモを 見る。ひくと いつもの 見る先へ
+  pcL.copy(pcam.look).applyAxisAngle(UP_Y, pcam.yaw).multiplyScalar(clamp((pcam.zoom - 0.45) / 0.55, 0, 1)).add(pcT);
+  camera.position.copy(pcP); camera.lookAt(pcL);
+}
 function die(lane, cause = 'car') {
-  state = 'dying'; deathT = 0; shake = 0.7; deathCause = cause;
+  state = 'dying'; deathT = 0; shake = 0.7; deathCause = cause; armorT = 0; D.root.visible = true;   // 点滅中でも 見えるように
   if (cause === 'dog') { duck.dv.set(rand(5, 7), 11, rand(1, 3)); dog.mode = 'flex'; }
   else duck.dv.set(rand(-1.5, 1.5) + duck.vx * 0.3, 10, Math.min(6, lane.speed * 0.4));
   duck.spin.set(rand(-10, 10), rand(-6, 6), rand(8, 14));
@@ -4630,6 +4976,9 @@ function die(lane, cause = 'car') {
   emit(26, duck.x, duck.y + 0.6, duck.z, DUCK_COLORS, { vx0: -4, vx1: 4, vy0: 2, vy1: 7, vz0: -1, vz1: 5, g: 9, l0: 0.8, l1: 1.6, floor: duck.y });
   if (score > hiscore) hiscore = score;
   store.set(HISCORE_KEY, hiscore);
+  // エンドレスは ゴールが ないので、さいごまで いっしょだった 子カモの ぶん ボーナス。ふつうの モードは ゴールでだけ
+  run.chickPay = endless ? payChickBonus() : [0, 0];
+  loseChick(chicks.length);
   endRunAch();
 }
 function showGameOver() {
@@ -4639,15 +4988,17 @@ function showGameOver() {
   $('ovScore').textContent = `SCORE ${score}m`;
   $('ovHi').textContent = `HI-SCORE ${hiscore}m`;
   $('ovNew').classList.toggle('hidden', !(score > runHiStart && score > 0));
-  $('ovCoins').textContent = `コイン +${runCoins}　(もちコイン ● ${coins})`;
+  const [cn, cb] = run.chickPay || [0, 0];
+  $('ovCoins').textContent = `コイン +${runCoins}` + (cb ? `(子カモ×${cn} ボーナス +${cb})` : '') + `　(もちコイン ● ${coins})`;
   $('ovHats').textContent = runNewHats.length ? '帽子ゲット！ ' + runNewHats.map(h => h.name).join('・') : '';
   const next = HATS.find(h => h.kind === 'best' && !isUnlocked(h));
   const got = HATS.filter(isUnlocked).length;
   $('ovNext').textContent = `帽子 ${got}/${HATS.length}　` + (next ? `つぎの特別な帽子は ${next.best}m 地点` : '特別な帽子コンプリート！');
 }
-function showBanner(line1, line2) {
+function showBanner(line1, line2, big) {
   const el = $('newrec'), sp = s => [...s].map(c => `<span>${c}</span>`).join('');
   el.innerHTML = sp(line1) + '<br><span class="sub">' + sp(line2) + '</span>';
+  el.classList.toggle('big', !!big);   // ネギパワー・マッチョ犬ダウン(むてきの はじまり)だけ 少し大きく
   el.classList.remove('show'); void el.offsetWidth; el.classList.add('show');
 }
 function announceRecord() {
@@ -4666,13 +5017,19 @@ function startClear() {
   const gx = goalIdx * LW;
   if (score > hiscore) hiscore = score;
   store.set(HISCORE_KEY, hiscore);
-  const firstClear = !cleared, prevBest = stats.bestClear;
-  stats.clears++; stats.bestClear = stats.bestClear ? Math.min(stats.bestClear, playT) : playT;
+  // フラッグから のときは「フラッグを 立てるまで ＋ フラッグから ゴールまで」。フラッグなしの きろくとは べつ
+  const fr = !!run.fromFlag, tot = fr ? (run.flagT || 0) + playT : playT, bk = fr ? 'bestClearFlag' : 'bestClear';
+  const firstClear = !cleared, prevBest = stats[bk] || 0;
+  stats.clears++; stats[bk] = prevBest ? Math.min(prevBest, tot) : tot;
+  // つれてきた 子カモの ぶん コインボーナス
+  const [cn, cb] = payChickBonus();
+  $('clearChick').textContent = cn ? `子カモ ×${cn} つれてきた！　ボーナス +${cb} コイン` : '';
   endRunAch();
   cleared = true; store.set(CLEAR_KEY, '1');
   // クリアタイム。エンドレス解禁の文は はじめてのときだけ
-  $('clearTime').textContent = `クリアタイム ${fmtClear(playT)}`;
-  $('clearBest').textContent = !prevBest ? '' : playT < prevBest ? `じこベスト こうしん！(まえ ${fmtClear(prevBest)})` : `じこベスト ${fmtClear(prevBest)}`;
+  $('clearTime').textContent = `クリアタイム ${fmtClear(tot)}` + (fr ? ' ⚑' : '');
+  $('clearBest').innerHTML = (fr ? `⚑フラッグまで ${fmtClear(run.flagT || 0)} ＋ フラッグから ${fmtClear(playT)}<br>` : '') +
+    (!prevBest ? '' : (fr ? 'フラッグありの ' : '') + (tot < prevBest ? `じこベスト こうしん！(まえ ${fmtClear(prevBest)})` : `じこベスト ${fmtClear(prevBest)}`));
   $('clearUnlock').classList.toggle('hidden', !firstClear);
   setStar(0); armorT = 0; D.root.visible = true; duck.look = 0; duck.facing = 1;
   touchDirs.clear(); $('hud').classList.add('hidden'); $('newrec').classList.remove('show');
@@ -4777,7 +5134,10 @@ function onAction(a) {
     if (a === 'primary' || a === 'sway') swayQueued = true;
     else if (a === 'pause' || a === 'back') setPause(true);
   }
-  else if (state === 'paused') { if (a === 'pause' || a === 'back' || a === 'confirm' || a === 'primary') setPause(false); }
+  else if (state === 'paused') {
+    if (camMode) { if (a === 'pause') setPause(false); else if (a === 'back') setCamMode(false); return; }
+    if (a === 'pause' || a === 'back' || a === 'confirm' || a === 'primary') setPause(false);
+  }
   else if (state === 'over') {
     if (overT < 0.6) return;
     if (a === 'primary' || a === 'confirm' || a === 'pause') { if (endless) { toTitle(); openPrep(); } else { resetWorld(); startGame(); } }
@@ -4812,6 +5172,10 @@ addEventListener('keydown', e => {
     else if (e.code === 'ArrowDown' || e.code === 'KeyS') menuSelect(menuSel + 1);
     else if (e.code === 'Space' || e.code === 'Enter') menuDo(msItems()[menuSel].dataset.act);
     return;
+  }
+  // ポーズ中: C で カメラモード
+  if (state === 'paused' && !e.repeat && (e.code === 'KeyC' || (camMode && (e.code === 'Escape' || e.code === 'Space' || e.code === 'Enter')))) {
+    e.preventDefault(); if (e.code === 'KeyC') setCamMode(!camMode); else if (e.code === 'Escape') setCamMode(false); return;
   }
   // タイトル: ↑↓ でモード切りかえ(クリア後)
   if (state === 'title' && cleared && (e.code === 'ArrowUp' || e.code === 'ArrowDown') && !e.repeat) { e.preventDefault(); setMode(!endless); return; }
@@ -4852,6 +5216,19 @@ for (const ev of ['pointerup', 'pointercancel', 'lostpointercapture']) addEventL
 for (const ev of ['touchend', 'touchcancel']) addEventListener(ev, e => { if (e.touches.length === 0) touchDirs.clear(); }, { passive: true, capture: true });
 document.addEventListener('visibilitychange', () => { if (document.hidden) touchDirs.clear(); });
 $('pauseBtn').addEventListener('click', e => { e.currentTarget.blur(); onAction('pause'); });
+{ const fb = $('flagBtn');
+  fb.addEventListener('pointerdown', e => { e.preventDefault(); flagPress = true; });
+  for (const ev of ['pointerup', 'pointerleave', 'pointercancel']) fb.addEventListener(ev, () => { flagPress = false; });
+  fb.addEventListener('click', e => e.currentTarget.blur());
+  for (const ev of ['touchend', 'touchcancel']) addEventListener(ev, e => { if (e.touches.length === 0) flagPress = false; }, { passive: true }); }
+$('camBtn').addEventListener('click', e => { e.currentTarget.blur(); setCamMode(true); });
+$('resumeBtn').addEventListener('click', e => { e.currentTarget.blur(); if (state === 'paused') setPause(false); });
+$('camBack').addEventListener('click', e => { e.currentTarget.blur(); setCamMode(false); });
+for (const b of document.querySelectorAll('#pause [data-cam]')) {
+  b.addEventListener('pointerdown', e => { e.preventDefault(); camHold.add(b.dataset.cam); });
+  for (const ev of ['pointerup', 'pointerleave', 'pointercancel']) b.addEventListener(ev, () => camHold.delete(b.dataset.cam));
+}
+for (const ev of ['touchend', 'touchcancel']) addEventListener(ev, e => { if (e.touches.length === 0) camHold.clear(); }, { passive: true });
 $('gearBtn').addEventListener('click', e => { e.currentTarget.blur(); togglePanel(); });
 $('hatPrev').addEventListener('click', e => { e.currentTarget.blur(); browseHat(-1); });
 $('ovToTitle').addEventListener('click', () => { if (state === 'over') toTitle(); });
@@ -4871,6 +5248,10 @@ msItems(true).forEach(b => {
 $('pwClose').addEventListener('click', closePw);
 $('pwCopy').addEventListener('click', () => copyText($('pwCode').textContent, 'パスワードをコピーしました'));
 $('pwLoad').addEventListener('click', loadPw);
+$('svSave').addEventListener('click', e => { e.currentTarget.blur(); saveToFile(); });
+$('svCopy').addEventListener('click', e => { e.currentTarget.blur(); copyText(makeSave(), 'セーブデータを コピーしました(下の らんに はりつけて よみこめます)'); });
+$('svLoad').addEventListener('click', e => { e.currentTarget.blur(); $('svInput').click(); });
+$('svInput').addEventListener('change', async e => { const f = e.target.files[0]; e.target.value = ''; if (!f) return; const t = await f.text(); svArmed = t; importSave(t); });
 $('shopClose').addEventListener('click', closeShop);
 $('achClose').addEventListener('click', closeAch);
 $('recClose').addEventListener('click', closeRec);
@@ -4910,6 +5291,7 @@ function pollGamepad() {
   if (!gp) return;
   const ax = gp.axes[0] || 0;
   if (Math.abs(ax) > 0.3) gpAxis = Math.sign(ax);
+  gpFlag = !!gp.buttons[3]?.pressed;   // Y: フラッグ(ながおし)
   if (gp.buttons[14]?.pressed) gpAxis = -1;
   if (gp.buttons[15]?.pressed) gpAxis = 1;
   if (state === 'title' && gpAxis !== 0 && gpAxis !== gpPrevAxis) browseHat(gpAxis);
@@ -4973,8 +5355,9 @@ function updatePlayer(dt) {
   }
   // 池には入れない。スタート直後に池へ入ろうとしたらタイトルへ戻る
   duck.x += duck.vx * dt;
-  if (duck.x < -LW / 2 + 0.35) {
-    duck.x = -LW / 2 + 0.35;
+  // (フラッグから はじめたときは フラッグの ぶんりたいの うしろの はしが 池の かわり)
+  if (duck.x < startX - LW / 2 + 0.35) {
+    duck.x = startX - LW / 2 + 0.35;
     if (dog.mode === 'hidden' && inputDir < 0) { backToPond(); return; }
   }
   // たおれている犬・降ってきた犬は壁になる(うしろに戻りすぎられない)
@@ -4987,7 +5370,7 @@ function updatePlayer(dt) {
   score = Math.max(0, Math.floor(maxX * CFG.score.meterPerUnit));
   if (!recordAnnounced && runHiStart > 0 && score > runHiStart) { recordAnnounced = true; announceRecord(); }
   if (score > hiscore) hiscore = score;
-  for (const h of HATS) if (h.kind === 'best' && score >= h.best) gainHat(h);   // 100m ごとの特別な帽子
+  if (!flagRun) for (const h of HATS) if (h.kind === 'best' && score >= h.best) gainHat(h);   // 100m ごとの特別な帽子(フラッグなしの とっけん)
   // ゴールが近づいてきたお知らせ(ふつうのモードだけ)
   if (!endless) for (const n of CFG.goal?.notices || []) if (score >= n && n < GOAL_M() && !run.notices.has(n)) { run.notices.add(n); showMsg(goalNoticeText(n)); }
   if (!endless && goalIdx >= 0 && duck.x >= goalIdx * LW - 0.3) startClear();  // ゴール！
@@ -4995,6 +5378,7 @@ function updatePlayer(dt) {
 // 池にもどった: このゲームはなかったことにしてタイトルへ(どうぐの回数も返す)
 function backToPond() {
   if (runBoost) { boostLeft++; boostId = runBoost; saveBoost(); }
+  if (flagRun && flag) { flag.left++; saveFlag(); }   // フラッグの 回数も かえす
   if (runSpent) { coins += runSpent; store.set(COIN_KEY, coins); }   // とっくんの コインも かえす
   stats.runs = Math.max(0, stats.runs - 1);
   toTitle();
@@ -5017,22 +5401,33 @@ function showMsg(text, delay = 0) {
 }
 function checkCollision() {
   const hx = 0.32, hz = 0.3, li = Math.round(duck.x / LW);
+  // 橋の上の 子カモ
+  { const lane = lanes.get(li);
+    if (lane && lane.chick && Math.abs(duck.x - (li * LW + lane.def.chickX)) < 0.6 && chicks.length < chickCfg().max) {
+      lane.group.remove(lane.chick); lane.chick = null; lane.def.chickTaken = true;
+      addChick(li * LW + lane.def.chickX, lane.elev + CHICK_Y);
+      popAt(duck.x, duck.y + 1.6, duck.z, `子カモが ついてきた！ ×${chicks.length}`, 'chick');
+      emit(14, duck.x, duck.y + 0.6, 0, [0xffe14a, 0xffffff, 0xff8a1f], { glow: true, vx0: -2, vx1: 2, vy0: 1.5, vy1: 4, g: 8, l0: 0.4, l1: 0.8, floor: duck.y });
+    } }
+  const nmGap = CFG.nearMiss?.gap ?? 0.5;
   for (let i = li - 1; i <= li + 1; i++) {
     const lane = lanes.get(i);
     if (!lane || lane.def.type !== 'road') continue;
     const lx = i * LW;
     for (const v of [...lane.vehicles]) {
-      if (Math.abs(duck.x - lx) < v.w / 2 + hx && Math.abs(duck.z - v.z) < v.len / 2 + hz) {
+      const ox = Math.abs(duck.x - lx) - (v.w / 2 + hx), oz = Math.abs(duck.z - v.z) - (v.len / 2 + hz);
+      if (ox < 0 && oz < 0) {
         if (starT > 0) knockVehicle(lane, v, duck.x < lx ? 1 : -1, true);
         else if (armorT <= 0 && swayArmorT <= 0) { hurt('car', lane); return; }
-      }
+        else if (armorT <= 0 && !v.near) nearMiss(v);   // スウェイで すりぬけた
+      } else if (!v.near && oz < 0 && ox < nmGap && starT <= 0 && armorT <= 0 && Math.abs(duck.vx) > 0.3) nearMiss(v);   // 車の よこを ギリギリ
     }
     // 無敵中は次のネギは出ない(見えない・取れない)。無敵中に通りすぎたネギは消える
     if (lane.negi && starT > 0 && duck.x > lx + lane.def.negiX + 0.6) { lane.group.remove(lane.negi); lane.negi = null; lane.def.negi = false; }
     if (lane.negi && starT <= 0 && Math.abs(duck.x - (lx + lane.def.negiX)) < 0.55) {
       lane.group.remove(lane.negi); lane.negi = null; lane.def.negi = false;
       setStar(starDuration()); flashT = 1; shake = 0.4; run.negi++; stats.negi++; run.sitX = duck.x;
-      showBanner('ネギ', 'パワー！');
+      showBanner('ネギ', 'パワー！', true);
       emit(30, duck.x, duck.y + 0.8, 0, [0x3fa34d, 0xb6e36a, 0xffffff, 0xffe066], { vx0: -4, vx1: 4, vy0: 2, vy1: 7, g: 8, l0: 0.6, l1: 1.2, floor: duck.y });
     }
     // おかね袋
@@ -5071,7 +5466,7 @@ function renderHearts(hit) {
     const bonus = i >= upg.hp;   // ほしのビスケットで増えた分は金色
     h += i < hp ? heartSvg(bonus ? '#ffd23f' : '#ff3b5c', '#ffffff') : heartSvg('#3a3a4a');
   }
-  const el = $('hearts'); el.innerHTML = h;
+  const el = $('hearts'); el.innerHTML = h; uiDirty = true;
   if (hit) { el.classList.remove('hit'); void el.offsetWidth; el.classList.add('hit'); }
 }
 function hurt(cause, lane) {
@@ -5084,17 +5479,96 @@ function hurt(cause, lane) {
     armorT = (CFG.hp?.armorTime ?? 2) + rl(RUN_ARMOR, 'hp') + 1; shake = 0.6; flashT = Math.max(flashT, 0.6);
     if (cause === 'dog') { duck.vx = 10; dog.punch = 0.3; }
     emit(24, duck.x, duck.y + 0.8, 0, [0xff6f6f, 0xffe066, 0xffffff], { glow: true, vx0: -3, vx1: 3, vy0: 2, vy1: 6, g: 8, l0: 0.5, l1: 1, floor: duck.y });
-    showBanner('ガッツ！', 'ふんばった！ ♥1');
+    showBanner('ガッツ！', 'ふんばった！ ♥1' + (loseChick() ? '　子カモ-1' : ''));
     return;
   }
   if (hp <= 0) { die(lane, cause); return; }
+  const lost = loseChick();
   if (hp === 1 && run.lowAt < 0) run.lowAt = score;
   // まだ残っている: 少しのあいだスーパーアーマー(すり抜けるだけ。車や犬は倒さない)
   armorT = (CFG.hp?.armorTime ?? 2) + rl(RUN_ARMOR, 'hp');
   shake = 0.4;
   emit(16, duck.x, duck.y + 0.7, 0, DUCK_COLORS, { vx0: -3, vx1: 3, vy0: 2, vy1: 5, g: 9, l0: 0.5, l1: 1, floor: duck.y });
   if (cause === 'dog') { duck.vx = 10; dog.punch = 0.3; }   // 犬にはじき飛ばされて前へ
-  showBanner('いたっ！', `のこり ♥${hp}`);
+  showBanner('いたっ！', `のこり ♥${hp}` + (lost ? '　子カモ-1' : ''));
+}
+// ---- 子カモ(つれている子) ----
+const chicks = [], lostChicks = [];
+let nearCd = 0;   // ヒヤリ！の 連続を ふせぐ
+function renderChicks(hit) {
+  uiDirty = true;
+  const el = $('chicks'); el.classList.toggle('hidden', chicks.length === 0);
+  $('chickN').textContent = '×' + chicks.length;
+  if (hit) { el.classList.remove('hit'); void el.offsetWidth; el.classList.add('hit'); }
+}
+function addChick(x, y) {
+  const o = makeChick(); o.position.set(x, y, 0.1); scene.add(o);
+  chicks.push({ o, ph: Math.random() * 6 });
+  run.chickMax = Math.max(run.chickMax || 0, chicks.length); stats.chicks = (stats.chicks || 0) + 1;
+  renderChicks();
+}
+// やられると 子カモが 1ぴき びっくりして にげていく
+function loseChick(n = 1) {
+  let k = 0;
+  for (; k < n && chicks.length; k++) {
+    const c = chicks.pop();
+    lostChicks.push({ o: c.o, t: 0, v: new THREE.Vector3(rand(-2.5, 0.5), rand(4.5, 6.5), rand(2.5, 4.5)), spin: rand(-8, 8) });
+  }
+  if (k) renderChicks(true);
+  return k;
+}
+function clearChicks() { for (const c of [...chicks, ...lostChicks]) scene.remove(c.o); chicks.length = 0; lostChicks.length = 0; renderChicks(); }
+// ゴール(エンドレスは ゲームオーバー)のとき: このゲームで ひろったコインの 1ぴき 10% ぶん(さいてい 2まい)
+function chickBonus(n) {
+  const c = chickCfg(); n = Math.min(n, c.max);
+  return n ? Math.max(n * c.minPer, Math.round(runCoins * c.bonusPer * n)) : 0;
+}
+function payChickBonus() {
+  const n = Math.min(chicks.length, chickCfg().max), b = chickBonus(n);
+  if (b) { coins += b; runCoins += b; stats.coins += b; store.set(COIN_KEY, coins); updateCoinUI(); }
+  return [n, b];
+}
+function updateChicks(dt) {
+  nearCd = Math.max(0, nearCd - dt);
+  let px = duck.x, pz = duck.z;
+  const wet = state === 'clear' && ending, gx = wet ? ending.gx : 0;
+  chicks.forEach((c, k) => {
+    const p = c.o.position, gap = k ? 0.38 : 0.55;
+    const dx = px - p.x, dz = pz + (k ? 0 : 0.3) - p.z, d = Math.hypot(dx, dz);
+    const moving = d > gap + 0.02;
+    if (moving) { const s = (d - gap) * Math.min(1, dt * 14); p.x += dx / d * s; p.z += dz / d * s; }
+    const inWater = wet && p.x > gx + LW * 0.45;
+    const gy = inWater ? -0.42 : groundAt(p.x) + CHICK_Y - 0.2;
+    p.y = lerp(p.y, gy + (moving && !inWater ? Math.abs(Math.sin(time * 16 + c.ph)) * 0.08 : inWater ? Math.sin(time * 2 + c.ph) * 0.02 : 0), Math.min(1, dt * 14));
+    if (d > 0.05) c.o.rotation.y = lerpAng(c.o.rotation.y, Math.atan2(-dz, dx), Math.min(1, dt * 10));
+    px = p.x; pz = p.z;
+  });
+  for (let k = lostChicks.length - 1; k >= 0; k--) {
+    const c = lostChicks[k], p = c.o.position; c.t += dt;
+    c.v.y -= 18 * dt; p.addScaledVector(c.v, dt); c.o.rotation.y += c.spin * dt;
+    const gy = groundAt(p.x) + CHICK_Y - 0.2;
+    if (p.y < gy && c.v.y < 0) { p.y = gy; c.v.y = 4; }
+    if (c.t > 1.4) { emit(6, p.x, p.y, p.z, [0xffffff, 0xffe14a], { vy0: 0.5, vy1: 2, g: 4, l0: 0.2, l1: 0.4, floor: -99 }); scene.remove(c.o); lostChicks.splice(k, 1); }
+  }
+}
+// 画面に 小さな文字を ポンと出す(ヒヤリ！ など)。3D の位置から 画面の位置を 出す
+function popAt(x, y, z, text, cls) {
+  tmpV.set(x, y, z).project(camera);
+  const el = document.createElement('div');
+  el.className = 'pop px ghost' + (cls ? ' ' + cls : ''); el.textContent = text;
+  el.style.left = clamp((tmpV.x + 1) * 50, 8, 92) + '%'; el.style.top = clamp((1 - tmpV.y) * 50, 10, 90) + '%';
+  el.addEventListener('animationend', () => el.remove());
+  $('screen').appendChild(el);
+}
+// 車を ギリギリで かわした
+function nearMiss(v) {
+  v.near = true;
+  if (nearCd > 0) return;
+  const c = { gap: 0.5, coins: 1, cooldown: 0.6, ...(CFG.nearMiss || {}) };
+  nearCd = c.cooldown;
+  const n = addCoins(c.coins); stats.nearMiss = (stats.nearMiss || 0) + 1;
+  popAt(duck.x, duck.y + 1.6, duck.z, `ヒヤリ！ +${n}`);
+  emit(5, duck.x, duck.y + 1.2, 0, [0xffe066, 0xffffff], { glow: true, vx0: -1, vx1: 1, vy0: 1.5, vy1: 3, g: 6, l0: 0.25, l1: 0.45, sMin: 0.05, sMax: 0.08, floor: -99 });
 }
 function updateArmor(dt) {
   if (armorT <= 0) return;
@@ -5123,8 +5597,8 @@ const DOG_DROP_X = -0.9;   // 犬が降ってくる場所(スタートの岸の�
 function updateDogDrop(dt) {
   if (dog.mode === 'hidden') {
     // カモが道路に出たら降ってくる
-    if (state === 'play' && duck.x > LW / 2) {
-      Object.assign(dog, { mode: 'drop', x: DOG_DROP_X, y: groundAt(DOG_DROP_X) + 11, vy: 0 });
+    if (state === 'play' && duck.x > startX + LW / 2) {
+      Object.assign(dog, { mode: 'drop', x: startX + DOG_DROP_X, y: groundAt(startX + DOG_DROP_X) + 11, vy: 0 });
       DOG.root.visible = true; DOG.root.rotation.set(0, 0, 0);
     } else { DOG.root.visible = false; return; }
   }
@@ -5174,6 +5648,8 @@ function updateDog(dt) {
   } else if (state === 'play') {
     speed = Math.min(c.maxSpeed, c.speed + Math.max(0, maxX) * c.speedRamp);
     if (duck.x - dog.x > c.maxGap) speed = Math.max(speed, c.catchupSpeed);
+    // マッスルワイロ: 近くに いるときだけ 手かげん(遠いときの おいつきは そのまま)
+    else if (runBoost === 'wairo' && (duck.x - dog.x) * CFG.score.meterPerUnit < (shopCfg().wairoNear ?? 8)) speed *= shopCfg().wairoMul ?? 0.8;
     dog.mode = 'run';
   } else if (dog.mode === 'run') dog.mode = 'idle';
   dog.x += speed * dt;
@@ -5227,7 +5703,7 @@ function updateDog(dt) {
 function knockDog() {
   Object.assign(dog, { mode: 'down', air: true, vx: -4.2, vy: 6.5, fall: 0, downT: CFG.dog.downTime ?? 3 });
   shake = 0.45;
-  showBanner('マッチョ犬', 'ダウン！');
+  showBanner('マッチョ犬', 'ダウン！', true);
   run.dogKO++; stats.dogKO++; run.starClean = false; dropDogCoins(CFG.dog.coinDrop ?? 7);
   emit(22, duck.x - 0.6, duck.y + 1.2, 0, [0xffffff, 0xffe066, 0xff6fae], { glow: true, vx0: -5, vx1: 1, vy0: 2, vy1: 6, l0: 0.4, l1: 0.8, floor: duck.y });
 }
@@ -5360,7 +5836,7 @@ function updateHUD() {
   if (state === 'title') return;
   const h = `${score}|${hiscore}|${coins}|${endless}`;
   if (h !== lastHud) {
-    lastHud = h;
+    lastHud = h; uiDirty = true;
     $('goalTxt').textContent = endless ? 'ENDLESS' : `GOAL ${GOAL_M()}m`;
     $('coin').textContent = `● ${coins}`;
     $('score').innerHTML = `${score}<small>m</small>`;
@@ -5393,6 +5869,8 @@ function update(dt) {
   else if (state === 'over') { overT += dt; deathT += dt; updateKO(dt); }
   else if (state === 'title') { duck.y = groundAt(duck.x); D.root.position.set(duck.x, duck.y, duck.z); animateDuck(dt, false); D.face.rotation.y = fbxOpen() ? fbxView.yaw : -0.75; }
   updateDropCoins(dt);
+  updateChicks(dt);
+  updateFlag(dt);
   updateCamera(dt);
   const th = state === 'clear' && clearT > 1 ? SUNSET : themeAt(Math.max(0, duck.x) + 3);
   blendEnv(th, Math.min(1, dt * (state === 'clear' ? 0.45 : 0.8)));
@@ -5444,9 +5922,9 @@ function render() {
   U.flash.value = flashT * 0.7;
   drawUI(time);
   U.blue.value = uiActive ? 1 : 0;
-  U.uiCurve.value = uiFlat ? 0.2 : 1;   // タイトル・窓・ゲームオーバーは歪みを 2 割に
-  // ボタンや文字にかかる ふちの暗さ(ビネット): タイトルは なし、窓やゲームオーバーは弱める
-  U.uiCurveFlat.value = !uiFlat ? 0 : state === 'title' && !menuOpen ? 1 : 0.75;
+  U.uiCurve.value = hudUI ? 0.55 : uiFlat ? 0.2 : 1;   // タイトル・窓・ゲームオーバーは歪みを 2 割に(ゲーム中の 上の表示は 画面と同じ丸み)
+  // ボタンや文字にかかる ふちの暗さ(ビネット): タイトルと ゲーム中の 上の表示は なし、窓やゲームオーバーは弱める
+  U.uiCurveFlat.value = hudUI ? 1 : !uiFlat ? 0 : state === 'title' && !menuOpen ? 1 : 0.75;
   // タイトルとゲームオーバーは、画面のふちの暗さを少し弱める
   U.vignette.value = r.vignette * (state === 'title' || state === 'over' ? 0.6 : 1);
   renderer.setRenderTarget(rt);
@@ -5459,7 +5937,7 @@ function frame(now) {
   requestAnimationFrame(frame);
   const dt = Math.min(0.05, (now - last) / 1000); last = now;
   pollGamepad();
-  if (state !== 'paused') update(dt);
+  if (state !== 'paused') update(dt); else if (camMode) updatePauseCam(dt);
   render();
 }
 
@@ -5606,7 +6084,8 @@ initDroppedHat();
 requestAnimationFrame(frame);
 window.__kamo = { CFG, duck, dog, lanes, HATS, hatHolder, unlockAch, gainHat, hatById, laneDef, get goalIdx() { return goalIdx; }, get clearT() { return clearT; }, get hatBox() { return hatBox; }, get state() { return state; }, setStar, elevAt, makePassword, readPassword, get zones() { return zoneSeq; },
   keys, upg, runUp, get hp() { return hp; }, get sway() { return sway; }, hurt, startClear, laneDefs: () => laneDefs, laneDef, get coins() { return coins; }, get starT() { return starT; }, startGame, toTitle, openShop, openFbx,
-  step(n = 1, dt = 1 / 60) { for (let i = 0; i < n; i++) { pollGamepad(); if (state !== 'paused') update(dt); } render(); },
+  chicks, setPause, setCamMode, pcam, get flag() { return flag; }, get flagRun() { return flagRun; }, get startX() { return startX; }, get playT() { return playT; }, get score() { return score; }, get flagStock() { return flagStock; }, set flagStock(v) { flagStock = v; }, makeSave, readSave, get runCoins() { return runCoins; }, get runBoost() { return runBoost; }, get run() { return run; }, openMenu,
+  step(n = 1, dt = 1 / 60) { for (let i = 0; i < n; i++) { pollGamepad(); if (state !== 'paused') update(dt); else if (camMode) updatePauseCam(dt); } render(); },
   snap() { render(); return renderer.domElement.toDataURL('image/png'); } }; // デバッグ用
 </script>
 </body>
