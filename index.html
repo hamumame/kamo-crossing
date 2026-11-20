@@ -25,20 +25,26 @@
   @keyframes blink { 50% { opacity: 0; } }
 
   /* ---- title ---- */
-  #title { background: linear-gradient(#0005, #0000 40%, #0000 74%, #0006); justify-content: flex-start; padding-top: 7%; box-sizing: border-box; }
+  #title { background: none; justify-content: flex-start; padding-top: 7%; box-sizing: border-box; }
   #logoImg { max-width: 80%; max-height: 34%; image-rendering: pixelated; }
   #logoText { display: flex; flex-direction: column; align-items: center; line-height: 1.05; transform: rotate(-4deg); }
   #logoText .l1 { font-size: 1.4em; color: #fff; }
   #logoText .l2 { font-size: 3em; color: #ffd23f; letter-spacing: .05em;
     text-shadow: .06em 0 #000, -.06em 0 #000, 0 .06em #000, 0 -.06em #000, .12em .12em #c2410c, .16em .16em #000; }
   /* カモの頭や帽子にかぶらないように、PRESS SPACE はカモの下、記録は右上の窓へ */
-  #pressStart { position: absolute; left: 0; right: 0; bottom: 5.75em; font-size: 1.05em; text-shadow: .08em .08em 0 #000; }
-  /* ハイスコアとコインは左下(帽子の ◄ の上)。右下の「ぼうし調整」と左右でならぶ */
-  #titleStat { position: absolute; left: 3em; bottom: 8.4em; font-size: .62em; text-align: left; line-height: 1.6; letter-spacing: .06em;
-               text-shadow: .08em .08em 0 #000b, 0 0 .3em #0007; }
+  /* タイトルの ならび: 上 = MENU・ロゴ・記録(1行) / 下 = TAP TO START → 帽子えらび → ボタン1列 → そうさ説明 */
+  #pressStart { position: absolute; left: 0; right: 0; bottom: 6.35em; font-size: 1.05em; text-shadow: .08em .08em 0 #000; }
+  #titleStat { margin-top: 1.3em; display: flex; flex-wrap: wrap; justify-content: center; align-items: baseline; column-gap: 1.3em; row-gap: .2em;
+               font-size: .6em; letter-spacing: .06em; text-shadow: .08em .08em 0 #000; padding: 0 3em; }
   #titleHi { color: #fff3c4; }
-  #help { position: absolute; bottom: .7em; left: 0; right: 0; font-size: .52em; line-height: 1.7; color: #eee; }
-  #hatSel { position: absolute; left: 0; right: 0; bottom: 3.5em; display: flex; justify-content: center; align-items: center; gap: .6em; font-size: .8em; }
+  #titleCoin { color: #ffe066; }
+  #titleBoost { display: contents; }
+  #help { position: absolute; bottom: .55em; left: 0; right: 0; font-size: .52em; line-height: 1.7; color: #eee; }
+  #hatSel { position: absolute; left: 0; right: 0; bottom: 3.55em; display: flex; justify-content: center; align-items: center; gap: .6em; font-size: .8em; }
+  #hatSel { bottom: 4.05em; }
+  #titleBtns { position: absolute; left: 0; right: 0; bottom: 2.65em; display: flex; justify-content: center; align-items: center; gap: .9em; font-size: .5em; }
+  #titleBtns .hbtn { font-size: 1em; padding: .2em .8em .25em; white-space: nowrap; }
+  #titleBtns .hbtn.hidden { display: none; }
   /* レトロなドットのボタン(ふち取り + 立体の段差) */
   .hbtn, .uiBtn { pointer-events: auto; font-family: inherit; font-size: 1em; color: #fff; cursor: pointer; border: 0; border-radius: 0;
     background: #1c2a7a; padding: .2em .65em .25em; text-shadow: .08em .08em 0 #000;
@@ -68,8 +74,7 @@
   @keyframes peek { 0%, 52% { transform: translateY(.7em); } 56% { transform: translateY(.35em); } 60%, 92% { transform: translateY(0); } 96% { transform: translateY(.35em); } }
   #menuBtn { position: relative; z-index: 1; padding: .3em .9em .35em; letter-spacing: .12em; }
   /* モードは右下の「ぼうし調整」の上(ロゴにかぶらないように) */
-  #modeBtn { right: 3.8em; bottom: 13.4em; font-size: .5em; text-align: center; line-height: 1.5; }
-  #modeBtn small { display: block; font-size: .8em; color: #b8c8ff; }
+  #modeBtn small { font-size: .85em; color: #b8c8ff; }
   #titleBoost { color: #9fe8ff; }
   /* エンドレスの しゅっぱつ前の とっくん */
   #prepBox .pwIn { width: 90%; max-width: 90%; box-sizing: border-box; padding: .5em .6em .55em; font-size: .6em; text-align: left; }
@@ -77,7 +82,6 @@
   .dAb { font-size: .76em; color: #ffb8e6; line-height: 1.45; }
   #prepMsgBox { height: 2.2em; }
   .shopFoot .buyBtn { margin: 0 0 0 .6em; font-size: 1.2em; }
-  #fbxBtn { right: 3.8em; bottom: 10.6em; font-size: .5em; }
   /* 青いメニュー画面(青は 3D 画面のレトロ加工ごと出す。文字の上にも走査線) */
   /* 見た目は 3D 画面のレトロ加工の下(キャンバス)に描くので、ここは透明。クリックと配置の基準だけ */
   #menuScr { position: absolute; inset: 0; z-index: 4; padding-bottom: 2.4em; box-sizing: border-box; display: flex; flex-direction: column; align-items: center; justify-content: center; pointer-events: auto; touch-action: manipulation; opacity: 0; }
@@ -87,7 +91,8 @@
   .rrow span { color: #c8d0ec; }
   .rrow b { font-weight: normal; color: #ffe066; white-space: nowrap; }
   .msHead { color: #ffd23f; font-size: 1.15em; letter-spacing: .25em; margin-bottom: .5em; }
-  .msBody { display: flex; align-items: center; gap: 1.4em; }
+  /* 項目は 左に よせて、ヘリコプター犬は 右に(まんなかに あつまって 見えないように) */
+  .msBody { display: flex; align-items: center; gap: 1.4em; width: 100%; box-sizing: border-box; padding: 0 3.2em 0 2.8em; justify-content: space-between; }
   .msList { display: flex; flex-direction: column; gap: .1em; min-width: 8em; }
   .msi { font-family: inherit; font-size: .66em; color: #fff; background: none; border: 0; text-align: left; padding: .1em .3em .1em 1.25em; position: relative; cursor: pointer; }
   .msi::before { content: '►'; position: absolute; left: .15em; top: .3em; font-size: .75em; color: #ffd23f; opacity: 0; }
@@ -132,7 +137,7 @@
   #dogWarn { position: absolute; left: .4em; top: 45%; font-size: .9em; color: #fff; }
   #dogWarn.near { color: #ff5a5a; animation: blink .3s steps(2) infinite; }
   .uiBtn { position: absolute; font-size: .6em; }
-  #gearBtn { right: 3em; top: 12.4em; }
+  #gearBtn { right: 3em; top: 15.5em; }
   #ovToTitle { pointer-events: auto; cursor: pointer; text-decoration: underline; padding: .3em .2em; }
   #pwBox { position: absolute; inset: 0; background: #02061e9e; display: flex; align-items: center; justify-content: center; z-index: 5; }
   /* 窓はメニューと同じ「電子空間」ふう: 光る青いわく + 半透明 */
@@ -197,7 +202,6 @@
   .srow.no .pr { color: #776; }
   .srow.max .pr, .srow.own .pr { color: #8cff6f; }
   /* ---- ぼうし いちらん ---- */
-  #hatListBtn { font-size: .55em; margin-top: .35em; padding: .15em .8em .2em; }
   #hatBox .pwIn { width: 90%; max-width: 90%; box-sizing: border-box; padding: .5em .6em .55em; font-size: .6em; text-align: left; }
   .hlTabs { display: flex; gap: .4em; margin: .45em 0 .35em; }
   .hlTab { font-family: inherit; font-size: .85em; color: #b8c8ff; background: #4ab0ff10; border: .1em solid #4ab0ff60; padding: .15em .6em; cursor: pointer; }
@@ -300,7 +304,7 @@
 
   /* ---- game over / pause ---- */
   /* のびているカモが見えるように: 文字は上と下のはしに小さくまとめる */
-  #over { background: linear-gradient(#0006, #0000 20%, #0000 70%, #0008); justify-content: space-between; padding: 7% 0 6.5%; box-sizing: border-box; }
+  #over { background: none; justify-content: space-between; padding: 7% 0 6.5%; box-sizing: border-box; }
   #ovTitle { font-size: 1.45em; color: #ff6f6f; }
   #ovScore { font-size: 1.1em; }
   #ovHi { font-size: .7em; color: #ffe066; margin-top: .1em; }
@@ -683,8 +687,14 @@ window.HAT_LIST = [
     <div id="titleStat" class="ghost"><div id="titleHi">HI-SCORE 0m</div><div id="titleCoin">● 0 コイン</div><div id="titleBoost"></div></div>
     <div id="hatSel" class="px ghost">
       <button id="hatPrev" class="hbtn calm">◄</button>
-      <div class="hmid"><div id="hatName">帽子</div><div id="hatInfo"></div><button id="hatListBtn" class="hbtn calm">ぼうし いちらん</button></div>
+      <div class="hmid"><div id="hatName">帽子</div><div id="hatInfo"></div></div>
       <button id="hatNext" class="hbtn calm">►</button>
+    </div>
+    <!-- 帽子まわりと モードの ボタンは 1列に まとめる -->
+    <div id="titleBtns" class="px ghost">
+      <button id="hatListBtn" class="hbtn calm">ぼうし いちらん</button>
+      <button id="fbxBtn" class="hbtn calm">ぼうし調整</button>
+      <button id="modeBtn" class="hbtn calm hidden"></button>
     </div>
     <div id="help" class="px ghost">
       <span class="kbHelp">← → : 移動 / 帽子えらび　　SPACE : スウェイ　　P : ポーズ</span>
@@ -722,8 +732,6 @@ window.HAT_LIST = [
     <svg class="peek dogface" viewBox="0 0 16 12" shape-rendering="crispEdges" aria-hidden="true"></svg>
     <button id="menuBtn" class="hbtn calm">MENU</button>
   </div>
-  <button id="modeBtn" class="uiBtn calm ghost hidden"></button>
-  <button id="fbxBtn" class="uiBtn calm ghost">ぼうし調整</button>
   <div id="menuScr" class="hidden">
     <div class="msHead px">～ MENU ～</div>
     <div class="msBody">
@@ -911,11 +919,13 @@ const postMat = new THREE.ShaderMaterial({
     levels: { value: 16 }, dither: { value: 0.8 }, scan: { value: 0.2 }, vignette: { value: 0.4 },
     curve: { value: 0.08 }, mask: { value: 0.3 }, chroma: { value: 0.6 }, noise: { value: 0.05 }, flicker: { value: 0.02 },
     time: { value: 0 }, star: { value: 0 }, flash: { value: 0 }, blue: { value: 0 }, uiCurve: { value: 1 }, uiCurveFlat: { value: 0 }, tMenu: { value: null },
+    shade: { value: new THREE.Vector4(0, 0.4, 0, 0.74) },   // 上下の くらい幕(上の こさ, 上が きえる 高さ, 下の こさ, 下が はじまる 高さ)。UIの 下にだけ かける
   },
   vertexShader: `varying vec2 vUv; void main(){ vUv = uv; gl_Position = vec4(position.xy, 0.0, 1.0); }`,
   fragmentShader: `
     uniform sampler2D tDiffuse, tMenu; uniform vec2 res;
     uniform float levels, dither, scan, vignette, curve, mask, chroma, noise, flicker, time, star, flash, blue, uiCurve, uiCurveFlat;
+    uniform vec4 shade;
     varying vec2 vUv;
     float b2(vec2 p){ p = floor(mod(p, 2.0)); return mod(2.0*p.x + 3.0*p.y, 4.0); }
     float bayer(vec2 p){ return (4.0*b2(p) + b2(floor(p/2.0))) / 16.0; }
@@ -935,6 +945,9 @@ const postMat = new THREE.ShaderMaterial({
       vec3 c = vec3(fetch(cuv + vec2(co, 0.0)).r, fetch(cuv).g, fetch(cuv - vec2(co, 0.0)).b);
       c = pow(max(c, 0.0), vec3(1.0/2.2));
       float uiA = 0.0;
+      // タイトル・ゲームオーバーの 上下の くらい幕(文字やボタンより 下に かける)
+      float ty = 1.0 - vUv.y;
+      c *= 1.0 - (shade.x * clamp(1.0 - ty / shade.y, 0.0, 1.0) + shade.z * clamp((ty - shade.w) / (1.0 - shade.w), 0.0, 1.0));
       // メニューや文字・ボタン(UI)。この後の減色・走査線・丸み・ノイズなどがそのままかかる
       // (ボタンや窓は読みやすいように、画面の丸みによる歪みを弱めて写す。メニューだけのときは元の丸み)
       if (blue > 0.0) {
@@ -4280,7 +4293,7 @@ function drawMenu(t, itemsToo = true) {
 }
 // ---- タイトル・ショップ・じっせき・きろく・パスワード・ゲームオーバーの文字やボタンも、レトロ加工の下に描く ----
 // HTML は「.ghost」で見えなくして(さわれる)、その配置・色をキャンバスに写す
-const GHOST_TITLE = ['titleStat', 'pressStart', 'hatSel', 'help', 'menuWrap', 'modeBtn', 'fbxBtn'];
+const GHOST_TITLE = ['titleStat', 'pressStart', 'hatSel', 'titleBtns', 'help', 'menuWrap'];
 const GHOST_MODAL = ['shopBox', 'achBox', 'recBox', 'pwBox', 'prepBox', 'hatBox'];
 const GHOST_HUD = ['score', 'coin', 'hearts', 'hi', 'goalTxt', 'subHud', 'pauseBtn', 'area', 'msgLine', 'dogWarn', 'starBox', 'swayBox'];
 let uiOps = [], uiDirty = true, uiFrame = 0, uiActive = false, uiFlat = false, hudUI = false, uiSig = '', uiForce = true, uiWasHud = false;
@@ -4462,7 +4475,7 @@ function setMode(e) {
 }
 function updateModeUI() {
   const name = endless ? 'エンドレス ∞' : `ゴールをめざす ${GOAL_M()}m`;
-  $('modeBtn').innerHTML = `<small><span class="kbHelp">↑↓ </span>モード</small>${endless ? 'エンドレス ∞' : `ゴール ${GOAL_M()}m`}`;
+  $('modeBtn').innerHTML = `<small><span class="kbHelp">↑↓ </span>モード </small>${endless ? 'エンドレス ∞' : `ゴール ${GOAL_M()}m`}`;
   $('msMode').classList.toggle('hidden', !cleared);
   $('msMode').querySelector('.ms').textContent = name;
 }
@@ -5026,6 +5039,8 @@ function startClear() {
   const fr = !!run.fromFlag, tot = fr ? (run.flagT || 0) + playT : playT, bk = fr ? 'bestClearFlag' : 'bestClear';
   const firstClear = !cleared, prevBest = stats[bk] || 0;
   stats.clears++; stats[bk] = prevBest ? Math.min(prevBest, tot) : tot;
+  // ゴールしたら、のこり回数が あっても フラッグ(中間地点)は おしまい
+  if (flag) { flag = null; saveFlag(); updateCoinUI(); }
   // つれてきた 子カモの ぶん コインボーナス
   const [cn, cb] = payChickBonus();
   $('clearChick').textContent = cn ? `子カモ ×${cn} つれてきた！　ボーナス +${cb} コイン` : '';
@@ -5835,7 +5850,7 @@ function updateHUD() {
   $('gearBtn').style.display = !EMBED && !menuOpen && !modalOpen() && (state === 'title' || state === 'paused') ? 'block' : 'none';
   const titleFree = state === 'title' && !modalOpen() && !menuOpen;
   $('menuWrap').style.display = titleFree ? 'block' : 'none';
-  $('fbxBtn').style.display = titleFree ? 'block' : 'none';
+  $('fbxBtn').style.display = titleFree ? '' : 'none';
   $('modeBtn').classList.toggle('hidden', !(titleFree && cleared));
   $('pauseBtn').style.display = touchMode && state === 'play' ? 'block' : 'none';
   if (state === 'title') return;
@@ -5929,9 +5944,13 @@ function render() {
   U.blue.value = uiActive ? 1 : 0;
   U.uiCurve.value = hudUI ? 0.55 : uiFlat ? 0.2 : 1;   // タイトル・窓・ゲームオーバーは歪みを 2 割に(ゲーム中の 上の表示は 画面と同じ丸み)
   // ボタンや文字にかかる ふちの暗さ(ビネット): タイトルと ゲーム中の 上の表示は なし、窓やゲームオーバーは弱める
-  U.uiCurveFlat.value = hudUI ? 1 : !uiFlat ? 0 : state === 'title' && !menuOpen ? 1 : 0.75;
-  // タイトルとゲームオーバーは、画面のふちの暗さを少し弱める
+  U.uiCurveFlat.value = hudUI ? 1 : !uiFlat ? 0 : (state === 'title' || state === 'over') && !menuOpen ? 1 : 0.75;
+  // タイトルとゲームオーバーも 画面のふちの暗さ(ビネット)は かける。ただし 文字やボタンの上には かけない(上の uiCurveFlat = 1)
   U.vignette.value = r.vignette * (state === 'title' || state === 'over' ? 0.6 : 1);
+  // 上下の くらい幕(むかしは HTML で 上に かぶせていたので 文字まで くらく なっていた)
+  if (state === 'title' && !menuOpen) U.shade.value.set(0.33, 0.4, 0.4, 0.74);
+  else if (state === 'over') U.shade.value.set(0.4, 0.2, 0.53, 0.7);
+  else U.shade.value.set(0, 0.4, 0, 0.74);
   renderer.setRenderTarget(rt);
   renderer.render(scene, camera);
   renderer.setRenderTarget(null);
